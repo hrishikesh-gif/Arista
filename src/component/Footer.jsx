@@ -14,21 +14,17 @@ const Footer = () => {
   return (
     <>
       {/* New CTA Section with Animated Background */}
-      <section
-        className="relative bg-black text-white overflow-hidden"
-        style={{ minHeight: "60vh" }}
-      >
-        <div
-          className="relative z-10 max-w-4xl mx-auto h-full flex flex-col items-center justify-center px-6"
-          style={{ minHeight: "60vh" }}
-        >
-          {/* Animated Background Text - Above */}
-          <div className="absolute top-10 left-0 w-full flex items-center pointer-events-none">
-            <div className="flex space-x-16 animate-scroll-left">
-              {[...Array(4)].map((_, i) => (
+      <section className="relative bg-black text-white overflow-hidden min-h-[35vh] md:min-h-[35vh] lg:min-h-[35vh] py-8 md:py-12">
+        {/* Container to keep all three sections together */}
+        <div className="relative flex flex-col items-center justify-center gap-4 md:gap-6 h-full">
+          
+          {/* === Animated Background Text - Top === */}
+          <div className="w-full flex items-center pointer-events-none overflow-hidden whitespace-nowrap">
+            <div className="flex space-x-8 md:space-x-16 animate-scroll-left">
+              {[...Array(8)].map((_, i) => (
                 <span
                   key={i}
-                  className="text-8xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-700"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-700"
                   style={{ WebkitTextStroke: "1px rgba(255,255,255,0.08)" }}
                 >
                   ARISTASYSTEMS
@@ -37,25 +33,27 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Turn ideas into measurable results.
-            </h2>
-            <button className="group relative bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 rounded-lg overflow-hidden">
-              <span className="relative z-10">GET A CUSTOM QUOTE TODAY</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
-            </button>
+          {/* === Main Content === */}
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
+                Turn ideas into measurable results.
+              </h2>
+              <button className="group relative bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 rounded-lg overflow-hidden">
+                <span className="relative z-10">GET A CUSTOM QUOTE TODAY</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+              </button>
+            </div>
           </div>
 
-          {/* Animated Background Text - Below */}
-          <div className="absolute bottom-10 left-0 w-full flex items-center pointer-events-none">
-            <div className="flex space-x-16 animate-scroll-right">
-              {[...Array(4)].map((_, i) => (
+          {/* === Animated Background Text - Bottom === */}
+          <div className="w-full flex items-center pointer-events-none overflow-hidden whitespace-nowrap">
+            <div className="flex space-x-8 md:space-x-16 animate-scroll-right">
+              {[...Array(8)].map((_, i) => (
                 <span
                   key={i}
-                  className="text-8xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-700"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-700"
                   style={{ WebkitTextStroke: "1px rgba(255,255,255,0.08)" }}
                 >
                   ARISTASYSTEMS
@@ -63,23 +61,36 @@ const Footer = () => {
               ))}
             </div>
           </div>
+
         </div>
 
         {/* Animations */}
         <style jsx>{`
           @keyframes scroll-left {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
           }
           @keyframes scroll-right {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% {
+              transform: translateX(-50%);
+            }
+            100% {
+              transform: translateX(0);
+            }
           }
           .animate-scroll-left {
-            animation: scroll-left 30s linear infinite;
+            animation: scroll-left 25s linear infinite;
+            display: flex;
+            will-change: transform;
           }
           .animate-scroll-right {
-            animation: scroll-right 35s linear infinite;
+            animation: scroll-right 30s linear infinite;
+            display: flex;
+            will-change: transform;
           }
         `}</style>
       </section>
@@ -226,7 +237,6 @@ const Footer = () => {
               Copyright © 2025 Arista Systems Pvt. Ltd. All rights reserved.
             </p>
           </div>
-          {/* <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 opacity-20"></div> */}
         </div>
       </footer>
     </>

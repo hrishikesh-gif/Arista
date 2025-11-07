@@ -11,6 +11,7 @@ import Header from "./component/Header";
 import HeroSection from "./component/HeroSection";
 import AboutSection from "./component/AboutSection";
 import ScrollToTop from "./component/ScrollToTop";
+import ProjectSection from "./component/ProjectSection";
 import ContactSection from "./component/ContactSection";
 import Footer from "./component/Footer";
 
@@ -49,7 +50,9 @@ import FinanceReconciliation from "./pages/services/FinanceReconciliation";
 import DataReporting from "./pages/services/DataReporting";
 import TechStackSection from "./component/TechStackSection";
 import ClientShowcaseSection from "./component/ClientShowcaseSection";
-import ProjectSection from "./component/ProjectSection";
+import Testimonials from "./component/Testimonial";
+import ContactForm from "./pages/ContactForm";
+
 // Component to handle route changes and GSAP cleanup
 const RouteHandler = ({ children }) => {
   const location = useLocation();
@@ -94,8 +97,10 @@ const HomePage = () => {
       <ContactSection />
       <ProjectSection />
       <TechStackSection />
+      <Testimonials/>
       <ClientShowcaseSection />
       <AboutSection />
+      
       <Footer />
     </>
   );
@@ -121,6 +126,7 @@ export default function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<ContactForm />} />
 
             {/* Customer Experience & Support Services */}
             <Route

@@ -1,18 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
-  FiTwitter,
-  FiLinkedin,
-  FiInstagram,
-  FiMenu,
-  FiX,
-  FiChevronDown,
-  FiChevronRight,
-} from "react-icons/fi";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+  Menu,
+  X,
+  ChevronDown,
+  ChevronRight,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 
 const Header = () => {
   // Mobile menu
@@ -27,7 +24,11 @@ const Header = () => {
   const [hoveredService, setHoveredService] = useState(null);
   const dropdownRef = useRef(null);
 
-  // close-delay timer to prevent accidental closes
+  // Mobile services accordion
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileExpandedService, setMobileExpandedService] = useState(null);
+
+  // Close-delay timer to prevent accidental closes
   const closeTimer = useRef(null);
   const scheduleClose = (ms = 250) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -43,23 +44,18 @@ const Header = () => {
     }
   };
 
-  // Contact form
-  const [contactFormOpen, setContactFormOpen] = useState(false);
-  const openContactForm = () => setContactFormOpen(true);
-  const closeContactForm = () => setContactFormOpen(false);
-
   // Routing
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Base nav items (Services is handled separately)
+  // Base nav items
   const navStart = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
   ];
   const navEnd = [
     { name: "Case Studies", path: "/case-studies" },
-    { name: "Careers", path: "/Careers" },
+    { name: "Careers", path: "/careers" },
     { name: "Blog", path: "/blog" },
   ];
 
@@ -140,24 +136,26 @@ const Header = () => {
     },
   ];
 
-  // Kill ScrollTriggers when navigating away from home
-  const handleNavigation = (_e, path) => {
+  // Handle navigation
+  const handleNavigation = (path) => {
     setServicesDropdownOpen(false);
     setHoveredService(null);
-    if (location.pathname === "/" && path !== "/") {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    }
+    setIsOpen(false);
+    setMobileServicesOpen(false);
+    setMobileExpandedService(null);
+    navigate(path);
   };
 
-  // Scroll detection for glass morphism
+  // Scroll detection
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Click outside to close dropdown
   useEffect(() => {
     const onClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -165,7 +163,10 @@ const Header = () => {
       }
     };
     const onEsc = (e) => {
-      if (e.key === "Escape") scheduleClose(0);
+      if (e.key === "Escape") {
+        scheduleClose(0);
+        setIsOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", onClickOutside);
@@ -176,11 +177,25 @@ const Header = () => {
     };
   }, []);
 
-  // Close dropdown on route change
+  // Prevent body scroll when mobile menu is open
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
     setServicesDropdownOpen(false);
     setHoveredService(null);
-    setIsOpen(false);
+    setMobileServicesOpen(false);
+    setMobileExpandedService(null);
   }, [location.pathname]);
 
   // Framer variants
@@ -196,12 +211,14 @@ const Header = () => {
   return (
     <header className="fixed w-full z-[150] transition-all duration-500">
       {/* Glass Morphism Container */}
-      <div className={`mx-4 mt-4 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/30 rounded-2xl' 
-          : 'bg-black/20 backdrop-blur-md border border-white/5 rounded-2xl'
-      }`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-20">
+      <div
+        className={`mx-2 sm:mx-4 mt-2 sm:mt-4 transition-all duration-500 ${
+          isScrolled
+            ? "bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/30 rounded-2xl"
+            : "bg-black/20 backdrop-blur-md border border-white/5 rounded-2xl"
+        }`}
+      >
+        <div className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 flex items-center justify-between h-16 sm:h-16 lg:h-20">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, x: -100 }}
@@ -209,23 +226,22 @@ const Header = () => {
             transition={{ type: "spring", stiffness: 100, damping: 25, delay: 0.3, duration: 1.2 }}
             className="flex items-center"
           >
-            <Link to="/" className="flex items-center" onClick={(e) => handleNavigation(e, "/")}>
+            <Link to="/" className="flex items-center">
               <img 
-                src="images/aristasystems_logo.png" 
+                src="/images/aristasystems_logo.png" 
                 alt="Arista Systems Logo" 
-                className="h-10 w-auto object-contain"
+                className="h-8 sm:h-9 lg:h-10 w-auto object-contain"
               />
             </Link>
           </motion.div>
-
-          {/* Desktop Nav */}
-          <nav className="lg:flex hidden space-x-8 relative items-center">
+        
+          {/* Desktop Nav - Hidden on mobile/tablet, shown on lg+ */}
+          <nav className="hidden lg:flex items-center space-x-3 xl:space-x-6 relative">
             {navStart.map((item, index) => (
               <motion.div key={item.name} variants={fadeInUp} initial="hidden" animate="show" custom={index}>
                 <Link
                   to={item.path}
-                  onClick={(e) => handleNavigation(e, item.path)}
-                  className={`relative font-medium transition-colors duration-300 group ${
+                  className={`relative font-medium text-sm xl:text-base transition-colors duration-300 group ${
                     location.pathname === item.path ? "text-violet-400" : "text-gray-200 hover:text-violet-400"
                   }`}
                 >
@@ -239,7 +255,7 @@ const Header = () => {
               </motion.div>
             ))}
 
-            {/* Services (dark hierarchical) */}
+            {/* Services Dropdown */}
             <motion.div
               variants={fadeInUp}
               initial="hidden"
@@ -252,7 +268,7 @@ const Header = () => {
             >
               <button
                 type="button"
-                className={`relative font-medium transition-colors duration-300 group flex items-center gap-1 ${
+                className={`relative font-medium text-sm xl:text-base transition-colors duration-300 group flex items-center gap-1 ${
                   location.pathname.startsWith("/services") ? "text-violet-400" : "text-gray-200 hover:text-violet-400"
                 }`}
                 aria-haspopup="true"
@@ -265,7 +281,7 @@ const Header = () => {
                 onClick={() => setServicesDropdownOpen((v) => !v)}
               >
                 Services
-                <FiChevronDown
+                <ChevronDown
                   className={`w-4 h-4 transition-transform duration-300 ${servicesDropdownOpen ? "rotate-180" : ""}`}
                 />
                 <span
@@ -295,7 +311,6 @@ const Header = () => {
                           className="relative"
                           onMouseEnter={() => (service.hasSubItems ? setHoveredService(index) : setHoveredService(null))}
                         >
-                          {/* Row */}
                           <button
                             type="button"
                             role="menuitem"
@@ -305,18 +320,16 @@ const Header = () => {
                               if (service.hasSubItems) {
                                 setHoveredService((v) => (v === index ? null : index));
                               } else if (service.path) {
-                                setServicesDropdownOpen(false);
-                                handleNavigation(null, service.path);
-                                navigate(service.path);
+                                handleNavigation(service.path);
                               }
                             }}
-                            className={`w-full flex items-center justify-between px-4 py-3 text-[13px] tracking-wide uppercase font-semibold text-gray-100 hover:bg-gray-900 ${
+                            className={`w-full flex items-center justify-between px-4 py-3 text-xs xl:text-[13px] tracking-wide uppercase font-semibold text-gray-100 hover:bg-gray-900 transition-colors ${
                               showSub ? "bg-gray-900" : ""
                             }`}
                           >
                             <span className="text-left">{service.title}</span>
                             {service.hasSubItems ? (
-                              <FiChevronRight className={`h-4 w-4 transition-transform ${showSub ? "translate-x-0.5" : ""}`} />
+                              <ChevronRight className={`h-4 w-4 transition-transform ${showSub ? "translate-x-0.5" : ""}`} />
                             ) : null}
                           </button>
 
@@ -339,8 +352,7 @@ const Header = () => {
                                     key={sub.name}
                                     to={sub.path}
                                     role="menuitem"
-                                    onClick={(e) => { setServicesDropdownOpen(false); handleNavigation(e, sub.path); }}
-                                    className="block px-4 py-3 text-sm text-gray-100 hover:bg-gray-900"
+                                    className="w-full text-left block px-4 py-3 text-sm text-gray-100 hover:bg-gray-900 transition-colors"
                                   >
                                     {sub.name}
                                   </Link>
@@ -356,13 +368,12 @@ const Header = () => {
               </AnimatePresence>
             </motion.div>
 
-            {/* End: Case Studies, Careers, Blog */}
+            {/* End Nav Items */}
             {navEnd.map((item, index) => (
               <motion.div key={item.name} variants={fadeInUp} initial="hidden" animate="show" custom={3 + index}>
                 <Link
                   to={item.path}
-                  onClick={(e) => handleNavigation(e, item.path)}
-                  className={`relative font-medium transition-colors duration-300 group ${
+                  className={`relative font-medium text-sm xl:text-base transition-colors duration-300 group ${
                     location.pathname === item.path ? "text-violet-400" : "text-gray-200 hover:text-violet-400"
                   }`}
                 >
@@ -377,62 +388,76 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Socials */}
-          <div className="md:flex hidden items-center space-x-4">
-            <motion.a
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.0, duration: 0.6 }}
-              className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-            >
-              <FiInstagram className="w-5 h-5" />
-            </motion.a>
-            <motion.a
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.05, duration: 0.6 }}
-              className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Twitter"
-            >
-              <FiTwitter className="w-5 h-5" />
-            </motion.a>
-            <motion.a
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.1, duration: 0.6 }}
-              className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-            >
-              <FiLinkedin className="w-5 h-5" />
-            </motion.a>
-          </div>
+          {/* Right Side: Socials + CTA + Hamburger */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Socials - Hidden on mobile, shown on sm+ */}
+            <div className="hidden sm:flex items-center space-x-2 xl:space-x-3">
+              <motion.a
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.0, duration: 0.6 }}
+                className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </motion.a>
+              <motion.a
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.05, duration: 0.6 }}
+                className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
+              </motion.a>
+              <motion.a
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.1, duration: 0.6 }}
+                className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </motion.a>
+            </div>
 
-          {/* CTA */}
-          <motion.button
-            onClick={openContactForm}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.2, duration: 0.5, type: "spring", stiffness: 100, damping: 15 }}
-            className="ml-4 px-4 py-2 rounded-xl bg-gradient-to-r from-gray-700 to-gray-500 text-white font-bold hover:from-violet-700 hover:to-purple-700 transition-all duration-500"
-          >
-            Let&apos;s talk
-          </motion.button>
-
-          {/* Mobile burger */}
-          <div className="md:hidden flex items-center">
-            <motion.button whileTap={{ scale: 0.9 }} onClick={toggleMenu} className="text-gray-300" aria-label="Toggle menu">
-              {isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
+            {/* CTA - Navigate to Contact Page */}
+            <motion.button
+              onClick={() => handleNavigation("/contact")}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.2, duration: 0.5, type: "spring", stiffness: 100, damping: 15 }}
+              className="px-3 sm:px-4 xl:px-5 py-2 rounded-xl bg-gradient-to-r from-blue-700 to-blue-500 text-white text-xs sm:text-sm xl:text-base font-bold hover:from-violet-700 hover:to-purple-700 transition-all duration-500 whitespace-nowrap shadow-lg hover:shadow-violet-500/50"
+            >
+              Let's talk
             </motion.button>
+
+            {/* Mobile Hamburger - Shown only on lg and below */}
+            <div className="lg:hidden flex items-center">
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={toggleMenu}
+                className="text-gray-300 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
+              >
+                <motion.div
+                  animate={{ rotate: isOpen ? 90 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                </motion.div>
+              </motion.button>
+            </div>
           </div>
         </div>
       </div>
@@ -445,198 +470,148 @@ const Header = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35 }}
-            className="md:hidden overflow-hidden bg-gray-950 shadow-lg px-4 py-5 space-y-5 mx-4 mt-2 rounded-2xl"
+            className="lg:hidden overflow-hidden bg-gray-950 shadow-lg mx-2 sm:mx-4 mt-2 rounded-2xl max-h-[calc(100vh-6rem)] overflow-y-auto"
           >
-            <nav className="flex flex-col space-y-3">
-              {[{ name: "Home", path: "/" }, { name: "About", path: "/about" }].map((item) => (
+            <nav className="px-4 py-5 space-y-2">
+              {/* Home & About */}
+              {navStart.map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
-                  onClick={(e) => {
-                    toggleMenu();
-                    handleNavigation(e, item.path);
-                  }}
-                  className={`font-medium py-2 transition-colors duration-300 ${
-                    location.pathname === item.path ? "text-violet-400" : "text-gray-300 hover:text-violet-400"
+                  className={`block w-full text-left font-medium py-3 px-3 rounded-lg transition-colors duration-300 ${
+                    location.pathname === item.path ? "text-violet-400 bg-violet-950/30" : "text-gray-300 hover:text-violet-400 hover:bg-gray-900"
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
 
-              <Link
-                to="/services"
-                onClick={(e) =>{ toggleMenu(); handleNavigation(e, "/services"); }}
-                className={`font-medium py-2 transition-colors duration-300 ${
-                  location.pathname.startsWith("/services") ? "text-violet-400" : "text-gray-300 hover:text-violet-400"
-                }`}
-              >
-                Services
-              </Link>
+              {/* Services Accordion */}
+              <div className="border-t border-gray-800 pt-2">
+                <button
+                  onClick={() => setMobileServicesOpen((v) => !v)}
+                  className={`w-full text-left font-medium py-3 px-3 rounded-lg transition-colors duration-300 flex items-center justify-between ${
+                    location.pathname.startsWith("/services") ? "text-violet-400 bg-violet-950/30" : "text-gray-300 hover:text-violet-400 hover:bg-gray-900"
+                  }`}
+                >
+                  <span>Services</span>
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobileServicesOpen ? "rotate-180" : ""}`} />
+                </button>
 
-              {[{ name: "Case Studies", path: "/case-studies" }, { name: "Careers", path: "/Careers" }, { name: "Blog", path: "/blog" }].map(
-                (item) => (
+                <AnimatePresence>
+                  {mobileServicesOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="ml-4 mt-2 space-y-1">
+                        {servicesData.map((service, idx) => (
+                          <div key={idx}>
+                            {service.hasSubItems ? (
+                              <>
+                                <button
+                                  onClick={() => setMobileExpandedService(mobileExpandedService === idx ? null : idx)}
+                                  className="w-full text-left text-gray-400 text-sm font-medium py-2 px-2 rounded hover:bg-gray-900 flex items-center justify-between"
+                                >
+                                  <span>{service.title}</span>
+                                  <ChevronRight className={`w-4 h-4 transition-transform ${mobileExpandedService === idx ? "rotate-90" : ""}`} />
+                                </button>
+                                <AnimatePresence>
+                                  {mobileExpandedService === idx && (
+                                    <motion.div
+                                      initial={{ height: 0, opacity: 0 }}
+                                      animate={{ height: "auto", opacity: 1 }}
+                                      exit={{ height: 0, opacity: 0 }}
+                                      transition={{ duration: 0.2 }}
+                                      className="overflow-hidden ml-4 space-y-1"
+                                    >
+                                      {service.subItems.map((subItem) => (
+                                        <Link
+                                          key={subItem.name}
+                                          to={subItem.path}
+                                          className="block text-gray-300 hover:text-violet-400 transition-colors duration-300 text-sm py-2 px-2 rounded hover:bg-gray-900"
+                                        >
+                                          {subItem.name}
+                                        </Link>
+                                      ))}
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </>
+                            ) : (
+                              <Link
+                                to={service.path}
+                                className="block text-gray-300 hover:text-violet-400 transition-colors duration-300 text-sm py-2 px-2 rounded hover:bg-gray-900"
+                              >
+                                {service.title}
+                              </Link>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Other Nav Items */}
+              <div className="border-t border-gray-800 pt-2">
+                {navEnd.map((item) => (
                   <Link
                     key={item.name}
                     to={item.path}
-                    onClick={(e) => {
-                      toggleMenu();
-                      handleNavigation(e, item.path);
-                    }}
-                    className={`font-medium py-2 transition-colors duration-300 ${
-                      location.pathname === item.path ? "text-violet-400" : "text-gray-300 hover:text-violet-400"
+                    className={`block w-full text-left font-medium py-3 px-3 rounded-lg transition-colors duration-300 ${
+                      location.pathname === item.path ? "text-violet-400 bg-violet-950/30" : "text-gray-300 hover:text-violet-400 hover:bg-gray-900"
                     }`}
                   >
                     {item.name}
                   </Link>
-                )
-              )}
+                ))}
+              </div>
 
-              {/* Mobile Services breakdown */}
-              <div className="pt-2">
-                <p className="text-violet-400 font-medium mb-3">Services</p>
-                <div className="space-y-2 ml-4">
-                  {servicesData.map((service, index) => (
-                    <div key={index}>
-                      {service.hasSubItems ? (
-                        <>
-                          <p className="text-gray-400 text-sm font-medium mb-1">{service.title}</p>
-                          {service.subItems.map((subItem, subIndex) => (
-                            <Link
-                              key={subIndex}
-                              to={subItem.path}
-                              onClick={(e) => { toggleMenu(); handleNavigation(e, "/services"); }}
-                              className="block text-gray-300 hover:text-violet-400 transition-colors duration-300 text-sm py-1 ml-4"
-                            >
-                              {subItem.name}
-                            </Link>
-                          ))}
-                        </>
-                      ) : (
-                        <Link to={service.path}
-                          onClick={(e) => { toggleMenu(); handleNavigation(e, service.path); }}
-                          className="block text-gray-300 hover:text-violet-400 transition-colors duration-300 text-sm py-1"
-                        >
-                          {service.title}
-                        </Link>
-                      )}
-                    </div>
-                  ))}
+              {/* Mobile Socials */}
+              <div className="pt-4 border-t border-gray-800">
+                <div className="flex space-x-5 justify-center pb-2">
+                  {[
+                    { 
+                      icon: Instagram, 
+                      color: "hover:text-pink-400 hover:bg-pink-900/30", 
+                      link: "#",
+                      label: "Instagram"
+                    },
+                    { 
+                      icon: Twitter, 
+                      color: "hover:text-blue-400 hover:bg-blue-900/30", 
+                      link: "#",
+                      label: "Twitter"
+                    },
+                    { 
+                      icon: Linkedin, 
+                      color: "hover:text-blue-500 hover:bg-blue-900/30", 
+                      link: "#",
+                      label: "LinkedIn"
+                    },
+                  ].map((social, index) => {
+                    const IconComponent = social.icon;
+                    return (
+                      <a
+                        key={index}
+                        href={social.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={social.label}
+                        className={`text-gray-400 p-2 rounded-full border border-transparent hover:border-current transition-all duration-300 hover:scale-110 hover:rotate-6 ${social.color}`}
+                      >
+                        <IconComponent className="h-5 w-5" />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </nav>
-
-            <div className="pt-4 border-t border-gray-800">
-              <div className="flex space-x-5">
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <FiInstagram className="h-5 w-5 text-gray-300" />
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                  <FiTwitter className="h-5 w-5 text-gray-300" />
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <FiLinkedin className="h-5 w-5 text-gray-300" />
-                </a>
-              </div>
-              <button
-                onClick={() => {
-                  toggleMenu();
-                  openContactForm();
-                }}
-                className="mt-4 block w-full px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-violet-400 font-bold text-white"
-              >
-                Let&apos;s Talk
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Contact Form */}
-      <AnimatePresence>
-        {contactFormOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[200] flex items-center justify-center p-4"
-            role="dialog"
-            aria-modal="true"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 26, stiffness: 220, duration: 0.5 }}
-              className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-6"
-            >
-              <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Get In Touch</h1>
-                <button onClick={closeContactForm} aria-label="Close contact form">
-                  <FiX className="w-5 h-5 text-gray-700 dark:text-gray-300 font-extrabold" />
-                </button>
-              </div>
-
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    placeholder="Your Name"
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Your Email"
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Phone No.
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    placeholder="Your Contact No."
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    id="message"
-                    placeholder="How can we help you?"
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full px-4 py-2 bg-gradient-to-r from-violet-600 to-violet-400 hover:from-violet-700 hover:to-purple-700 transition-all duration-300 rounded-lg shadow-md text-white font-semibold"
-                >
-                  Send Message
-                </motion.button>
-              </form>
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -5,8 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    {
+      pattern: new RegExp("text-\\[.*\\]"), // ✅ fixed regex syntax
+    },
+    {
+      pattern: new RegExp("(mt|mb|ml|mr|p|px|py)-\\[.*\\]"), // ✅ fixed regex syntax
+    },
+  ],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

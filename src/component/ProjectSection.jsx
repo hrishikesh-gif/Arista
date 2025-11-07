@@ -1,186 +1,274 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SlShareAlt } from "react-icons/sl";
-//hrishi
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ProjectSection = () => {
   const sectionRef = useRef(null);
+  const cardsRef = useRef([]);
+  const animationRef = useRef(null);
   const titleRef = useRef(null);
-  const titleLineRef = useRef(null);
-  const triggerRef = useRef(null);
-  const horizontalRef = useRef(null);
+  const subtitleRef = useRef(null);
 
-  const projectImages = [
-    { id: 1, title: "Creative Production", imageSrc: "/images/CreativeProduction.avif" },
-    { id: 2, title: "Website Development", imageSrc: "/images/websiteDevlopment.webp" },
-    { id: 3, title: "Digital Marketing", imageSrc: "/images/DigitalMarketing.avif" },
-    { id: 4, title: "Finance & Reconciliation", imageSrc: "/images/fiNDReco.avif" },
-    { id: 5, title: "Amazon & Marketplace Management", imageSrc: "/images/AM.avif" }, 
-    { id: 6, title: "Customer Experience & Support", imageSrc: "/images/CS.avif" },
+  const projects = [
+    { 
+      id: 1, 
+      title: "Creative Production", 
+      imageSrc: "/images/CreativeProduction.avif",
+      desc: "Professional creative production services for all your media needs."
+    },
+    { 
+      id: 2, 
+      title: "Website Development", 
+      imageSrc: "/images/websiteDevlopment.webp",
+      desc: "Custom website development with modern technologies and responsive design."
+    },
+    { 
+      id: 3, 
+      title: "Digital Marketing", 
+      imageSrc: "/images/DigitalMarketing.avif",
+      desc: "Comprehensive digital marketing strategies to grow your online presence."
+    },
+    { 
+      id: 4, 
+      title: "Finance & Reconciliation", 
+      imageSrc: "/images/tp.avif",
+      desc: "Financial management and reconciliation services for businesses."
+    },
+    { 
+      id: 5, 
+      title: "Amazon & Marketplace Management", 
+      imageSrc: "/images/AM.avif",
+      desc: "Expert management of Amazon and other marketplace platforms."
+    },
+    { 
+      id: 6, 
+      title: "Customer Experience & Support", 
+      imageSrc: "/images/CS.avif",
+      desc: "Enhanced customer experience and support solutions."
+    },
   ];
 
+  // Better ref management
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    cardsRef.current = cardsRef.current.slice(0, projects.length);
+  }, [projects.length]);
 
-    // Title animation
-    gsap.fromTo(
-      titleRef.current,
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
+  useEffect(() => {
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    const initializeAnimation = () => {
+      const section = sectionRef.current;
+      const cards = cardsRef.current.filter(Boolean);
+      
+      if (!section || cards.length !== projects.length) {
+        if (retryCount < maxRetries) {
+          retryCount++;
+          setTimeout(initializeAnimation, 150);
+          return;
+        }
+        console.warn('Failed to initialize animation after retries');
+        return;
       }
-    );
 
-    // Line animation
-    gsap.fromTo(
-      titleLineRef.current,
-      { width: "0%", opacity: 0 },
-      {
-        width: "100px",
-        opacity: 1,
-        duration: 1.5,
-        ease: "power3.out",
-        delay: 0.3,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
+      // Kill any existing triggers for this section
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === section) {
+          trigger.kill();
+        }
+      });
+
+      // Reset all styles with proper positioning
+      gsap.set(cards, { 
+        clearProps: "all",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      });
+
+      // --- Initial states ---
+      cards.forEach((card, i) => {
+        gsap.set(card, {
+          yPercent: i === 0 ? 0 : 100, // First card visible, others below
+          opacity: i === 0 ? 1 : 0,    // Only first card visible
+          scale: i === 0 ? 1 : 0.9,
+          zIndex: projects.length - i
+        });
+      });
+
+      // --- Title animation ---
+      if (titleRef.current && subtitleRef.current) {
+        gsap.fromTo(titleRef.current, 
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+        );
+        gsap.fromTo(subtitleRef.current, 
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.3 }
+        );
       }
-    );
 
-    // Section entrance effect
-    gsap.fromTo(
-      triggerRef.current,
-      { y: 100, rotationX: 20, opacity: 0 },
-      {
-        y: 0,
-        rotationX: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-        delay: 0.2,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-
-    // Horizontal scrolling - RESTORED
-    const horizontalScroll = gsap.to(".panel", {
-      xPercent: -100 * (projectImages.length - 1),
-      ease: "none",
-      scrollTrigger: {
-        trigger: triggerRef.current,
-        start: "top top",
-        end: () => `+=${horizontalRef.current.offsetWidth}`,
-        pin: true,
-        scrub: 1,
-        snap: {
-          snapTo: 1 / (projectImages.length - 1),
-          duration: { min: 0.2, max: 0.3 },
-          delay: 0.1,
-        },
-        invalidateOnRefresh: true,
-      },
-    });
-
-    const panels = gsap.utils.toArray(".panel");
-    panels.forEach((panel) => {
-      const image = panel.querySelector(".project-image");
-      const imageTitle = panel.querySelector(".project-title");
-
+      // --- ScrollTrigger timeline ---
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: panel,
-          containerAnimation: horizontalScroll,
-          start: "left right",
-          end: "right left",
-          scrub: true,
+          trigger: section,
+          start: "top top",
+          end: `+=${projects.length * 100}%`,
+          scrub: 0.6,
+          pin: true,
+          anticipatePin: 1,
+          markers: false,
+          invalidateOnRefresh: true,
+          refreshPriority: 1,
         },
       });
 
-      tl.fromTo(image, { scale: 0, rotate: -20 }, { scale: 1, rotate: 0, duration: 0.5 });
+      animationRef.current = tl;
 
-      if (imageTitle) {
-        tl.fromTo(imageTitle, { y: 30 }, { y: -100, duration: 0.3 }, 0.2);
+      // --- Stacking upward animation ---
+      cards.forEach((card, i) => {
+        if (i > 0) {
+          const prevCard = cards[i - 1];
+
+          // Fade out and move down the previous card COMPLETELY
+          tl.to(
+            prevCard,
+            {
+              opacity: 0,
+              scale: 0.8,
+              yPercent: -20, // Move previous card up and out of the way
+              ease: "power2.inOut",
+              duration: 1
+            },
+            `card-${i}`
+          );
+
+          // Bring new card upward and visible
+          tl.to(
+            card,
+            {
+              yPercent: 0,
+              opacity: 1,
+              scale: 1,
+              ease: "power2.inOut",
+              duration: 1
+            },
+            `card-${i}` // Run at the same time as previous card fade out
+          );
+        }
+      });
+
+      // Final animation - fade out the last card when leaving the section
+      tl.to(
+        cards[cards.length - 1],
+        {
+          opacity: 0,
+          scale: 0.9,
+          duration: 1,
+          ease: "power2.inOut"
+        }
+      );
+
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+
+    const timeoutId = setTimeout(initializeAnimation, 200);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (animationRef.current) {
+        animationRef.current.scrollTrigger?.kill();
       }
-    });
-  }, []);
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === sectionRef.current) {
+          trigger.kill();
+        }
+      });
+    };
+  }, [projects.length]);
 
   return (
-    <section
-      ref={sectionRef}
-      id="horizontal-section"
-      className="relative py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 overflow-hidden"
-    >
-      {/* Section title */}
-      <div className="container mx-auto px-4 mb-16 relative z-10">
-        <h2
-          ref={titleRef}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-center mb-4 opacity-0"
-        >
-          Services
-        </h2>
-        <div
-          ref={titleLineRef}
-          className="w-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto opacity-0"
-        />
+    <div className="bg-gradient-to-b from-violet-900 to-black ">
+      {/* Reduced top padding to minimize gap */}
+      <div className="h-30 flex items-center justify-center">
+        <div className="text-center">
+          <h1 
+            ref={titleRef}
+            className="text-4xl md:text-5xl mt-20 font-semibold text-white mb-4"
+          >
+            Services
+          </h1>
+          <p 
+            ref={subtitleRef}
+            className="text-lg text-purple-200 font-bold"
+          >
+            Our Core IT Services in India, Built for Global Brands
+          </p>
+        </div>
       </div>
 
-      {/* Horizontal Scroll - PROPERLY ALIGNED */}
-      <div ref={triggerRef} className="overflow-hidden">
-        <div ref={horizontalRef} className="horizontal-section flex w-full">
-          {projectImages.map((project) => (
-            <div key={project.id} className="panel relative flex items-center justify-center min-w-[80vw] md:min-w-[60vw] lg:min-w-[40vw] px-4">
-              <div className="relative w-full flex flex-col items-center justify-center">
-                {/* Properly sized image card */}
-                <div className="relative w-full max-w-2xl mx-auto">
-                  <img
-                    className="project-image w-full h-[400px] md:h-[500px] rounded-2xl object-cover shadow-2xl"
-                    src={project.imageSrc}
-                    alt="project-img"
-                  />
-                  
-                  {/* Overlay with glass effect */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                    <h2 className="project-title flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                      {project.title} <SlShareAlt className="text-purple-400" />
-                    </h2>
-                    <button className="mt-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white text-sm font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300">
-                      Explore Service
-                    </button>
-                  </div>
+      {/* Scroll stacking section */}
+      <section
+        ref={sectionRef}
+        className="relative h-screen bg-gradient-to-b from-violet-900 to-black overflow-hidden"
+      >
+        <div className="h-full w-full flex items-center justify-center relative">
+          {projects.map((p, i) => (
+            <div
+              key={p.id}
+              ref={(el) => {
+                if (el) cardsRef.current[i] = el;
+              }}
+              className="absolute w-11/12 md:w-5/6 lg:w-5/6 xl:w-5/6 
+                         rounded-2xl shadow-2xl 
+                         flex flex-col md:flex-row overflow-hidden 
+                         border border-gray-700"
+              style={{ 
+                zIndex: projects.length - i,
+                transformStyle: 'preserve-3d',
+                backfaceVisibility: 'hidden'
+              }}
+            >
+              <div className="w-full md:w-1/2 h-72 md:h-auto flex">
+                <img
+                  src={p.imageSrc}
+                  alt={p.title}
+                  className="w-full h-full object-cover flex-1"
+                  onError={(e) => {
+                    e.target.src = `https://picsum.photos/600/400?random=${p.id}`;
+                  }}
+                  onLoad={() => {
+                    if (i === projects.length - 1) {
+                      setTimeout(() => ScrollTrigger.refresh(), 50);
+                    }
+                  }}
+                />
+              </div>
+              <div className="p-6 md:p-10 lg:p-12 flex flex-col justify-center w-full md:w-1/2">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-white">
+                  {p.title}
+                </h2>
+                <p className="text-gray-300 mb-6 leading-relaxed text-base md:text-lg lg:text-xl">{p.desc}</p>
+                <div className="flex justify-end">
+                  <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-semibold text-white hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 text-sm">
+                    Learn More
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Progress indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex space-x-2">
-          {projectImages.map((_, index) => (
-            <div
-              key={index}
-              className="w-3 h-1 rounded-full bg-gray-600 transition-all duration-300"
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
