@@ -33,7 +33,7 @@ const ProjectSection = () => {
     { 
       id: 4, 
       title: "Finance & Reconciliation", 
-      imageSrc: "/images/tp.avif",
+      imageSrc: "/images/f.jpg",
       desc: "Financial management and reconciliation services for businesses."
     },
     { 

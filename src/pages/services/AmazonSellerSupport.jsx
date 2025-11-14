@@ -1,203 +1,185 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import DarkVeil from "../../ReactBits/darkveil";
+import TechStrip from "../../component/TechStrip";
+import ServiceCard from "../../component/ServiceCard";
+import BusinessCTA from "../../component/BusinessCTA"
+import Footer from "../../component/Footer";
+import { MessageSquare, Clock, Brain,Heart,BrainCircuit, HeartHandshake,Clock3} from 'lucide-react';
+import {
+  SiOpenai,
+  SiAmazon,
+  SiGoogle,
+} from "react-icons/si";
 
-const CaseStudyParallax = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+
+
+const textVariant = (delay = 0) => ({
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+});
+
+const containerVariant = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const TypewriterText = ({ text, speed = 20, className = "" }) => {
+  const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.pageYOffset);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // --- PARALLAX CALCULATIONS ---
-  const calculateBlur = () => Math.min(scrollPosition / 50, 6);
-  
-  const calculateOpacity = () => {
-    const startFade = window.innerHeight * 0.3;
-    if (scrollPosition < startFade) return 1;
-    return Math.max(0.2, 1 - (scrollPosition - startFade) / 500);
-  };
-
-  const calculateScale = () => {
-    const scale = 1 - scrollPosition / 5000;
-    return Math.max(0.85, scale);
-  };
-
-  const backgroundStyle = {
-    filter: `blur(${calculateBlur()}px)`,
-    opacity: calculateOpacity(),
-    transform: `scale(${calculateScale()})`,
-    transformOrigin: 'center top', 
-    transition: 'transform 0.1s ease-out, filter 0.1s ease-out, opacity 0.1s ease-out',
-  };
+    let i = 0;
+    setDisplayedText("");
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        setDisplayedText((prev) => prev + text.charAt(i));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed]);
 
   return (
-    <div 
-      className="min-h-screen text-white overflow-x-hidden"
-      // ✅ INTEGRATION: Applied your exact site gradient here
-      style={{
-        background: "linear-gradient(to bottom, #000000 0%, #000000 20%, #2d0b57 80%, #000000 100%)"
-      }}
+    <motion.p
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 1.2 }}
+      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
     >
-      {/* --- Fixed Parallax Background --- */}
-      <div
-        className="fixed top-0 left-0 w-full h-[50vh] md:h-[80vh] z-0 bg-center md:bg-[center_top_-100px] bg-no-repeat bg-cover" 
-        style={{
-          backgroundImage: "url('/images/glendale-cs-thumb.webp')",
-          ...backgroundStyle,
-        }}
-      >
-        {/* ✅ BLEND FIX: Overlay now fades to solid #000000 to match the start of your gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/80 to-black" />
-      </div>
-
-      {/* --- Content Container --- */}
-      <div className="relative z-10 pt-[45vh] md:pt-[50vh] w-[90%] mx-auto pb-20 md:w-[70%]">
-        
-        {/* Header Section */}
-        <div className="mb-16">
-          <p className="inline-block px-3 py-1 mb-5 text-xs font-semibold tracking-widest text-purple-300 uppercase bg-purple-900/30 border border-purple-700/50 rounded-full backdrop-blur-md">
-            Case Study
-          </p>
-          <h1
-            className="text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl"
-            style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.9)' }}
-          >
-            Revenue Growth with a{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-              Rebuilt PPC
-            </span>
-            <br />
-            Strategy
-          </h1>
-        </div>
-
-        {/* Image and Tools Section */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20 items-center">
-          <div className="bg-black/50 p-2 rounded-xl border border-white/10 shadow-2xl backdrop-blur-sm">
-            <div className="rounded-lg overflow-hidden">
-              <img
-                src="/images/glendale-cs-thumb.webp"
-                alt="Glendale Case Study Thumbnail"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          </div>
-
-          {/* Updated to neutral black/purple to match new theme */}
-          <div className="bg-black/60 p-8 rounded-2xl border border-purple-500/20 backdrop-blur-md shadow-xl">
-            <h3 className="text-xl font-semibold mb-6 text-purple-100">Tools / Platforms Used</h3>
-            <ul className="space-y-4">
-              <li className="flex items-center">
-                <ToolsIcon />
-                <span>Google Merchant Center</span>
-              </li>
-              <li className="flex items-center">
-                <ToolsIcon />
-                <span>Google Analytics 4 (GA4)</span>
-              </li>
-              <li className="flex items-center">
-                <ToolsIcon />
-                <span>Google Tag Manager</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Content Sections (Challenge / Solution) */}
-        <div className="max-w-3xl mx-auto space-y-20">
-           <div>
-
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-                <span className="text-purple-400 mr-3">01.</span> The Challenge
-            </h2>
-            <p className="text-gray-300 leading-relaxed text-lg">
-                Before January 2025, Glendale's Google Ads account lacked campaign segmentation, proper conversion
-                tracking, and feed optimization. The absence of data-driven decision-making and an unclear
-                account structure led to inefficient ad spend, limited visibility across product categories, and
-                underperforming remarketing efforts.
-            </p>
-           
-           </div>
-
-            <div>
-
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-                 <span className="text-purple-400 mr-3">02.</span> Our Solution
-            </h2>
-            <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-                Arista Systems' PPC experts completely rebuilt Glendale's advertising ecosystem. We implemented a
-                hybrid strategy combining Performance Max, Search, and Shopping campaigns to maximize reach and
-                conversions.
-            </p>
-
-            {/* Updated to purple theme instead of blue to match your gradient */}
-            <div className="bg-purple-900/20 p-6 rounded-xl border-l-4 border-purple-400 mb-8">
-                <p className="text-white font-semibold mb-4">Key actions taken by the team:</p>
-                <ul className="space-y-3">
-                {[
-                  "Integrated enhanced conversion tracking for more accurate attribution.",
-                  "Enabled dynamic remarketing to re-engage high-intent users.",
-                  "Optimized product feed sync with Google Merchant Center to improve ad relevance.",
-                  "Conducted weekly audits and adjusted budgets based on product-level performance.",
-                  "Performed A/B testing of ad copies to identify the most engaging messaging."
-                ].map((item, index) => (
-                  <li key={index} className="flex items-start text-gray-300">
-                    <span className="text-purple-400 mr-3 mt-1.5 text-xs">●</span>
-                    <span>{item}</span>
-                    </li>
-                ))}
-                </ul>
-            </div>
-
-            <p className="text-gray-300 leading-relaxed text-lg">
-                This strategic restructuring established a scalable and data-driven advertising model aligned with
-                Glendale's growth objectives.
-            </p>
-            
-                </div>
-
-            <section>
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-                 <span className="text-purple-400 mr-3">03.</span> The Result
-            </h2>
-            <p className="text-gray-300 leading-relaxed text-lg mb-10">
-                Between January and April 2025, Glendale's revamped Google Ads strategy drove{' '}
-                <span className="text-white font-bold bg-purple-500/20 px-1 rounded">287% growth in monthly revenue</span> and a{' '}
-                <span className="text-white font-bold bg-purple-500/20 px-1 rounded">163% increase in ROAS</span>, leading to stronger
-                efficiency and profitability.
-            </p>
-
-            <div className="grid grid-cols-2 gap-6 md:gap-12">
-                <StatCard number="287%" label="Growth in Monthly Revenue" />
-                <StatCard number="163%" label="Increase in ROAS" />
-            </div>
-            </section>
-        </div>
-      </div>
-    </div>
+      {displayedText}
+      <motion.span
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
+      />
+    </motion.p>
   );
 };
 
-// --- SUBCOMPONENTS ---
+const CustomerService = () => {
+  const techStack = [
+  { name: "ChatGPT", Icon: SiOpenai },
+  { name: "Amazon Seller Central", Icon: SiAmazon },
+ 
+  { name: "Google AI Studio", Icon: SiGoogle },
+ 
+];
+  const serviceFeatures = [
+    {
+      icon: MessageSquare,
+      title: "Seller Central",
+      subtitle: "Support",
+      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+    },
+    {
+      icon: Clock,
+      title: "ASIN Merge",
+      subtitle: "& Fix",
+      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+    },
+    {
+      icon: Heart,
+      title: "Compliance",
+      subtitle: "Assistance",
+      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+    },
+    {
+      icon: BrainCircuit,
+      title: "Listing",
+      subtitle: "QC (Quality Check)",
+      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+    },
+    {
+      icon:  Clock3,
+      title: "Order Issue",
+      subtitle: "Resolution",
+      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+    }
+   ];
+  return (
+    <>
+      {/* FIX 1: Changed 'xl:min-h-screen' to '2xl:min-h-screen'. 
+          Standard 1280px laptops will now scroll naturally, removing the gap. */}
+      <div className="relative w-full min-h-[auto] 2xl:min-h-screen overflow-hidden font-[Poppins,sans-serif]">
+        <DarkVeil />
 
-const ToolsIcon = () => (
-    <svg className="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-);
+        <motion.div
+          variants={containerVariant}
+          initial="hidden"
+          animate="visible"
+          // FIX 2: Updated inner container to match. 
+          // - Used 'xl:py-36' for balanced laptop padding.
+          // - Reserved '2xl' styles for keeping the hero look on huge screens.
+          className="relative z-[9] flex flex-col justify-center xl:justify-start items-start
+                     w-full 
+                     min-h-[auto] 2xl:min-h-screen
+                     px-6 md:px-14 lg:px-20
+                     pt-32 pb-20 xl:py-36 2xl:pt-44 2xl:pb-0
+                     md:max-w-[90%] lg:max-w-[80%] xl:max-w-[85%] 2xl:max-w-[75%]"
+        >
+          <motion.h1
+            variants={textVariant(0.1)}
+            className="text-white font-bold leading-tight text-left text-balance
+                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+          >
+            Amazon Seller Support
+          </motion.h1>
 
-const StatCard = ({ number, label }) => (
-    // Updated gradient to blend with new black/purple theme
-    <div className="bg-gradient-to-br from-purple-900/30 to-black p-6 md:p-10 rounded-2xl border border-purple-500/20 shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)] text-center">
-        <div className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 mb-3">
-        {number}
-        </div>
-        <div className="text-gray-400 font-medium uppercase tracking-wider text-sm md:text-base">{label}</div>
-    </div>
-)
+          <motion.h3
+            variants={textVariant(0.3)}
+            className="text-white font-light text-left text-balance leading-snug
+                       mt-4 sm:mt-6
+                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+          >
+            Fast, Friendly, and Always There When You Need Us!
+          </motion.h3>
 
-export default CaseStudyParallax;
+          <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
+            <TypewriterText
+              text="  Running an Amazon store comes with challenges, from fixing listing errors to handling customer issues. Our Amazon Seller Support services are designed to keep your operations smooth and compliant so you can focus on growth, not problems."
+              className="text-white/90 font-light leading-relaxed text-left
+                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              speed={25}
+            />
+          </div>
+
+          <motion.button
+            variants={textVariant(0.7)}
+            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
+                       rounded-lg hover:bg-gray-100 transition-all duration-300
+                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Contact Us Today
+          </motion.button>
+        </motion.div>
+      </div>
+      
+      <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
+        <ServiceCard features={serviceFeatures} accentColor="purple" />
+        <BusinessCTA 
+                    title="Unlock Hidden Profitability in Your Amazon Channel"
+                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
+                    buttonText="SCHEDULE A CONSULTATION"
+                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    altText="Consulting Team Collaboration"
+                />
+      <Footer />
+    </>
+  );
+};
+
+export default CustomerService;

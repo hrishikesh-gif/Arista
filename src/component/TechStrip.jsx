@@ -7,6 +7,23 @@ const defaultBrandColors = {
   Zendesk: { primary: "#03363D", glow: "rgba(3, 54, 61, 0.6)" },
   Gorgias: { primary: "#F15A24", glow: "rgba(241, 90, 36, 0.6)" },
   Loop: { primary: "#3A86FF", glow: "rgba(58, 134, 255, 0.6)" },
+   "Amazon Seller Central": { primary: "#FF9900", glow: "rgba(255,153,0,0.6)" },
+   "Google AI Studio": { primary: "#4285F4", glow: "rgba(66,133,244,0.6)" },
+   ChatGPT : { primary: "#10A37F", glow: "rgba(16,163,127,0.6)" },
+   "Adobe Photoshop": {
+    primary: "#31A8FF",
+    glow: "rgba(49,168,255,0.6)"
+  },
+
+  "Adobe Illustrator": {
+    primary: "#FF9A00",
+    glow: "rgba(255,154,0,0.6)"
+  },
+
+  "Adobe InDesign": {
+    primary: "#FF3366",
+    glow: "rgba(255,51,102,0.6)"
+  }
 };
 
 function TechLogo({ name, Icon, colors }) {
