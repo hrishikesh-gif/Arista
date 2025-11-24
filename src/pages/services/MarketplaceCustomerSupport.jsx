@@ -81,31 +81,31 @@ const MarketplaceCustomerSupport = () => {
       icon: MessageSquare,
       title: "Review",
       subtitle: "Management",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      description: "Customer reviews can make or break your sales. We monitor, respond to, and manage reviews professionally, addressing concerns promptly while highlighting positive feedback. This protects your seller reputation and encourages buyer confidence."
     },
     {
       icon: Clock,
       title: "Returns &",
       subtitle: "Refunds Handling",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      description: "Efficiently managing returns and refunds is crucial to maintaining high seller ratings. Our team ensures smooth processing, communicates with buyers clearly, and minimizes negative impacts on your account, keeping both customers and marketplaces satisfied."
     },
     {
       icon: Heart,
       title: "Buyer",
       subtitle: " Communication",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Prompt, professional communication improves customer satisfaction and reduces disputes. We handle inquiries, complaints, and product-related questions across marketplaces, ensuring every buyer receives timely and helpful responses."
     },
     {
       icon: BrainCircuit,
       title: "Marketplace",
       subtitle: "Policy Navigation",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      description: "Each platform has unique rules and standards. We help you navigate Amazon, Walmart, eBay, and other marketplace policies to avoid suspensions, account issues, or penalties, keeping your operations compliant and smooth."
     },
     {
       icon:  Clock3,
       title: "Proactive",
       subtitle: "Problem Resolution",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      description: "From late shipments to product issues, we address problems quickly and effectively. By resolving issues before they escalate, we protect your seller metrics and ensure buyers remain happy, loyal, and more likely to return."
     }
 
    ];
@@ -172,10 +172,10 @@ const MarketplaceCustomerSupport = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    title="Keep Your Customers Happy & Your Ratings High Don’t let support issues hurt your sales!"
+                    description="Partner with us to manage reviews, returns, refunds, and buyer communication across all marketplaces."
+                    buttonText="Get Market Support Now"
+                    imageUrl="\images\CreativeProduction.avif"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

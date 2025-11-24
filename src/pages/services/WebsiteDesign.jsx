@@ -85,21 +85,39 @@ const WebsiteDesign = () => {
   const serviceFeatures = [
     {
       icon: MessageSquare,
-      title: "Reels & Social",
-      subtitle: "Media Videos",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      title: "Our",
+      subtitle: "Approach",
+      description: "We believe in a collaborative design process that begins with understanding your business goals, target audience, and brand identity. Our team of expert designers and developers work closely with you to create a website that reflects your vision and meets your objectives."
     },
     {
       icon: Clock,
-      title: "Product ",
-      subtitle: "Demo Editing",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      title: "Custom",
+      subtitle: "Website Design",
+      description: "We specialize in creating custom website designs that are tailored to reflect your brand identity and resonate with your target audience. Every website is crafted with a focus on aesthetics, usability, and functionality. From intuitive navigation to visually engaging layouts, we ensure your site not only looks great but also provides a seamless experience that encourages users to stay, explore, and take action."
     },
     {
       icon: Heart,
-      title: "Short-Form",
-      subtitle: "Creative Editing",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      title: "eCommerce ",
+      subtitle: "Website Design",
+      description: "We build high-conversion online stores on Shopify, WooCommerce, and other platforms. Our eCommerce designs focus on seamless navigation, engaging visuals, and optimized performance to boost sales and enhance user experience."
+    },
+    {
+      icon: Heart,
+      title: "Corporate &",
+      subtitle: "Portfolio Websites",
+      description: "We design professional corporate and portfolio websites that build credibility and highlight your brand’s strengths. Each site is clean, responsive, and tailored to showcase your work with impact."
+    },
+    {
+      icon: Heart,
+      title: "Logo &",
+      subtitle: "Banner Design",
+      description: "A strong visual identity starts with a memorable logo and impactful banners. Our team creates unique logos and banners that capture the essence of your brand and leave a lasting impression. Each design is thoughtfully crafted to convey your brand’s personality, ensuring consistency across all your digital and marketing platforms."
+    },
+    {
+      icon: Heart,
+      title: "Infographics &",
+      subtitle: "Emailers",
+      description: "Communicating complex information in a clear and engaging way is crucial for brand engagement. We design informative infographics and email templates that are visually appealing and easy to understand. Whether it’s for marketing campaigns, product launches, or corporate communications, our designs help convey your message effectively while keeping your audience engaged."
     }
 
    ];
@@ -165,11 +183,11 @@ const WebsiteDesign = () => {
       
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
-        <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+       <BusinessCTA 
+                    title="A stunning website isn’t just about looks!"
+                    description="It’s about turning visitors into customers. Let us craft a website that reflects your brand, engages users, and drives real results."
+                    buttonText="Your Website Deserve To Stand Out"
+                    imageUrl="\images\CreativeProduction.avif"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

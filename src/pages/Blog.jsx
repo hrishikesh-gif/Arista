@@ -1,229 +1,293 @@
-import React from "react";
-import { Mail, ArrowRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ArrowRight, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { createClient } from "contentful";
+import BusinessCTA  from "../component/BusinessCTA";
+
 import Footer from "../component/Footer";
 
-const BlogsPage = () => {
-  const articles = [
-    {
-      category: "Digital Marketing",
-      title:
-        "Digital Email Rapy.cc: Experts, Tracking, and Reporting Excellence",
-      description:
-        "Discover how Rapy.cc revolutionizes email marketing with advanced tracking, expert insights, and comprehensive reporting. Stay ahead in the digital...",
-      image:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
-      date: "March 15, 2024",
-    },
-    {
-      category: "Business Strategy",
-      title: "The Insider's Guide to Maha Ads Manager",
-      description:
-        "Master the art of advertising with Maha Ads Manager. Learn advanced strategies, optimization techniques, and best practices for maximum ROI...",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop",
-      date: "March 12, 2024",
-    },
-    {
-      category: "E-Commerce",
-      title:
-        "Yaant vs Blok Math: Which WordPress SEO Plugin Is Best for Your Site?",
-      description:
-        "Choosing the right SEO plugin can make or break your WordPress site's visibility. Compare Yaant and Blok Math to find the perfect fit for your needs...",
-      image:
-        "https://images.unsplash.com/photo-1555421689-d68471e189f2?w=500&h=300&fit=crop",
-      date: "March 10, 2024",
-    },
-    {
-      category: "Technology",
-      title:
-        "OpenAI Shopping Integration: Visual, Shopify Sales, and Browsing Power",
-      description:
-        "Explore how OpenAI's latest integration transforms e-commerce with visual search, enhanced Shopify capabilities, and powerful browsing features...",
-      image:
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=300&fit=crop",
-      date: "March 8, 2024",
-    },
-    {
-      category: "SEO",
-      title: "The Ultimate Guide to Google Maps SEO in 2024",
-      description:
-        "Dominate local search with our comprehensive guide to Google Maps SEO. Learn proven strategies to boost your visibility and attract more customers...",
-      image:
-        "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=500&h=300&fit=crop",
-      date: "March 5, 2024",
-    },
-    {
-      category: "Marketing",
-      title: "How Email Marketing Can Lead Generation: Expert Strategies",
-      description:
-        "Unlock the power of email marketing for lead generation. Discover expert tactics and data-driven strategies that deliver results...",
-      image:
-        "https://images.unsplash.com/photo-1557838923-2985c318be48?w=500&h=300&fit=crop",
-      date: "March 3, 2024",
-    },
-    {
-      category: "Development",
-      title: "AI No Baseball: What It Is & How It Works",
-      description:
-        "Dive deep into AI No Baseball technology. Understand its mechanisms, applications, and how it's changing the game in tech innovation...",
-      image:
-        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=300&fit=crop",
-      date: "March 1, 2024",
-    },
-    {
-      category: "Branding",
-      title:
-        "AI in Email Marketing: 5 Ways to Automate, Personalize and Scale Your Campaigns",
-      description:
-        "Revolutionize your email campaigns with AI. Learn 5 powerful ways to automate workflows, personalize content, and scale your marketing efforts...",
-      image:
-        "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?w=500&h=300&fit=crop",
-      date: "February 28, 2024",
-    },
-    {
-      category: "Analytics",
-      title: "Why Semantic SEO is Crucial for Modern Digital Marketing Success",
-      description:
-        "Semantic SEO is no longer optional. Discover why understanding search intent and context is essential for ranking higher and driving quality traffic...",
-      image:
-        "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=500&h=300&fit=crop",
-      date: "February 25, 2024",
-    },
-    {
-      category: "Design",
-      title: "Boosting Campaign Performance with Lit Leads",
-      description:
-        "Lit Leads is transforming how brands generate and nurture leads. Explore strategies to supercharge your campaign performance...",
-      image:
-        "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=500&h=300&fit=crop",
-      date: "February 22, 2024",
-    },
-    {
-      category: "Web Design",
-      title: "New Web Design Trends 2025: Every Brand Needs to Know Today",
-      description:
-        "Stay ahead of the curve with 2025's hottest web design trends. From immersive experiences to minimalist interfaces, discover what's shaping...",
-      image:
-        "https://images.unsplash.com/photo-1547658719-da2b51169166?w=500&h=300&fit=crop",
-      date: "February 20, 2024",
-    },
-    {
-      category: "E-Commerce",
-      title: "How Social Commerce is Redefining Online Shopping in 2025",
-      description:
-        "Social commerce is revolutionizing retail. Learn how platforms are integrating shopping experiences and what it means for your business...",
-      image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop",
-      date: "February 18, 2024",
-    },
-  ];
+// Contentful client setup
+const client = createClient({
+  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
+  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
+});
+
+const getBlogPosts = async () => {
+  try {
+    const response = await client.getEntries({
+      content_type: "blogPost",
+      order: '-fields.date',
+    });
+
+    return response.items.map((item) => ({
+      id: item.sys.id,
+      category: item.fields.category,
+      title: item.fields.title,
+      description: item.fields.description,
+      image: item.fields.featuredImage?.fields?.file?.url
+        ? `https:${item.fields.featuredImage.fields.file.url}`
+        : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      date: new Date(item.fields.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      slug: item.fields.slug,
+    }));
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return [];
+  }
+};
+
+const Blog = () => {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  // --- PAGINATION STATE ---
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 15; 
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        const posts = await getBlogPosts();
+        setArticles(posts);
+        setError(null);
+      } catch (err) {
+        setError("Failed to load blog posts. Please try again later.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  // --- PAGINATION LOGIC ---
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = articles.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(articles.length / postsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) paginate(currentPage - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) paginate(currentPage + 1);
+  };
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <div className="flex items-center justify-center px-6 py-20 min-h-screen">
-        <div className="max-w-6xl w-full ">
-          <h1 className="text-8xl md:text-9xl lg:text-[12rem] font-bold mb-8  leading-tight animate-fadeInUp">
-            <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-yellow-200 bg-clip-text text-transparent inline-block">
+    <div className="min-h-screen bg-black font-sans text-white selection:bg-purple-500/30">
+      
+      {/* --- HERO SECTION --- */}
+      <div 
+        className="relative w-full pt-40 pb-32 px-6 md:px-16 lg:px-24 overflow-hidden"
+        style={{
+            // Adjusted gradient to ensure deep black at bottom
+            background: "linear-gradient(to bottom, #000000 0%, #000000 10%, #2d0b57 60%, #000000 100%)",
+        }}
+      >
+        {/* Background Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-[5vh] left-[5vw] w-[40vw] h-[40vw] bg-purple-600/20 rounded-full blur-[100px] animate-pulse"></div>
+            <div
+                className="absolute bottom-[20vh] right-[5vw] w-[30vw] h-[30vw] bg-blue-600/10 rounded-full blur-[80px] animate-pulse"
+                style={{ animationDelay: "2s" }}
+            ></div>
+        </div>
+
+        {/* --- NEW BLENDING OVERLAY --- */}
+        {/* This gradient forces the bottom pixels to be pure black, blending perfectly with the next section */}
+        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black via-black/90 to-transparent z-0 pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-5xl animate-fadeInUp">
+          <h1 className="text-7xl md:text-9xl lg:text-[10rem] font-extrabold mb-8 tracking-tight leading-none">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
               Blogs
             </span>
           </h1>
 
-          <div
-            className="max-w-3xl mb-10 animate-fadeInUp"
+          <div 
+            className="max-w-3xl animate-fadeInUp" 
             style={{ animationDelay: "0.2s" }}
           >
-            <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
-              Stay updated with the latest trends, expert insights, and
-              practical tips from our team. Explore articles, stories, and
-              resources designed to inform, inspire, and help you make smarter
-              decisions.
+            <p className="text-gray-300 text-lg md:text-xl leading-relaxed font-medium">
+              Discover the Latest Trends, Expert Insights, and Practical Tips. Our blogs are
+              packed with stories, strategies, and resources designed to inspire, inform, and
+              empower you to make smarter decisions every day.
             </p>
           </div>
-
-          {/* <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3.5 rounded-lg flex items-center gap-2 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 animate-fadeInUp"
-            style={{ animationDelay: "0.4s" }}
-          >
-            <Mail size={20} />
-            LET'S TALK
-          </button> */}
         </div>
       </div>
 
-      {/* Articles Section */}
-      <div className="px-6 py-20 bg-gradient-to-b from-black via-gray-900 to-black">
+      {/* --- ARTICLES SECTION --- */}
+      {/* Added -mt-12 to pull it slightly up into the blend area for safety */}
+      <div className="px-6 pt-10 pb-20 bg-black relative z-10 -mt-12">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-fadeInUp">
-            Our Recent <span className="text-blue-500">Articles</span>
-          </h2>
-          <div
-            className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 mb-12 animate-fadeInUp"
-            style={{ animationDelay: "0.1s" }}
-          ></div>
+          
+          <div className="flex items-center gap-4 mb-12 animate-fadeInUp">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Our Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Articles</span>
+            </h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-gray-800 to-transparent"></div>
+          </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 animate-fadeInUp group"
-                style={{ animationDelay: `${0.1 * (index % 6)}s` }}
-              >
-                {/* Image */}
-                <div className="relative overflow-hidden h-48">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                      {article.category}
-                    </span>
+          {loading && (
+            <div className="flex flex-col items-center justify-center py-20">
+              <Loader2 className="w-12 h-12 text-purple-500 animate-spin mb-4" />
+              <p className="text-gray-400 text-lg">Loading amazing content...</p>
+            </div>
+          )}
+
+          {error && !loading && (
+            <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-6 text-center">
+              <p className="text-red-400 text-lg">{error}</p>
+            </div>
+          )}
+
+          {!loading && !error && articles.length === 0 && (
+            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-12 text-center">
+              <p className="text-gray-400 text-lg">No blog posts available yet.</p>
+            </div>
+          )}
+
+          {!loading && !error && currentPosts.length > 0 && (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                {currentPosts.map((article, index) => (
+                  <div
+                    key={article.id}
+                    className="group flex flex-col bg-[#0a0a0a] rounded-2xl overflow-hidden 
+                               border border-gray-800 hover:border-purple-500/50 
+                               hover:shadow-lg hover:shadow-purple-900/20
+                               transition-all duration-300 cursor-pointer"
+                    onClick={() => (window.location.href = `/blog/${article.slug}`)}
+                  >
+                    {/* Image Wrapper */}
+                    <div className="relative w-full aspect-[4/3] overflow-hidden">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover object-center" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+                      
+                      {article.category && (
+                        <span className="absolute top-4 left-4 
+                                       bg-black/40 backdrop-blur-md text-purple-300 
+                                       text-[11px] font-bold px-3 py-1.5 
+                                       rounded-full uppercase tracking-widest 
+                                       border border-purple-500/30 shadow-lg">
+                          {article.category}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col flex-grow p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="text-purple-400/80 text-xs font-semibold uppercase tracking-wider">
+                          {article.date}
+                        </div>
+                      </div>
+
+                      <h3 className="text-white text-xl font-bold mb-3 leading-snug line-clamp-2 
+                                   group-hover:text-purple-300 transition-colors duration-300">
+                        {article.title}
+                      </h3>
+
+                      <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
+                        {article.description}
+                      </p>
+
+                      <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between">
+                        <span className="text-sm text-purple-400 font-semibold group-hover:text-white transition-colors">
+                            Read Article
+                        </span>
+                        <span className="p-2 rounded-full bg-purple-500/10 text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all duration-300">
+                            <ArrowRight size={16} />
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
+              </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <p className="text-gray-400 text-sm mb-2">{article.date}</p>
-                  <h3 className="text-white text-xl font-bold mb-3 line-clamp-2 group-hover:text-blue-400 transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-3">
-                    {article.description}
-                  </p>
-                  <button className="text-blue-400 hover:text-blue-300 font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
-                    Read More
-                    <ArrowRight size={16} />
+              {/* --- PAGINATION CONTROLS --- */}
+              {totalPages > 1 && (
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  
+                  <button
+                    onClick={handlePrev}
+                    disabled={currentPage === 1}
+                    className={`px-5 py-3 rounded-lg border transition-all duration-300 flex items-center gap-2 font-medium
+                      ${currentPage === 1 
+                        ? "border-gray-800 text-gray-600 cursor-not-allowed bg-transparent" 
+                        : "border-purple-500/30 text-gray-300 hover:border-purple-500 hover:text-white hover:bg-purple-500/10"}`}
+                  >
+                    <ChevronLeft size={18} /> Prev
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                    <button
+                      key={number}
+                      onClick={() => paginate(number)}
+                      className={`w-12 h-12 rounded-lg border text-sm font-bold transition-all duration-300
+                        ${currentPage === number
+                          ? "border-purple-500 text-purple-400 bg-purple-500/10 shadow-[0_0_15px_rgba(168,85,247,0.3)]" 
+                          : "border-gray-800 text-gray-400 hover:border-gray-600 hover:text-white bg-transparent"
+                        }`}
+                    >
+                      {number}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={handleNext}
+                    disabled={currentPage === totalPages}
+                    className={`px-5 py-3 rounded-lg border transition-all duration-300 flex items-center gap-2 font-medium
+                      ${currentPage === totalPages 
+                        ? "border-gray-800 text-gray-600 cursor-not-allowed bg-transparent" 
+                        : "border-purple-500/30 text-gray-300 hover:border-purple-500 hover:text-white hover:bg-purple-500/10"}`}
+                  >
+                    Next <ChevronRight size={18} />
                   </button>
                 </div>
-              </div>
-            ))}
-          </div>
+              )}
+            </>
+          )}
         </div>
       </div>
 
       <style>{`
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        
         .animate-fadeInUp {
           animation: fadeInUp 0.8s ease-out forwards;
           opacity: 0;
         }
       `}</style>
-      <Footer/>
+      <BusinessCTA 
+                    title="Ready to Take Your Business to the Next Level?​"
+                    description="Partner with Arista Systems and get a dedicated offshore team that understands your goals, executes with precision, and drives real growth."
+                    buttonText="BUILD YOUR DREAM TEAM HERE"
+                    imageUrl="\images\CS.avif"
+                    altText="Let's Talk"
+                />
+     <Footer/>
     </div>
   );
 };
 
-export default BlogsPage;
+export default Blog;

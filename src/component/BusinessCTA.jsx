@@ -37,12 +37,12 @@ const BusinessCTA = ({
           </p>
 
           {/* Dynamic Button */}
-          <button
-            onClick={buttonAction} // Use the action prop for the click handler
-            className="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-700 hover:opacity-90 transition-all duration-300 text-white px-5 py-2.5 rounded-md font-semibold shadow-[0_0_15px_rgba(147,51,234,0.4)] text-sm sm:text-base"
-          >
-            {buttonText}
-          </button>
+       <button
+  onClick={buttonAction}
+  className="bg-black/30 backdrop-blur-lg border border-white/25 hover:border-purple/40 transition-all duration-300 text-white px-5 py-2.5 rounded-xl font-semibold shadow-[0_0_25px_rgba(255,255,255,0.15)] hover:shadow-[0_0_35px_rgba(255,255,255,0.25)] hover:bg-black/40 hover:scale-105"
+>
+  {buttonText}
+</button>
         </div>
 
         {/* Image Section */}

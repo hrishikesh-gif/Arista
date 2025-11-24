@@ -74,37 +74,37 @@ const CustomerService = () => {
       icon: MessageSquare,
       title: "Technical ",
       subtitle: "& On-Page SEO",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      description: "Your website needs a strong foundation. We make sure it loads fast, works on mobile, and is easy for search engines to understand. As an SEO outsourcing company in India, we also fine-tune titles, meta tags, and content, small details that lead to big improvements."
     },
     {
       icon: Clock,
       title: "Keyword Research",
       subtitle: "That Works",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      description: "We don’t just pick random keywords. Our team finds what your audience is actually searching for and builds keyword clusters around it. This way, your site shows up for multiple related terms, giving you more visibility and better results."
     },
     {
       icon: Heart,
       title: "Blogs That",
       subtitle: "Build Authority",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Search engines love fresh content, and so do readers. We create blog posts that answer real questions, boost your authority, and improve your rankings. With our SEO services in India, you get blogs that actually work for your business."
     },
     {
       icon: BrainCircuit,
       title: "Link Building",
       subtitle: "the Right Way",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      description: "Links are like online recommendations. We use ethical link-building strategies to earn backlinks from trusted websites. This builds your credibility and helps search engines trust your site more."
     },
     {
       icon:  Clock3,
       title: "Local SEO",
       subtitle: "for Local Wins",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      description: "We don’t leave you guessing. As a results-driven SEO company in India, we track your rankings, traffic, and conversions. With clear reports, you’ll always know how your campaign is performing and where it’s headed."
     },
     {
       icon: Brain,
       title: "Tracking & Reports",
       subtitle: "You’ll Understand",
-      description: "We leverage industry-leading tools like Zendesk and Gorgias to streamline communication, track inquiries, and manage customer relationships efficiently. These platforms allow our team to provide organized, professional, and consistent support, while giving you clear insights into performance and trends."
+      description: "We don’t leave you guessing. As a results-driven SEO company in India, we track your rankings, traffic, and conversions. With clear reports, you’ll always know how your campaign is performing and where it’s headed."
     }
    ];
   return (
@@ -170,10 +170,10 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    title="Get Your Business on Google’s First Page, Now!"
+                    description="Stop losing customers to your competitors. Take charge today with the leading SEO company in India. Our SEO services in India get your website seen, clicked, and converting, fast!"
+                    buttonText="Rank My Website Today"
+                    imageUrl="\images\DigitalMarketing.avif"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

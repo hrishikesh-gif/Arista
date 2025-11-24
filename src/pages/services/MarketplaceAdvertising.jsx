@@ -79,33 +79,33 @@ const MarketplaceAdvertising = () => {
   const serviceFeatures = [
     {
       icon: MessageSquare,
-      title: "Amazon Image",
-      subtitle: "Editing & Optimization",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      title: "Sponsored Ads",
+      subtitle: "Management",
+      description: "We create and manage Sponsored Product, Sponsored Brand, and Sponsored Display ads that put your products in front of the right audience. Our campaigns are tailored to your goals, whether it’s driving sales, building brand awareness, or launching new products."
     },
     {
       icon: Clock,
-      title: "Visual Storytelling",
-      subtitle: "with A+ Content",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      title: "Campaign",
+      subtitle: "Structuring",
+      description: "Proper campaign structure is the backbone of Amazon PPC success. We organize campaigns by product category, match type, and target audience to ensure efficient budget allocation and maximum ad relevance. This improves click-through rates, lowers wasted spend, and strengthens overall campaign performance."
     },
     {
       icon: Heart,
-      title: "Custom &",
-      subtitle: " Storefront Build",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      title: "Bid ",
+      subtitle: "Optimization",
+      description: "Every cent counts in Amazon advertising. We continuously adjust bids based on performance data, competitive analysis, and keyword trends to maximize return on ad spend (ROAS) while keeping your advertising cost of sales (ACOS) under control."
     },
     {
       icon: BrainCircuit,
-      title: "Brand Story ",
-      subtitle: "Section Setup",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      title: "ROAS Improvement &",
+      subtitle: "ACOS Reduction",
+      description: "Our data-driven approach focuses on increasing profitability. By identifying high-converting keywords, pausing low-performing campaigns, and reallocating budgets strategically, we improve ROAS and reduce ACOS, turning your ad spend into measurable revenue growth."
     },
     {
       icon:  Clock3,
-      title: "Brand Registry",
-      subtitle: "Essentials",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      title: "Analytics-Driven",
+      subtitle: "Refinement",
+      description: "Amazon PPC is never set-and-forget. We monitor campaigns daily, analyze performance metrics, and refine targeting, creatives, and bidding strategies. This continuous improvement ensures your ads adapt to market trends and consistently deliver results."
     }
 
    ];
@@ -172,11 +172,11 @@ const MarketplaceAdvertising = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    altText="Consulting Team Collaboration"
+                    title="Stop wasting ad spend on ineffective campaigns!"
+                    description="Turn Clicks Into Conversions TodayPartner with us to optimize your Amazon PPC strategy, boost sales, and maximize ROI."
+                    buttonText="Fix My Amazon Issues"
+                    imageUrl="\images\CreativeProduction.avif"
+                    altText="Optimize My Amazone Ads Now"
                 />
       <Footer />
     </>

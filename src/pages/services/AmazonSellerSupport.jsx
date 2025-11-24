@@ -81,31 +81,31 @@ const CustomerService = () => {
       icon: MessageSquare,
       title: "Seller Central",
       subtitle: "Support",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      description: "Navigating Seller Central can be overwhelming. From account setup and management to policy updates and technical glitches, our team provides hands-on support so you don’t get stuck in the system. We ensure your account stays active, functional, and stress-free."
     },
     {
       icon: Clock,
       title: "ASIN Merge",
       subtitle: "& Fix",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      description: "Duplicate listings and broken variations can confuse buyers and hurt your rankings. We specialize in merging ASINs, fixing catalog errors, and organizing your listings the right way. The result? A clean, professional storefront that drives consistent sales."
     },
     {
       icon: Heart,
       title: "Compliance",
       subtitle: "Assistance",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Amazon has strict rules, and even minor missteps can lead to costly suspensions. We help you stay compliant with Amazon’s policies, product restrictions, and category requirements so your account remains safe and your sales uninterrupted."
     },
     {
       icon: BrainCircuit,
       title: "Listing",
       subtitle: "QC (Quality Check)",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      description: "Your listings are your digital storefront. We review and refine titles, bullet points, images, and descriptions to meet Amazon’s standards and improve visibility. Optimized listings not only pass approval but also attract more clicks and conversions."
     },
     {
       icon:  Clock3,
       title: "Order Issue",
       subtitle: "Resolution",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      description: "Late deliveries, cancellations, or negative feedback can damage your seller reputation. Our team steps in to resolve order-related issues quickly and professionally, keeping your customers satisfied and your seller rating strong."
     }
    ];
   return (
@@ -171,10 +171,10 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    title="Don’t let small issues cost you big sales!"
+                    description="Partner with us for Amazon Seller Support that protects your account, enhances your listings, and keeps your business running without interruptions."
+                    buttonText="Fix My Amazon Issues"
+                    imageUrl="\images\CreativeProduction.avif"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

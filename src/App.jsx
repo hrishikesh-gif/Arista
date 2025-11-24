@@ -13,7 +13,9 @@ import AboutSection from "./component/AboutSection";
 import ScrollToTop from "./component/ScrollToTop";
 import ProjectSection from "./component/ProjectSection";
 import ContactSection from "./component/ContactSection";
+import BlogPostPage from "./pages/BlogPostPage";
 import Footer from "./component/Footer";
+import CasestudySection from "./component/CasestudySection";
 
 // Import your page components
 import About from "./pages/About";
@@ -21,6 +23,7 @@ import Services from "./pages/services/index";
 import Careers from "./pages/Careers";
 import CaseStudies from "./pages/CaseStudies";
 import Blog from "./pages/Blog";
+import ContactForm from "./pages/ContactForm";
 
 // Import all service page components
 import CustomerService from "./pages/services/CustomerService";
@@ -51,7 +54,12 @@ import DataReporting from "./pages/services/DataReporting";
 import TechStackSection from "./component/TechStackSection";
 import ClientShowcaseSection from "./component/ClientShowcaseSection";
 import Testimonials from "./component/Testimonial";
-import ContactForm from "./pages/ContactForm";
+
+// --- Case Study Detail Pages (added) ---
+import AmazonSalesGrowth from "./pages/AmazonSalesGrowth";
+import Glendale from "./pages/Glendale";
+import Kith from "./pages/kith"
+import Grossprofit from "./pages/Grossprofit";
 
 // Component to handle route changes and GSAP cleanup
 const RouteHandler = ({ children }) => {
@@ -97,10 +105,10 @@ const HomePage = () => {
       <ContactSection />
       <ProjectSection />
       <TechStackSection />
-      <Testimonials/>
+      <Testimonials />
       <ClientShowcaseSection />
       <AboutSection />
-      
+      <CasestudySection/>
       <Footer />
     </>
   );
@@ -126,7 +134,20 @@ export default function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/blog" element={<Blog />} />
+             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/contact" element={<ContactForm />} />
+
+            {/* Case Study Detail Pages */}
+            <Route
+              path="/casestudies/AmazonSalesGrowth"
+              element={<AmazonSalesGrowth />}
+            />
+            <Route path="/casestudies/glendale" element={<Glendale />} />
+            <Route path="/casestudies/kith" element={<Kith />} />
+            <Route
+              path="/casestudies/Grossprofit"
+              element={<Grossprofit />}
+            />
 
             {/* Customer Experience & Support Services */}
             <Route

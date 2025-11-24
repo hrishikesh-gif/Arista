@@ -85,22 +85,34 @@ const DesignServices = () => {
   const serviceFeatures = [
     {
       icon: MessageSquare,
-      title: "Reels & Social",
-      subtitle: "Media Videos",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      title: "Logo",
+      subtitle: "Design",
+      description: "A logo is the cornerstone of your brand identity. Our team focuses on crafting memorable logos that reflect your brand’s personality, values, and vision. Every design is meticulously created to leave a lasting impression, ensuring that your logo stands out across digital, print, and social platforms while instantly connecting with your audience."
     },
     {
       icon: Clock,
-      title: "Product ",
-      subtitle: "Demo Editing",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      title: "Website",
+      subtitle: "Banners",
+      description: "Your website banners are the first visual touchpoint for visitors. We design visually striking banners that not only enhance the look and feel of your site but also highlight key promotions, offers, or announcements. Each banner is strategically crafted to grab attention, drive engagement, and encourage users to explore your products or services further."
     },
     {
       icon: Heart,
-      title: "Short-Form",
-      subtitle: "Creative Editing",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
-    }
+      title: "Emailers &",
+      subtitle: "Digital Flyers",
+      description: "In the digital world, first impressions matter. Our team creates attention-grabbing email campaigns and digital flyers that engage recipients and motivate action. From eye-catching visuals to clear messaging, we ensure your campaigns stand out in crowded inboxes and social feeds, boosting both clicks and conversions."
+    },
+    {
+      icon: Heart,
+      title: "Brochure",
+      subtitle: "Creatives",
+      description: "Brochures remain an effective tool for communicating your brand story and offerings. We develop professional brochures that present your products, services, and business information in a visually appealing and easy-to-digest format. Each brochure is designed to inform, engage, and leave a professional impression on your audience."
+    },
+    {
+      icon: Heart,
+      title: "Branding",
+      subtitle: "Guidelines",
+      description: "Consistency is key to a strong brand identity. We create comprehensive branding guidelines that define your brand’s visual language, including colors, typography, logo usage, and design elements. These standards ensure every touchpoint, from marketing campaigns to internal communications, aligns perfectly with your brand, reinforcing recognition and trust."
+    },
 
    ];
   return (
@@ -166,10 +178,10 @@ const DesignServices = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    title="Every day without strong visuals is a missed opportunity!"
+                    description="Stand out from the competition with logos, banners, emailers, and marketing assets that captivate your audience and drive results, before your competitors do."
+                    buttonText="Don't Let Your Brand Go Unnoticed"
+                    imageUrl="\images\CreativeProduction.avif"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

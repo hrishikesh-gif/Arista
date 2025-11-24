@@ -81,31 +81,31 @@ const CustomerService = () => {
       icon: MessageSquare,
       title: "Amazon Image",
       subtitle: "Editing & Optimization",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      description: "Images are the first thing shoppers notice. Poor-quality visuals or dull listings can cost clicks and sales, even if your product is excellent. We enhance every image to meet Amazon’s strict requirements and maximize impact."
     },
     {
       icon: Clock,
       title: "Visual Storytelling",
       subtitle: "with A+ Content",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      description: "Transform product pages into immersive, persuasive experiences. Our layouts combine high-quality images, infographics, and text modules to highlight features, benefits, and use cases, making your listings informative, professional, and ready to convert."
     },
     {
       icon: Heart,
       title: "Custom &",
       subtitle: " Storefront Build",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Your Amazon Storefront is your brand’s digital shop window. We craft visually appealing storefronts that reflect your brand identity, showcase your catalog, and guide shoppers through a smooth buying journey. A professional storefront builds trust, encourages repeat visits, and increases sales."
     },
     {
       icon: BrainCircuit,
-      title: "Brand Story ",
-      subtitle: "Section Setup",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      title: "Asset",
+      subtitle: "Optimization",
+      description: "All visuals and content are optimized to meet Amazon’s specifications, ensuring fast loading, high clarity, and maximum visual impact. We refine images, videos, banners, and graphics so your listings shine."
     },
     {
       icon:  Clock3,
       title: "Brand Registry",
       subtitle: "Essentials",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      description: "Lay a solid foundation with Amazon Brand Registry. We guide you through registration, protect your brand, secure exclusive content, and unlock enhanced marketing tools to boost visibility and credibility.With our integrated approach, your Amazon presence becomes a powerful sales tool, combining visual perfection, engaging content, and a compelling brand story to increase trust, engagement, and conversions."
     }
 
    ];
@@ -172,10 +172,10 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    title="Don’t settle for ordinary listings!"
+                    description="Transform your Amazon presence with expert A+ Content, custom storefronts, and compelling brand stories."
+                    buttonText="Showcase Your Brand Like A Pro"
+                    imageUrl="\images\CreativeProduction.avif"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

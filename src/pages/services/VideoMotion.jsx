@@ -87,20 +87,27 @@ const VideoMotion = () => {
       icon: MessageSquare,
       title: "Reels & Social",
       subtitle: "Media Videos",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      description: "In today’s fast-moving social media landscape, grabbing attention in the first few seconds is critical. Our team creates scroll-stopping short-form videos tailored for platforms like Instagram, TikTok, and Facebook. Each video is crafted to engage your audience instantly, combining compelling visuals, snappy pacing, and platform-specific optimization. By delivering content that resonates, we help your brand boost reach, engagement, and overall social presence."
     },
     {
       icon: Clock,
       title: "Product ",
       subtitle: "Demo Editing",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      description: "A strong product demo can turn curiosity into purchase. We edit your footage to create clear, visually compelling demonstrations that highlight the features, functionality, and benefits of your products. Every cut, angle, and transition is designed to communicate value effectively, helping viewers understand why your product stands out and encouraging them to take action."
     },
     {
       icon: Heart,
       title: "Short-Form",
       subtitle: "Creative Editing",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Short-form content demands precision, creativity, and energy. From transitions and motion graphics to sound design and pacing, we transform raw footage into polished, shareable videos that grab attention immediately. Whether it’s a promotional snippet, campaign teaser, or social media reel, our edits ensure your videos are dynamic, professional, and optimized for maximum impact."
+    },
+    {
+      icon: Heart,
+      title: "Why",
+      subtitle: "Choose Us",
+      description: "Our team combines creativity and technical expertise to deliver videos that reflect your brand identity while driving results. Whether it’s a product launch, promotional campaign, or social content, we ensure every second of your video makes an impact."
     }
+    
 
    ];
   return (
@@ -158,7 +165,7 @@ const VideoMotion = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            Let's Talk
           </motion.button>
         </motion.div>
       </div>
@@ -166,10 +173,10 @@ const VideoMotion = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    title="Your audience scrolls fast!"
+                    description="Make every second count. From social media reels to product demos, we create videos that capture attention, engage viewers, and drive results. Don’t let mediocre content hold your brand back"
+                    buttonText="Turn Views Into Customer"
+                    imageUrl="\images\CreativeProduction.avif"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

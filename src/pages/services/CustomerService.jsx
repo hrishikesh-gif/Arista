@@ -176,11 +176,11 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    altText="Consulting Team Collaboration"
+                    title="Ready to Experience Exceptional Support?"
+                    description="Our team is eager to assist you. Reach out through your preferred channel, and let us show you the Arista difference."
+                    buttonText="Let's Talk"
+                    imageUrl="\images\CS.avif"
+                    altText="Let's Talk"
                 />
       <Footer />
     </>
