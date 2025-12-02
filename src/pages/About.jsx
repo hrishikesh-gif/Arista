@@ -94,109 +94,135 @@ const MotionDiv = ({
 const About = () => {
   return (
     <div
-      className="bg-[#050010] text-white w-full min-h-[100svh] overflow-x-hidden relative"
-      style={{ background: "linear-gradient(to bottom, #000000 0%, #1e0a3c 50%, #000000 100%)" }}
+      className="bg-[#0a0118] text-white min-h-screen w-full overflow-x-hidden relative"
     >
+      {/* Subtle gradient overlay */}
+      <div className="fixed inset-0 bg-gradient-to-b from-transparent via-purple-950/10 to-transparent pointer-events-none z-0" />
+      
+      {/* Minimal grid pattern */}
+      <div 
+        className="fixed inset-0 opacity-[0.03] pointer-events-none z-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}
+      />
 
-      {/* Background Orbs */}
+      {/* Subtle floating particles background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-900/20 rounded-full blur-[120px] opacity-50"></div>
-        <div className="absolute bottom-[20%] right-[-5%] w-[30vw] h-[30vw] bg-blue-900/20 rounded-full blur-[100px] opacity-50"></div>
+        {Array.from({ length: 8 }, (_, i) => ({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          delay: Math.random() * 3,
+          duration: 4 + Math.random() * 3,
+        })).map((particle) => (
+          <div
+            key={particle.id}
+            className="absolute w-1 h-1 rounded-full bg-white/20"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              animation: `float ${particle.duration}s ${particle.delay}s ease-in-out infinite`,
+            }}
+          />
+        ))}
       </div>
 
-      {/* Grid Texture */}
-      <div
-        className="fixed inset-0 opacity-[0.05] pointer-events-none z-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(168, 85, 247, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(168, 85, 247, 0.4) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      ></div>
+      <style>
+        {`
+          @keyframes float {
+            0%, 100% {
+              transform: translateY(0) translateX(0);
+              opacity: 0;
+            }
+            50% {
+              transform: translateY(-40px) translateX(20px);
+              opacity: 0.4;
+            }
+          }
+        `}
+      </style>
 
       <div className="relative z-10 w-full">
-
         {/* --- HERO SECTION --- */}
-        <div className="w-full px-6 md:px-12 lg:px-12 pt-48 md:pt-64 pb-20">
-          <div
-            className="flex flex-col lg:flex-row items-start justify-between gap-10 w-full"
-            id="banner"
-          >
-            {/* Left Side: Title & Text */}
-            <MotionDiv
-              className="w-full lg:w-[75%] flex flex-col justify-start text-left"
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
-                <div className="text-white mb-2">Hello,</div>
-                <div className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 lg:whitespace-nowrap">
-                  we're Arista Systems
-                </div>
-              </h1>
+<div className="w-full min-h-[85vh] sm:min-h-[90vh] md:min-h-screen flex items-center px-4 sm:px-6 md:px-8 lg:px-12 py-20 sm:py-24 md:py-32">
+  <div
+    className="flex flex-col lg:flex-row items-start justify-between gap-12 sm:gap-16 md:gap-20 lg:gap-10 w-full max-w-[1400px] mx-auto"
+    id="banner"
+  >
+    {/* Left Side: Title & Text */}
+    <MotionDiv
+      className="w-full lg:w-[70%] flex flex-col justify-start 
+                 text-center lg:text-left items-center lg:items-start"
+      initial={{ x: -50, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      <h1
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 
+                   font-bold tracking-tight leading-[1.2] text-center lg:text-left"
+      >
+        <div className="text-white mb-2 sm:mb-3">Hello,</div>
 
-              <p className="mt-8 text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl font-light">
-                We build digital destinations that grab attention, amplify your story,
-                and wow every visitor, because you deserve a team that gets it, delivers
-                it, and makes it effortless.
-              </p>
-            </MotionDiv>
-
-            {/* Right Side: Stats */}
-            {/* UPDATED: Removed top padding and added negative margin (lg:-mt-12) to pull it up */}
-            <MotionDiv
-              className="w-full lg:w-[25%] flex flex-col items-start lg:items-end gap-12 lg:text-right lg:-mt-12"
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              {[
-                {
-                  end: 150,
-                  label: "Projects Till Date",
-                  color: "text-white",
-                  delay: 0,
-                },
-                {
-                  end: 75,
-                  label: "Happy Customers",
-                  color: "text-white",
-                  delay: 0.2,
-                },
-                {
-                  end: 6,
-                  label: "Countries Served",
-                  color: "text-white",
-                  delay: 0.4,
-                },
-              ].map((stat, index) => (
-                <div key={index} className="flex flex-col items-start lg:items-end">
-                  <h2 className="text-5xl md:text-6xl font-bold text-white drop-shadow-md mb-1">
-                    <CountUp end={stat.end} duration={3} />
-                    {stat.end === 6 ? "" : "+"}
-                  </h2>
-                  <p className="text-lg text-gray-400 font-medium">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </MotionDiv>
-          </div>
+        <div className="text-transparent bg-clip-text 
+                        bg-gradient-to-r from-teal-300 to-green-400">
+          we’re Arista Systems
         </div>
-        {/* --- End Hero Section --- */}
+      </h1>
 
-        <div className="w-full h-[80vh] sm:h-[85vh] md:h-[90vh] lg:h-screen flex items-center justify-center">
+      <p
+        className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl 
+                   text-gray-300 leading-relaxed max-w-2xl font-light 
+                   text-center lg:text-left"
+      >
+        We build digital destinations that grab attention, amplify your story,
+        and wow every visitor, because you deserve a team that gets it, delivers
+        it, and makes it effortless.
+      </p>
+    </MotionDiv>
+
+    {/* Right Side: Stats */}
+    <MotionDiv
+      className="w-full lg:w-[30%] flex flex-col 
+                 items-center lg:items-end text-center lg:text-right 
+                 gap-6 sm:gap-8 md:gap-10"
+      initial={{ x: 50, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      {[
+        { end: 150, label: "Projects Till Date" },
+        { end: 75, label: "Happy Customers" },
+        { end: 6, label: "Countries Served" },
+      ].map((stat, index) => (
+        <div key={index} className="flex flex-col items-center lg:items-end">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-md mb-1">
+            <CountUp end={stat.end} duration={3} />
+            {stat.end === 6 ? "" : "+"}
+          </h2>
+          <p className="text-base sm:text-lg text-gray-400 font-medium">
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </MotionDiv>
+  </div>
+</div>
+{/* --- End Hero Section --- */}
+
+
+        {/* Placeholder sections - replace with your actual components */}
+        <div className="w-full">
           <WeAreSection/>
         </div>
-         
-         <div className="w-full">
+
+        <div className="w-full ">
           <MagicBentoCustom />
         </div>
 
-        <div 
-          className="w-full"
-          style={{
+        <div className="w-full"style={{
             background: '#0a0118',
             '--glow-x': '50%',
             '--glow-y': '50%',
@@ -204,18 +230,17 @@ const About = () => {
             '--border-color': '#2e1a4e',
             '--background-dark': '#0a0118'
           }}
-        >
+         >
           <BusinessCTA />
         </div>
 
-        <div className="w-full mb-0">
-          <Testimonials />
+        <div className="w-full">
+           <Testimonials />
         </div>
 
         <div className="w-full">
-          <Footer />
+        <Footer />
         </div>
-
       </div>
     </div>
   );
