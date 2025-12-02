@@ -30,39 +30,42 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
-
 const CustomerService = () => {
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
@@ -71,41 +74,41 @@ const CustomerService = () => {
   ]; 
   const serviceFeatures = [
     {
-      icon: MessageSquare,
-      title: "Technical ",
-      subtitle: "& On-Page SEO",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      
+      title: "Platforms We",
+      subtitle: "Excel On",
+      description: `We manage social media with ease, staying on top of trends and what works best for your audience. Our experts handle: 
+      
+      • Facebook: Engage, advertise, and grow a loyal community 
+      • Instagram: Visual storytelling that converts followers into leads 
+      • Twitter: Share timely updates and spark conversations 
+      • LinkedIn: Build authority and generate B2B leads.`
     },
     {
-      icon: Clock,
-      title: "Keyword Research",
-      subtitle: "That Works",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      
+      title: "Creative Campaigns",
+      subtitle: "& Strategies",
+      description: "We don’t just post content, we craft campaigns that deliver. Our SMM experts create tailored strategies that match your goals, attract the right audience, and increase engagement. From eye-catching visuals to persuasive messaging, every campaign is designed to perform."
     },
     {
-      icon: Heart,
-      title: "Blogs That",
-      subtitle: "Build Authority",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      
+      title: "Branding &",
+      subtitle: "Awareness",
+      description: "Social media is the perfect place to make your brand memorable. We enhance your online presence through consistent branding, storytelling, and visuals that stick. Our social media marketing services in India help build trust, awareness, and a recognizable voice across platforms."
     },
     {
-      icon: BrainCircuit,
-      title: "Link Building",
-      subtitle: "the Right Way",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      
+      title: "Lead Web",
+      subtitle: "Generation & Sales",
+      description: "Turning followers into customers is our specialty. We design campaigns focused on conversions, targeting your ideal audience to generate qualified leads. Every ad, post, and strategy is aligned with your business objectives to maximize ROI."
     },
     {
-      icon:  Clock3,
-      title: "Local SEO",
-      subtitle: "for Local Wins",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      
+      title: "Analytics &",
+      subtitle: "Reporting",
+      description: "We track everything that matters. Our team provides detailed analytics and data reports, so you can see what’s working, what needs improvement, and how your social media marketing efforts are impacting your business growth."
     },
-    {
-      icon: Brain,
-      title: "Tracking & Reports",
-      subtitle: "You’ll Understand",
-      description: "We leverage industry-leading tools like Zendesk and Gorgias to streamline communication, track inquiries, and manage customer relationships efficiently. These platforms allow our team to provide organized, professional, and consistent support, while giving you clear insights into performance and trends."
-    }
+    
    ];
   return (
     <>
@@ -130,39 +133,36 @@ const CustomerService = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
           Social Media Marketing
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
-           Get Found. Get Clicks. Get Results.
+           Turn Followers into Customers with Social Media Marketing
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="If your website isn’t on the first page of Google, chances are people aren’t finding you. That’s where we come in. As a trusted SEO company in India, we help businesses climb rankings, attract the right audience, and turn clicks into real customers. From technical fixes to blog writing and link building, our complete SEO services in India give your business the visibility it deserves."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="If your audience isn’t talking about you online, are you even visible?” Social media marketing isn’t just posting pretty pictures, it’s about strategy, engagement, and real results. As a leading social media marketing company, we help businesses capture attention, build a loyal following, and turn clicks into customers. Our social media marketing services in India boost your brand presence, increase traffic, and connect you with the right audience, all while keeping your campaigns fresh, creative, and on-trend."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            BOOST MY SOCIAL MEDIA
           </motion.button>
         </motion.div>
       </div>
@@ -170,9 +170,9 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
+                    title="Stop posting and start performing!"
+                    description="Partner with a top social media marketing company and use our social media marketing services in India to engage your audience, expand reach, and turn followers into customers, fast!"
+                    buttonText="LET'S TALK"
                     imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
                     altText="Consulting Team Collaboration"
                 />

@@ -30,36 +30,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,41 +75,30 @@ const CustomerService = () => {
   ]; 
   const serviceFeatures = [
     {
-      icon: MessageSquare,
-      title: "Landing Page",
-      subtitle: "Variants & A/B Testing",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      
+      title: "Full-Site Content",
+      subtitle: "Migration",
+      description: "Moving your website to a new platform can feel overwhelming, but we make it completely hassle-free. We transfer every page, blog post, image, and piece of content from your existing website to your new platform, whether it’s Shopify, Webflow, WordPress, or another CMS. Nothing is left behind, and we maintain the structure so your site stays organized and professional. This ensures that all your products, articles, and media continue to work perfectly, with no broken layouts or missing sections. A smooth migration means your website is fully functional from day one, giving visitors a seamless experience."
     },
     {
-      icon: Clock,
-      title: "CTA Testing",
-      subtitle: "& Optimization",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      
+      title: "Redirects &",
+      subtitle: "Error Cleanup",
+      description: "Broken links, missing pages, or 404 errors can frustrate visitors and hurt your search rankings. During migration, we carefully identify all old URLs and set up proper redirects so your traffic never gets lost. We also clean up errors, broken links, and duplicate content, ensuring that your website runs smoothly. By maintaining all redirects correctly, we preserve your SEO value and make sure search engines understand the changes, so your website continues to attract traffic without interruption."
     },
     {
-      icon: Heart,
-      title: "Funnel",
-      subtitle: "Performance Review",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      
+      title: "Structured Copy",
+      subtitle: "Rewrite",
+      description: "Old or messy website content can confuse visitors and reduce engagement. We review all your existing copy and rewrite it in a structured, clear, and readable way. Each page gets properly formatted headings, bullet points, and organized text that guides visitors through your website effortlessly. We also make sure the copy is optimized for search engines, so your website ranks better while keeping it easy to read for humans. Clean, structured content improves user experience, builds trust, and encourages visitors to take action."
     },
     {
-      icon: BrainCircuit,
-      title: "Experiment-Based",
-      subtitle: "Scaling",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      
+      title: "SEO &",
+      subtitle: "Traffic Preservation",
+      description: "One of the biggest risks during a website migration is losing your hard-earned search rankings and organic traffic. We take every step to preserve your SEO, including keeping proper meta titles, descriptions, headings, and URLs. All technical SEO elements are maintained, and any necessary adjustments are made so that search engines recognize your new site without penalty. This ensures that your website continues to appear in search results, attracting the same audience you had before, as well as potential new visitors, without losing momentum."
     },
-    {
-      icon:  Clock3,
-      title: "Multichannel",
-      subtitle: "Attribution & Analytics",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
-    },
-    {
-      icon: Brain,
-      title: "Low-Cost",
-      subtitle: "Viral Experiments",
-      description: "We explore creative, low-cost campaigns designed to go viral and boost conversions. These experiments uncover new opportunities to engage audiences without heavy ad spend."
-    }
+    
    ];
   return (
     <>
@@ -130,39 +123,36 @@ const CustomerService = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
-           Conversion Rate Optimization Services
+           Content Migration & Management
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
-             Turn Visitors into Customers with CRO 
+             Move Your Website Content Safely, Smoothly, and Without Losing Traffic 
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="At Arista Systems, we don’t just drive traffic, we make sure it converts. As a leading digital marketing company in India, our Conversion Rate Optimization (CRO) services focus on maximizing the value of every visitor that comes to your site. Through systematic testing, funnel analysis, and experiment-based strategies, we help your business scale smarter and faster."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Switching platforms or updating your website can be tricky. One wrong step, and you could lose valuable content, SEO rankings, or even customers. We handle full-site content migration and management so you don’t have to worry. From moving all your pages and media to cleaning up errors, fixing redirects, and rewriting structured copy, we make sure your website works perfectly on its new platform."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -170,9 +160,9 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
+                    title="Don’t risk losing your content, traffic, or customers!"
+                    description="Let our experts move your website safely, fix errors, and rewrite your content for clarity and SEO. Keep your site fully functional and ready to grow from day one."
+                    buttonText="SEAMLESS WEBISTE MIGRATION STARTS HERE"
                     imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
                     altText="Consulting Team Collaboration"
                 />

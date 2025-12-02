@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Loader2 } from "lucide-react";
 import { createClient } from 'contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
+import Footer from "../component/Footer";
 
 // --- Configuration ---
 const client = createClient({
@@ -212,48 +213,63 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen bg-white font-sans text-gray-800">
       
-      {/* --- HERO SECTION --- */}
-      <div className="relative w-full h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px] xl:h-[600px] max-h-[600px] overflow-hidden">
-        {/* Gradient Overlay - UPDATED CLASS HERE */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/80 z-10 backdrop-blur-md" />
-        
-        {/* Hero Image */}
-        <img 
-          src={post.image} 
-          alt={post.title} 
-          className="w-full h-full object-cover object-center"
-        />
-        
-        {/* Content Container */}
-        <div className="absolute inset-0 z-20 flex items-end">
-          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-10 md:pb-12 lg:pb-16">
-            {/* Back Button */}
-            <button 
-              onClick={() => navigate('/Blog')} 
-              className="flex items-center gap-2 text-white/90 hover:text-white mb-4 sm:mb-6 transition-colors group"
-            >
-              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> 
-              <span className="text-sm sm:text-base font-medium">Back to Articles</span>
-            </button>
-            
-            {/* Category Badge */}
-            <span className="inline-block px-3 py-1.5 bg-cyan-500 text-white rounded-full text-xs sm:text-sm font-bold shadow-lg shadow-cyan-500/30 mb-3 sm:mb-4">
-              {post.category}
-            </span>
-            
-            {/* Title */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight max-w-5xl">
-              {post.title}
-            </h1>
-            
-            {/* Date */}
-            <div className="flex items-center text-white/80 gap-2 text-sm sm:text-base">
-              <Calendar size={16} className="flex-shrink-0" /> 
-              <span>{post.date}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+  {/* === HERO SECTION (FINAL — WITH STRONGER BLUR + FIXED SPACING) === */}
+<div className="relative w-full 
+                h-[500px] sm:h-[520px] md:h-[560px] lg:h-[620px] xl:h-[680px]
+                overflow-hidden">
+
+  {/* Restore heavy blur & depth */}
+  <div className="absolute inset-0 
+                  bg-gradient-to-b from-black/70 via-black/40 to-black/90 
+                  backdrop-blur-[6px]   /* Strong blur restored */
+                  z-10" />
+
+  {/* Background Image */}
+  <img 
+    src={post.image} 
+    alt={post.title} 
+    className="w-full h-full object-cover object-center scale-105"  /* soft zoom for cinematic feel */
+  />
+
+  {/* === HERO CONTENT === */}
+  <div className="absolute inset-0 z-20 flex items-end">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 
+                    pt-28 sm:pt-14 md:pt-8   /* pushes Back To Articles down on phones */
+                    pb-12 md:pb-14 lg:pb-20">
+
+      {/* Back Button */}
+      <button 
+        onClick={() => navigate('/Blog')} 
+        className="flex items-center gap-2 text-white/90 hover:text-white 
+                   mb-4 sm:mb-6 transition-colors group"
+      >
+        <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> 
+        <span className="text-sm sm:text-base font-medium">Back to Articles</span>
+      </button>
+
+      {/* Category Badge */}
+      <span className="inline-block px-3 py-1.5 bg-cyan-500 text-white rounded-full
+                       text-xs sm:text-sm font-bold shadow-lg shadow-cyan-500/30 mb-4">
+        {post.category}
+      </span>
+
+      {/* Title */}
+      <h1 className="text-white font-bold 
+                     text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl
+                     leading-tight max-w-5xl mb-3">
+        {post.title}
+      </h1>
+
+      {/* Date */}
+      <div className="flex items-center text-white/85 gap-2 text-sm sm:text-base">
+        <Calendar size={16} />
+        <span>{post.date}</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
       {/* --- MAIN CONTENT --- */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12">
@@ -318,6 +334,86 @@ const BlogPostPage = () => {
 
         </div>
       </div>
+{/* === PURPLE MODERN CTA SECTION === */}
+<div className="relative w-full bg-black py-12 px-4 sm:px-6 mt-20 overflow-hidden">
+  {/* Changed py-20 to py-12 for reduced overall height */}
+
+  {/* Ambient Background Glow */}
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none" />
+
+  <div
+    className="
+      relative z-10
+      max-w-6xl mx-auto
+      /* Removed rounded-3xl to make it rectangular */
+      p-6 md:p-8 /* Reduced padding from p-8 md:p-12 to shrink height */
+      grid grid-cols-1 lg:grid-cols-2
+      gap-8 lg:gap-12 items-center
+      bg-gradient-to-br from-[#1a1025]/90 to-[#050208]/90
+      backdrop-blur-2xl
+      border border-purple-500/30
+      shadow-[0_0_80px_-20px_rgba(139,92,246,0.3)]
+    "
+  >
+    {/* TEXT SECTION */}
+    <div className="space-y-6 text-center lg:text-left">
+      <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
+        Ready to Take Your Business to the Next Level?
+      </h2>
+
+      <p className="text-purple-200/70 text-base sm:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0">
+        Partner with our expert offshore teams and unlock precision, execution,
+        and accelerated growth powered by innovation.
+      </p>
+
+      <div className="flex justify-center lg:justify-start pt-2">
+        <button
+          className="
+            group
+            bg-gradient-to-r from-purple-600 to-indigo-600
+            hover:from-purple-500 hover:to-indigo-500
+            text-white
+            font-bold
+            text-base sm:text-lg
+            px-8 py-3
+            rounded-xl
+            transition-all
+            duration-300
+            shadow-lg shadow-purple-900/40
+            hover:shadow-purple-600/60
+            hover:-translate-y-1
+          "
+        >
+          Build Your Dream Team
+        </button>
+      </div>
+    </div>
+
+    {/* IMAGE SECTION */}
+    {/* Reduced min-heights here */}
+    <div className="relative flex justify-center w-full h-full min-h-[250px] lg:min-h-[350px]">
+      {/* Decorative Glow behind image */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-purple-500/30 blur-3xl rounded-full -z-10"></div>
+
+      <img
+        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"
+        alt="Abstract 3D Purple Structure"
+        className="
+          w-full
+          h-full
+          max-h-[350px] /* Reduced max-height from 400px */
+          rounded-2xl
+          shadow-2xl
+          shadow-purple-900/50
+          object-cover
+          border border-white/10
+          bg-purple-900/20
+        "
+      />
+    </div>
+  </div>
+</div>
+<Footer/>
     </div>
   );
 };

@@ -39,36 +39,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -84,58 +88,58 @@ const DesignServices = () => {
 ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Homepage &",
       subtitle: "Banner Updates",
-      description: "We understand that every customer has their preferred way to reach out, which is why we offer support across email, live chat, and voice calls. Whether it's a quick question about a product, a concern about an order, or a detailed return request, our team ensures that every interaction is seamless and convenient, meeting your customers wherever they are."
+      description: "Your homepage is your first impression, and first impressions matter. A stale homepage or old banners can make visitors leave instantly. We update your homepage and banners regularly to showcase new arrivals, promotions, and seasonal campaigns, so your brand looks alive, professional, and trustworthy at all times."
     },
     {
-      icon: Clock,
+      
       title: "Collection Refresh",
       subtitle: "& Product Organization",
-      description: "Time is valuable, both for you and your customers. That's why our team is trained to provide swift, accurate responses to every inquiry. From simple order updates to more complex troubleshooting, we prioritize efficiency without compromising quality, ensuring that your customers receive the answers they need quickly."
+      description: "Your collections are your products’ spotlight. If they’re outdated or disorganized, potential buyers can’t find what they want and simply leave. We refresh collections, reorganize categories, and highlight trending items, making your site irresistible and easy to shop from."
     },
     {
-      icon: Heart,
+      
       title: "Promo Code Setup",
       subtitle: "& Campaign Management",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Every promotion is an opportunity to convert visitors into loyal customers. Failed or mismanaged promo codes cost money, trust, and momentum. We handle promo code setup, testing, and scheduling perfectly, so every discount works, every campaign hits its target, and every visitor feels compelled to buy."
     },
      {
-      icon: Heart,
+      
       title: "Journal & ",
       subtitle: "Content Updates",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Content is credibility. Outdated blogs, announcements, or guides make your brand feel inactive. We update your journal, blogs, and content pages consistently, ensuring your audience trusts you, engages with your brand, and keeps coming back for more."
     },
      {
-      icon: Heart,
+      
       title: "Timely Product",
       subtitle: "Rollouts",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Launching a product late or with errors can cost you weeks of sales and customer confidence. We manage every product rollout with precision, images, descriptions, pricing, categories, all go live exactly on time. Your audience sees a professional, seamless experience that builds trust and drives revenue."
     },
      {
-      icon: Heart,
+      
       title: "Performance Monitoring &",
       subtitle: "Optimization",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Slow pages, broken links, or glitches frustrate visitors instantly. We monitor your website continuously, fix issues immediately, and optimize for speed and responsiveness, so customers stay, explore, and buy without hesitation."
     },
      {
-      icon: Heart,
+      
       title: "Security &",
       subtitle: "Updates",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Every unpatched vulnerability is a risk, your customers’ trust, your revenue, and your reputation are at stake. We handle updates, security patches, and backups proactively, keeping your website safe and your brand credible."
     },
      {
-      icon: Heart,
+      
       title: "Analytics &",
       subtitle: "Insights",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Without insights, you’re guessing, and guessing costs money. We track traffic, engagement, and conversions, providing actionable reports. You’ll know exactly what’s working, what isn’t, and how to maximize every opportunity to sell and grow."
     },
      {
-      icon: Heart,
+      
       title: "Full-Service",
       subtitle:  "Support",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      description: "Imagine never worrying about your website again. That’s what we offer. Every update, campaign, and launch is handled by our expert team. You focus on your business, while we ensure your store always looks perfect, works flawlessly, and converts visitors into paying customers."
     }
 
    ];
@@ -162,39 +166,36 @@ const DesignServices = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
           Website Maintenance & Product Launch Ops
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
           Website Maintenance & Product Launch Services You Can’t Afford to Ignore!
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text=" Every second your website is outdated, slow, or missing updates, you’re losing customers, and revenue. A neglected homepage, outdated collections, failed promotions, or delayed product launches can silently drive your audience to competitors. With our Website Maintenance & Product Launch Operations, we ensure your store is always ready, engaging, and performing at its best. Don’t risk losing customers when the solution is in front of you."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Every second your website is outdated, slow, or missing updates, you’re losing customers, and revenue. A neglected homepage, outdated collections, failed promotions, or delayed product launches can silently drive your audience to competitors. With our Website Maintenance & Product Launch Operations, we ensure your store is always ready, engaging, and performing at its best. Don’t risk losing customers when the solution is in front of you."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -202,9 +203,9 @@ const DesignServices = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
+                    title="Your website is the face of your business!"
+                    description="Outdated pages, promos, or delays cost customers and sales. We handle updates, banners, collections, promos, journals, and launches, keeping your store alive, perfect, and selling."
+                    buttonText="DON'T LEAVE YOUR BUSINESS TO CHANCE"
                     imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
                     altText="Consulting Team Collaboration"
                 />

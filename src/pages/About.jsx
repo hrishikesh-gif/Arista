@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import Footer from "../component/Footer";
 import Testimonials from "../component/Testimonial";
 import BusinessCTA from "../component/BusinessCTA";
+import MagicBentoCustom from "../component/MagicBentoCustom";
+import WeAreSection from "../component/WeAreSection";
 
 // --- UI Helper Components ---
 
@@ -91,15 +93,15 @@ const MotionDiv = ({
 // --- Main About Page ---
 const About = () => {
   return (
-    <div 
+    <div
       className="bg-black text-white min-h-screen w-full overflow-x-hidden relative"
       style={{ background: "linear-gradient(to bottom, #000000 0%, #1e0a3c 50%, #000000 100%)" }}
     >
-      
+
       {/* Background Orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-         <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-900/20 rounded-full blur-[120px] opacity-50"></div>
-         <div className="absolute bottom-[20%] right-[-5%] w-[30vw] h-[30vw] bg-blue-900/20 rounded-full blur-[100px] opacity-50"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-900/20 rounded-full blur-[120px] opacity-50"></div>
+        <div className="absolute bottom-[20%] right-[-5%] w-[30vw] h-[30vw] bg-blue-900/20 rounded-full blur-[100px] opacity-50"></div>
       </div>
 
       {/* Grid Texture */}
@@ -113,7 +115,7 @@ const About = () => {
       ></div>
 
       <div className="relative z-10 w-full">
-        
+
         {/* --- HERO SECTION --- */}
         <div className="w-full px-6 md:px-12 lg:px-12 pt-48 md:pt-64 pb-20">
           <div
@@ -133,10 +135,10 @@ const About = () => {
                   we're Arista Systems
                 </div>
               </h1>
-              
+
               <p className="mt-8 text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl font-light">
-                We build digital destinations that grab attention, amplify your story, 
-                and wow every visitor, because you deserve a team that gets it, delivers 
+                We build digital destinations that grab attention, amplify your story,
+                and wow every visitor, because you deserve a team that gets it, delivers
                 it, and makes it effortless.
               </p>
             </MotionDiv>
@@ -149,82 +151,69 @@ const About = () => {
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
             >
-                {[
-                  {
-                    end: 150,
-                    label: "Projects Till Date",
-                    color: "text-white", 
-                    delay: 0,
-                  },
-                  {
-                    end: 75,
-                    label: "Happy Customers",
-                    color: "text-white",
-                    delay: 0.2,
-                  },
-                  {
-                    end: 6,
-                    label: "Countries Served",
-                    color: "text-white",
-                    delay: 0.4,
-                  },
-                ].map((stat, index) => (
-                  <div key={index} className="flex flex-col items-start lg:items-end"> 
-                    <h2 className="text-5xl md:text-6xl font-bold text-white drop-shadow-md mb-1">
-                      <CountUp end={stat.end} duration={3} />
-                      {stat.end === 6 ? "" : "+"}
-                    </h2>
-                    <p className="text-lg text-gray-400 font-medium">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
+              {[
+                {
+                  end: 150,
+                  label: "Projects Till Date",
+                  color: "text-white",
+                  delay: 0,
+                },
+                {
+                  end: 75,
+                  label: "Happy Customers",
+                  color: "text-white",
+                  delay: 0.2,
+                },
+                {
+                  end: 6,
+                  label: "Countries Served",
+                  color: "text-white",
+                  delay: 0.4,
+                },
+              ].map((stat, index) => (
+                <div key={index} className="flex flex-col items-start lg:items-end">
+                  <h2 className="text-5xl md:text-6xl font-bold text-white drop-shadow-md mb-1">
+                    <CountUp end={stat.end} duration={3} />
+                    {stat.end === 6 ? "" : "+"}
+                  </h2>
+                  <p className="text-lg text-gray-400 font-medium">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
             </MotionDiv>
           </div>
         </div>
         {/* --- End Hero Section --- */}
 
-        {/* --- Intro / We Are Section --- */}
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-          <MotionDiv
-            className="py-20 md:py-32 flex flex-col items-center text-center relative"
-            id="intro"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple-600/10 rounded-full blur-3xl -z-10"></div>
-            
-            <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-6 md:mb-8">
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                We Are...
-              </span>
-            </h1>
-            
-            <p className="text-xl sm:text-2xl md:text-4xl font-medium text-white leading-normal max-w-4xl">
-              Passionate about unifying <span className="text-purple-400">art</span>, <span className="text-blue-400">tech</span>, and <span className="text-pink-400">storytelling</span>.
-            </p>
-
-            <div className="mt-12 p-6 md:p-8 border border-white/10 bg-white/5 backdrop-blur-sm rounded-2xl max-w-3xl mx-auto shadow-2xl shadow-purple-900/20 hover:bg-white/10 transition-colors duration-300">
-              <p className="text-gray-300 text-base sm:text-lg md:text-xl leading-loose">
-                Arista Systems Pvt. Ltd. is a renowned end-to-end IT and web service
-                facilitator based in India. We have a zealous team of professionals
-                holding years of experience and expertise in different domains.
-              </p>
-            </div>
-          </MotionDiv>
-        </div>
-        
         <div className="w-full">
-            <BusinessCTA />
+          <WeAreSection/>
         </div>
-        
+         
+         <div className="w-full">
+          <MagicBentoCustom />
+        </div>
+
+        <div 
+          className="w-full"
+          style={{
+            background: '#0a0118',
+            '--glow-x': '50%',
+            '--glow-y': '50%',
+            '--glow-intensity': '0',
+            '--border-color': '#2e1a4e',
+            '--background-dark': '#0a0118'
+          }}
+        >
+          <BusinessCTA />
+        </div>
+
         <div className="w-full mb-0">
-           <Testimonials />
+          <Testimonials />
         </div>
 
         <div className="w-full">
-            <Footer />
+          <Footer />
         </div>
 
       </div>

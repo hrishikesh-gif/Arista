@@ -30,36 +30,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,34 +75,45 @@ const CustomerService = () => {
   ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Billing",
       subtitle: "Accuracy",
       description: "When it comes to lead generation, even small billing errors can add up to thousands of wasted dollars over time. That’s why we meticulously review every invoice line by line to make sure the charges match the leads you actually received. If we spot overcharges, double billing, or hidden fees, we flag them right away and push back on the vendor. The result? You only pay for what’s accurate, and not a penny more."
     },
     {
-      icon: Clock,
+      
       title: "Invalid",
       subtitle: "Lead Refunds",
       description: "Not every lead is worth paying for. Sometimes you get duplicates, spam inquiries, wrong numbers, or irrelevant leads that never should’ve been billed in the first place. Instead of letting them slide, our team disputes these with vendors like Elocal, Service Direct, and other lead providers to make sure you get credit back for the invalid ones. This protects your marketing budget and ensures you’re only investing in legitimate opportunities that could actually convert."
     },
     {
-      icon: Heart,
+      
       title: "Call & PPC",
       subtitle: "Lead Tracking",
       description: "If you’re paying for calls or PPC leads, you deserve to know where they’re coming from and whether they’re delivering real value. We track every single call and click-based lead across platforms, verifying its origin and checking if it matches the billing details. This transparency allows you to see which platforms are driving quality leads and which ones are draining your spend. In short, you’ll know exactly where your money is working, and where it’s being wasted."
     },
     {
-      icon: BrainCircuit,
+      
       title: "Escalation",
       subtitle: "Workflows",
       description: "Sometimes, vendors don’t respond quickly or refuse to process refunds on invalid leads. That’s where our escalation workflows kick in. We take your dispute up the chain, moving it through the right departments and pressing for resolution until it’s settled. This structured process increases your chances of winning disputes, recovering refunds faster, and holding vendors accountable. You’ll never feel stuck or ignored, we fight until the issue is resolved."
     },
     {
-      icon: Clock3,
+      
       title: "Why",
       subtitle: "It Matters",
       description: "Every invalid lead left unchecked is lost money. By reconciling your leads and auditing your portals, you’re not just protecting your budget, you’re building a more efficient growth engine. Think of it as turning wasted spend back into revenue."
+    },
+    {
+      
+      title: "Why",
+      subtitle: "Choose Us",
+      description: `
+      • Proven expertise in lead vendor platforms like Elocal, Service Direct & more. 
+      • End-to-end auditing and dispute management. 
+      • Clear reporting so you always know where your money is going. 
+      • Fast escalations to secure refunds without hassle. 
+      • A partner focused on protecting your ad spend.`
     }  
   ];
   return (
@@ -124,39 +139,36 @@ const CustomerService = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
             Lead Reconciliation & Portal Auditing
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
             Stop Wasting Money on Bad Leads, Get Every Dollar Accounted For!
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl">
             <TypewriterText
-              text="  Every lead you pay for should be a real opportunity, not a dead end. Unfortunately, billing errors, invalid leads, and missed refunds can drain your marketing budget. Our Lead Reconciliation & Portal Auditing service makes sure you’re only paying for what’s real, accurate, and worth your money."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Every lead you pay for should be a real opportunity, not a dead end. Unfortunately, billing errors, invalid leads, and missed refunds can drain your marketing budget. Our Lead Reconciliation & Portal Auditing service makes sure you’re only paying for what’s real, accurate, and worth your money."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -164,9 +176,9 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
       <ServiceCard features={serviceFeatures} accentColor="purple" />
       <BusinessCTA 
-                    title="Ready to Experience Exceptional Support?"
-                    description="Our team is eager to assist you. Reach out through your preferred channel, and let us show you the Arista difference."
-                    buttonText="Let's Talk"
+                    title="Every invalid lead, every billing error is money gone forever!"
+                    description="…unless you fight for it! Don’t let vendors keep what’s yours. With our lead reconciliation, refund recovery, and portal auditing, we protect every dollar you spend."
+                    buttonText="RECOVER MY MONEY"
                     imageUrl="\images\CS.avif"
                     altText="Let's Talk"
                 />

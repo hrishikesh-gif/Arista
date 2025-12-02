@@ -59,29 +59,11 @@ const Header = () => {
     { name: "Blog", path: "/blog" },
   ];
 
-  // Services data
+  // UPDATED Services data structure - ALL are pages now
   const servicesData = [
     {
-      title: "Customer Experience & Support",
-      hasSubItems: true,
-      subItems: [
-        { name: "Customer Service", path: "/services/customer-service" },
-        { name: "Chargeback & Dispute Resolution", path: "/services/chargeback-dispute" },
-        { name: "Lead Reconciliation & Portal Auditing", path: "/services/lead-reconciliation" },
-      ],
-    },
-    {
-      title: "Amazon & Marketplace Management",
-      hasSubItems: true,
-      subItems: [
-        { name: "Amazon Seller Support", path: "/services/amazon-seller-support" },
-        { name: "Amazon Image Editing", path: "/services/amazon-image-editing" },
-        { name: "Marketplace Advertising", path: "/services/marketplace-advertising" },
-        { name: "Marketplace Customer Support", path: "/services/marketplace-customer-support" },
-      ],
-    },
-    {
       title: "Creative Production",
+      path: "/services/creative-production",
       hasSubItems: true,
       subItems: [
         { name: "Photo Editing & Retouching", path: "/services/photo-editing" },
@@ -91,7 +73,19 @@ const Header = () => {
       ],
     },
     {
+      title: "Website Development",
+      path: "/services/website-development",
+      hasSubItems: true,
+      subItems: [
+        { name: "Shopify Development", path: "/services/shopify-development" },
+        { name: "WordPress / CMS Development", path: "/services/wordpress-cms" },
+        { name: "Magento, BigCommerce & Custom CMS", path: "/services/magento-bigcommerce" },
+        { name: "Website Maintenance & Product Launch Ops", path: "/services/website-maintenance" },
+      ],
+    },
+    {
       title: "Digital Marketing",
+      path: "/services/digital-marketing",
       hasSubItems: true,
       subItems: [
         { name: "SEO Services", path: "/services/seo" },
@@ -102,37 +96,73 @@ const Header = () => {
       ],
     },
     {
-      title: "Website Development",
+      title: "Amazon & Marketplace Management",
+      path: "/services/amazon-marketplace",
       hasSubItems: true,
       subItems: [
-        { name: "Shopify Development", path: "/services/shopify-development" },
-        { name: "WordPress / CMS Development", path: "/services/wordpress-cms" },
-        { name: "Magento, BigCommerce & Custom CMS", path: "/services/magento-bigcommerce" },
-        { name: "Website Maintenance & Product Launch Ops", path: "/services/website-maintenance" },
+        { name: "Amazon Seller Support", path: "/services/amazon-seller-support" },
+        { name: "Amazon Storefront & Brand Setup", path: "/services/amazon-storefront-brand" },
+        { name: "Marketplace Advertising", path: "/services/marketplace-advertising" },
+        { name: "Marketplace Customer Support", path: "/services/marketplace-customer-support" },
+      ],
+    },
+    {
+      title: "Customer Experience & Support",
+      path: "/services/customer-experience",
+      hasSubItems: true,
+      subItems: [
+        { name: "Customer Service", path: "/services/customer-service" },
+        { name: "Chargeback & Dispute Resolution", path: "/services/chargeback-dispute" },
+        { name: "Lead Reconciliation & Portal Auditing", path: "/services/lead-reconciliation" },
       ],
     },
     {
       title: "Content & Catalog Management",
+      path: "/services/content-catalog",
       hasSubItems: true,
       subItems: [
-        { name: "Product Content Migration & Management", path: "/services/content-migration" },
+        { name: "Product Content & Catalog Accuracy", path: "/services/product-content-catalog" },
+        { name: "Content Migration & Management", path: "/services/content-migration" },
         { name: "404 Cleanup & Categorization Structure", path: "/services/404-cleanup" },
       ],
     },
     {
       title: "Operations & Fulfillment Support",
-      hasSubItems: false,
       path: "/services/operations-fulfillment",
+      hasSubItems: true,
+      subItems: [
+        { name: "Fulfillment Operations & Reporting", path: "/services/fulfillment-operations" },
+        { name: "Inventory Reconciliation, Retail Ops And Order Management", path: "/services/inventory-reconciliation" },
+        { name: "Logistics Reconciliation & Charge Verification", path: "/services/logistics-reconciliation" },
+      ],
     },
     {
       title: "Finance & Reconciliation",
-      hasSubItems: false,
       path: "/services/finance-reconciliation",
+      hasSubItems: true,
+      subItems: [
+        { name: "Accounts Payable Services", path: "/services/accounts-payable" },
+        { name: "Accounts Receivable Support", path: "/services/accounts-receivable" },
+      ],
     },
     {
       title: "Data, Reporting & Insights",
-      hasSubItems: false,
       path: "/services/data-reporting",
+      hasSubItems: true,
+      subItems: [
+        { name: "Reporting & Dashboard Creation", path: "/services/reporting-dashboard" },
+        { name: "Insights & Business Intelligence", path: "/services/insights-business-intelligence" },
+      ],
+    },
+    {
+      title: "Quality Assurance",
+      path: "/services/quality-assurance",
+      hasSubItems: false,
+    },
+    {
+      title: "Architectural & 3D Rendering",
+      path: "/services/architectural-3d",
+      hasSubItems: false,
     },
   ];
 
@@ -230,7 +260,7 @@ const Header = () => {
               <img 
                 src="/images/aristasystems_logo.png" 
                 alt="Arista Systems Logo" 
-                className="h-8 sm:h-9 lg:h-10 w-auto object-contain"
+                className="h-10 sm:h-12 lg:h-14 w-auto object-contain"
               />
             </Link>
           </motion.div>
@@ -278,7 +308,7 @@ const Header = () => {
                   cancelClose();
                   setServicesDropdownOpen(true);
                 }}
-                onClick={() => setServicesDropdownOpen((v) => !v)}
+                onClick={() => handleNavigation("/services")}
               >
                 Services
                 <ChevronDown
@@ -316,13 +346,7 @@ const Header = () => {
                             role="menuitem"
                             aria-haspopup={service.hasSubItems ? "true" : undefined}
                             aria-expanded={service.hasSubItems ? (showSub ? "true" : "false") : undefined}
-                            onClick={() => {
-                              if (service.hasSubItems) {
-                                setHoveredService((v) => (v === index ? null : index));
-                              } else if (service.path) {
-                                handleNavigation(service.path);
-                              }
-                            }}
+                            onClick={() => handleNavigation(service.path)}
                             className={`w-full flex items-center justify-between px-4 py-3 text-xs xl:text-[13px] tracking-wide uppercase font-semibold text-gray-100 hover:bg-gray-900 transition-colors ${
                               showSub ? "bg-gray-900" : ""
                             }`}
@@ -333,7 +357,7 @@ const Header = () => {
                             ) : null}
                           </button>
 
-                          {/* Flyout */}
+                          {/* Flyout for sub-items */}
                           <AnimatePresence>
                             {showSub && (
                               <motion.div
@@ -512,13 +536,22 @@ const Header = () => {
                           <div key={idx}>
                             {service.hasSubItems ? (
                               <>
-                                <button
-                                  onClick={() => setMobileExpandedService(mobileExpandedService === idx ? null : idx)}
-                                  className="w-full text-left text-gray-400 text-sm font-medium py-2 px-2 rounded hover:bg-gray-900 flex items-center justify-between"
-                                >
-                                  <span>{service.title}</span>
-                                  <ChevronRight className={`w-4 h-4 transition-transform ${mobileExpandedService === idx ? "rotate-90" : ""}`} />
-                                </button>
+                                {/* Category clickable + expandable */}
+                                <div className="flex items-center gap-1">
+                                  <Link
+                                    to={service.path}
+                                    className="flex-1 text-left text-gray-400 text-sm font-medium py-2 px-2 rounded hover:bg-gray-900 hover:text-violet-400"
+                                  >
+                                    {service.title}
+                                  </Link>
+                                  <button
+                                    onClick={() => setMobileExpandedService(mobileExpandedService === idx ? null : idx)}
+                                    className="p-2 text-gray-400 hover:text-violet-400 rounded hover:bg-gray-900"
+                                    aria-label={`Toggle ${service.title} submenu`}
+                                  >
+                                    <ChevronRight className={`w-4 h-4 transition-transform ${mobileExpandedService === idx ? "rotate-90" : ""}`} />
+                                  </button>
+                                </div>
                                 <AnimatePresence>
                                   {mobileExpandedService === idx && (
                                     <motion.div
@@ -544,7 +577,7 @@ const Header = () => {
                             ) : (
                               <Link
                                 to={service.path}
-                                className="block text-gray-300 hover:text-violet-400 transition-colors duration-300 text-sm py-2 px-2 rounded hover:bg-gray-900"
+                                className="block text-gray-400 hover:text-violet-400 transition-colors duration-300 text-sm py-2 px-2 rounded hover:bg-gray-900"
                               >
                                 {service.title}
                               </Link>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Footer from "../component/Footer.jsx";
-import { ArrowRight, Sparkles, ChevronDown, ChevronUp, Loader2, Briefcase } from "lucide-react";
+import { ArrowRight, Sparkles, ChevronDown, ChevronUp, Loader2, Briefcase, X } from "lucide-react";
 import { createClient } from "contentful";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
@@ -61,6 +61,15 @@ export default function Careers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedPositions, setExpandedPositions] = useState({});
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    resume: null,
+    comments: ''
+  });
   const containerRef = useRef();
 
   // --- 1. Fetch Data ---
@@ -89,7 +98,62 @@ export default function Careers() {
      }));
   };
 
-  // --- 3. Scroll Animation Observer ---
+  // --- Handle Apply Button Click ---
+  const handleApplyClick = (position) => {
+    setSelectedJob(position);
+    setIsPopupOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+  
+  // --- Handle General Application Button Click ---
+  const handleGeneralApplyClick = () => {
+    setSelectedJob({ title: "Future Opportunities" }); 
+    setIsPopupOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  // --- Close Popup ---
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedJob(null);
+    setFormData({
+      fullName: '',
+      email: '',
+      phone: '',
+      resume: null,
+      comments: ''
+    });
+    document.body.style.overflow = 'unset';
+  };
+
+  // --- Handle Form Input Change ---
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // --- Handle File Upload ---
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData(prev => ({
+      ...prev,
+      resume: file
+    }));
+  };
+
+  // --- Handle Form Submit ---
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // TODO: Add actual form submission logic (e.g., API call) here
+    console.log('Form submitted:', formData, 'For job:', selectedJob?.title);
+    alert(`Application for ${selectedJob?.title} submitted successfully! (Check console for data)`);
+    closePopup();
+  };
+
+  // --- 3. Scroll Animation Observer (Existing functionality) ---
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -108,7 +172,7 @@ export default function Careers() {
     return () => observer.disconnect();
   }, [positions, loading]);
 
-  // --- 4. Hero Animations ---
+  // --- 4. Hero Animations (Existing functionality) ---
   useEffect(() => {
     const heroElements = ['title', 'subtitle', 'text', 'cta', 'image'];
     heroElements.forEach((ref, index) => {
@@ -150,7 +214,6 @@ export default function Careers() {
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
-        /* Subtle Grid Background */
         .bg-grid-pattern {
             background-image: radial-gradient(rgba(120, 53, 255, 0.15) 1px, transparent 1px);
             background-size: 30px 30px;
@@ -160,18 +223,74 @@ export default function Careers() {
                 background-size: 40px 40px;
             }
         }
+        /* Custom styling for inputs and file input */
+        .input-line-gradient {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #6d28d9, #8b5cf6, #ec4899) 1;
+            padding: 0.6rem 0.25rem; /* Reduced padding */
+            color: white;
+            transition: border-image 0.3s ease-in-out;
+        }
+        .input-line-gradient:focus {
+            outline: none;
+            border-image: linear-gradient(to right, #a855f7, #ec4899, #22d3ee) 1;
+        }
+        .input-line-gradient::placeholder {
+            color: #a0aec0;
+        }
+
+        /* Custom file input */
+        .custom-file-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 40px; /* Reduced height */
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #6d28d9, #8b5cf6, #ec4899) 1;
+            padding-bottom: 5px; /* Added padding to clear bottom border */
+        }
+        .custom-file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .custom-file-button {
+            background: #6d28d9;
+            color: white;
+            border-radius: 6px;
+            padding: 6px 14px; /* Reduced padding */
+            font-weight: 600;
+            white-space: nowrap;
+            z-index: 10;
+            font-size: 0.875rem; /* text-sm */
+        }
+        .custom-file-button:hover {
+            background: #5b21aa;
+        }
+        .custom-file-text {
+            color: #a0aec0;
+            margin-left: 0.75rem; /* Reduced margin */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.875rem; /* text-sm */
+        }
       `}</style>
 
-      {/* Hero Section */}
+      {/* Hero Section - Modified for responsive ordering */}
       <div
-        // UPDATED PADDING: Reduced lg:padding slightly (px-16) to allow image more width on 1024px screens
         className="min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-16 xl:px-24 py-16 relative z-10 pt-28 md:pt-32"
         style={{
           background: "linear-gradient(to bottom, #000000 0%, #1a0536 50%, #000000 100%)",
           minHeight: "70vh",
         }}
       >
-        {/* Animated Background */}
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(88,28,135,0.15),transparent_70%)]"></div>
           {[...Array(12)].map((_, i) => (
@@ -186,11 +305,10 @@ export default function Careers() {
           ))}
         </div>
 
-        {/* Left Content (Text) - Order 2 on Mobile, Order 1 on Desktop */}
-        <div className="w-full max-w-2xl relative z-10 lg:mr-10 order-2 lg:order-1 mt-8 lg:mt-0 text-center lg:text-left">
+        {/* Left Section - Content - Now appears first on mobile */}
+        <div className="w-full max-w-2xl relative z-10 lg:mr-10 order-1 lg:order-1 mt-8 lg:mt-0 text-center lg:text-left">
           <h1 
             id="hero-title"
-            // UPDATED: Smoother font scaling. text-6xl at lg (laptop) looks better than 7xl. 7xl/8xl reserved for xl/2xl.
             className="text-5xl md:text-6xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-4 md:mb-6 leading-tight opacity-0 -translate-x-10 transition-all duration-1000"
           >
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
@@ -229,10 +347,9 @@ export default function Careers() {
           </div>
         </div>
 
-        {/* Right Image - Order 1 on Mobile (Up Side), Order 2 on Desktop */}
-        <div className="relative z-10 w-full lg:w-1/2 flex justify-center lg:justify-end order-1 lg:order-2 mb-8 lg:mb-0">
+        {/* Right Section - Image - Now appears second on mobile with increased gap */}
+        <div className="relative z-10 w-full lg:w-1/2 flex justify-center lg:justify-end order-2 lg:order-2 mb-8 lg:mb-0 mt-12 lg:mt-0">
           <div 
-            // UPDATED: Removed aggressive max-w on LG screens so it fills the 50% column better
             className="relative w-full max-w-md md:max-w-xl lg:max-w-full xl:max-w-2xl opacity-0 translate-x-10 transition-all duration-1000"
             id="hero-image"
           >
@@ -361,7 +478,10 @@ export default function Careers() {
                         </div>
                       </div>
 
-                      <button className="relative px-5 py-2 md:px-6 md:py-2.5 border border-cyan-500/30 text-cyan-400 text-xs md:text-sm font-semibold tracking-wide uppercase rounded-lg overflow-hidden transition-all duration-300 hover:text-black hover:border-cyan-400 group/btn w-full md:w-fit mt-2 md:mt-0">
+                      <button 
+                        onClick={() => handleApplyClick(position)}
+                        className="relative px-5 py-2 md:px-6 md:py-2.5 border border-cyan-500/30 text-cyan-400 text-xs md:text-sm font-semibold tracking-wide uppercase rounded-lg overflow-hidden transition-all duration-300 hover:text-black hover:border-cyan-400 group/btn w-full md:w-fit mt-2 md:mt-0"
+                      >
                         <span className="relative z-10">Apply Now</span>
                         <div className="absolute inset-0 bg-cyan-400 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out"></div>
                       </button>
@@ -395,7 +515,7 @@ export default function Careers() {
 
               <div className="w-full lg:w-1/2 text-center lg:text-left mt-8 lg:mt-0 lg:pr-8 relative z-10">
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
-                  Don't see the right fit?
+                  Not aligned with any current openings, but interested in being considered for future opportunities?
                 </h3>
                 <p className="text-gray-400 mb-8 text-base md:text-lg">
                   We are always looking for talent. Send your resume to{" "}
@@ -406,7 +526,10 @@ export default function Careers() {
                     hr@aristasystems.in
                   </a>
                 </p>
-                <button className="w-full md:w-auto border border-purple-500/50 text-purple-300 px-8 py-3 rounded-lg hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-300 font-medium hover:shadow-[0_0_20px_rgba(147,51,234,0.3)]">
+                <button 
+                  onClick={handleGeneralApplyClick}
+                  className="w-full md:w-auto border border-purple-500/50 text-purple-300 px-8 py-3 rounded-lg hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-300 font-medium hover:shadow-[0_0_20px_rgba(147,51,234,0.3)]"
+                >
                   SEND GENERAL APPLICATION
                 </button>
               </div>
@@ -427,6 +550,183 @@ export default function Careers() {
       </section>
 
       <Footer />
+
+      {/* Application Popup Modal – Arista Style (Tailwind/Inline Only, Adjusted Height) */}
+      {isPopupOpen && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+          {/* Dark overlay */}
+          <div
+            className="absolute inset-0 bg-black/70"
+            onClick={closePopup}
+          ></div>
+
+          {/* Main gradient card (Wider width) */}
+          <div className="relative z-[10000] w-full max-w-2xl">
+            <div
+              className="rounded-xl overflow-hidden shadow-2xl"
+              style={{
+                // Specific gradient
+                background: "linear-gradient(135deg, #100035 0%, #300065 25%, #501095 65%, #9e1aa3 100%)", 
+              }}
+            >
+              {/* Close button (blue X icon) */}
+              <button
+                onClick={closePopup}
+                className="absolute top-2.5 right-2.5 p-2 bg-blue-500 rounded-full text-white leading-none hover:bg-blue-600 transition-colors"
+                aria-label="Close application form"
+              >
+                <X size={16} />
+              </button>
+
+              {/* Content (Reduced top/bottom padding: pt-6 pb-6) */}
+              <div className="px-10 pt-6 pb-6 text-white max-[480px]:px-6">
+                
+                {/* TITLE STRUCTURE */}
+                <h2 className="text-[38px] md:text-[45px] leading-tight font-bold mb-4 text-white text-left">
+                  Applying For <br />
+                  <span className="text-[38px] md:text-[45px] font-bold">
+                    {selectedJob?.title?.replace(" Job", "") || "Graphic Designer"} Job 
+                  </span>
+                </h2>
+                
+                {/* Form with reduced space-y for tighter packing (space-y-5) */}
+                <form onSubmit={handleSubmit} className="mt-4 space-y-5 text-base">
+                  
+                  {/* Full Name (Single instance) */}
+                  <div>
+                    <label className="block mb-1 text-white/90 font-medium text-sm sr-only">Full Name*</label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Full Name*"
+                      // Input line gradient simulation with inline style
+                      className="w-full bg-transparent outline-none pb-1.5 text-white placeholder-white/80"
+                      style={{ 
+                        border: 'none',
+                        borderBottom: '2px solid',
+                        borderImage: 'linear-gradient(to right, #6d28d9, #8b5cf6, #ec4899) 1',
+                        padding: '0.4rem 0.25rem',
+                        fontSize: '15px' 
+                      }}
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block mb-1 text-white/90 font-medium text-sm sr-only">Email*</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Email*"
+                      // Input line gradient simulation with inline style
+                      className="w-full bg-transparent outline-none pb-1.5 text-white placeholder-white/80"
+                      style={{ 
+                        border: 'none',
+                        borderBottom: '2px solid',
+                        borderImage: 'linear-gradient(to right, #6d28d9, #8b5cf6, #ec4899) 1',
+                        padding: '0.4rem 0.25rem',
+                        fontSize: '15px' 
+                      }}
+                    />
+                  </div>
+
+                  {/* Phone */}
+                  <div>
+                    <label className="block mb-1 text-white/90 font-medium text-sm sr-only">Phone*</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Phone*"
+                      // Input line gradient simulation with inline style
+                      className="w-full bg-transparent outline-none pb-1.5 text-white placeholder-white/80"
+                      style={{ 
+                        border: 'none',
+                        borderBottom: '2px solid',
+                        borderImage: 'linear-gradient(to right, #6d28d9, #8b5cf6, #ec4899) 1',
+                        padding: '0.4rem 0.25rem',
+                        fontSize: '15px' 
+                      }}
+                    />
+                  </div>
+
+                  {/* Upload Resume (custom look with inline styles) */}
+                  <div>
+                    <label className="block mb-1 text-white/90 font-medium text-sm">
+                      Upload Resume
+                    </label>
+                    {/* Custom File Wrapper: Simulated with position relative and border-bottom inline styles */}
+                    <div 
+                      className="relative flex items-center w-full"
+                      style={{
+                        height: '40px',
+                        paddingBottom: '5px',
+                        borderBottom: '2px solid',
+                        borderImage: 'linear-gradient(to right, #6d28d9, #8b5cf6, #ec4899) 1',
+                      }}
+                    >
+                      {/* Custom File Button */}
+                      <span className="bg-[#6d28d9] hover:bg-[#5b21aa] text-white rounded-md py-1.5 px-4 font-semibold whitespace-nowrap z-10 text-xs transition-colors cursor-pointer">
+                        Choose file
+                      </span>
+                      {/* File Name Text */}
+                      <span className="text-gray-300 ml-3 whitespace-nowrap overflow-hidden text-ellipsis text-xs">
+                        {formData.resume ? formData.resume.name : "No file chosen"}
+                      </span>
+                      {/* Invisible File Input */}
+                      <input
+                        type="file"
+                        name="resume"
+                        onChange={handleFileChange}
+                        required
+                        accept=".pdf,.doc,.docx"
+                        className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Comments */}
+                  <div className="!mt-6"> {/* Adjusted margin top */}
+                    <label className="block mb-1 text-white/90 font-medium text-sm sr-only">Comments</label>
+                    <textarea
+                      name="comments"
+                      value={formData.comments}
+                      onChange={handleInputChange}
+                      rows={4} 
+                      placeholder="Comments"
+                      // Box-style field matching the screenshot
+                      className="w-full bg-transparent border border-white/40 focus:border-purple-400/50 outline-none p-3 text-sm resize-none rounded-sm transition-colors placeholder-white/80"
+                    ></textarea>
+                  </div>
+
+                  {/* Apply button (Reduced margin top) */}
+                  <div className="pt-4 flex justify-center !mt-6"> 
+                    <button
+                      type="submit"
+                      // Custom button styling: light blue gradient
+                      style={{
+                        background: 'linear-gradient(to bottom, #50a0ff, #2080ff)',
+                        boxShadow: '0 3px 10px rgba(0,0,0,0.2)',
+                      }}
+                      className="px-10 py-3 text-white font-semibold rounded-md text-sm tracking-widest uppercase transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                    >
+                      APPLY NOW
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

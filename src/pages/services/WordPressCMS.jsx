@@ -39,36 +39,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -84,34 +88,34 @@ const DesignServices = () => {
 ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Website Development",
       subtitle: "That Works",
       description: "We design and develop websites tailored to your business goals. Whether it’s a lead generation site, an eCommerce store, or a content-rich blog, we ensure every website is visually appealing, easy to navigate, and optimized for conversions."
     },
     {
-      icon: Clock,
+      
       title: "Blogs &",
       subtitle: "Content Pages",
       description: "Content drives engagement and traffic. We build and structure pages that showcase your content effectively, making it easy for visitors to read, explore, and interact with your brand."
     },
     {
-      icon: Heart,
+      
       title: "Plugin Integration &",
       subtitle: "Functionality",
       description: "Extend your site’s capabilities with the right plugins. From SEO tools to payment gateways, we integrate plugins that enhance functionality without compromising performance or security."
     },
     {
-      icon: Heart,
+      
       title: "Performance &",
       subtitle: "Security Tuning",
-      description: "Extend your site’s capabilities with the right plugins. From SEO tools to payment gateways, we integrate plugins that enhance functionality without compromising performance or security."
+      description: "Fast and secure websites keep visitors happy and safe. We optimize load times, streamline code, and implement security updates to protect your site from vulnerabilities, ensuring reliability and trust."
     },
     {
-      icon: Heart,
+      
       title: "Scalable",
       subtitle: "Architecture",
-      description: "Extend your site’s capabilities with the right plugins. From SEO tools to payment gateways, we integrate plugins that enhance functionality without compromising performance or security."
+      description: "Your business grows, and so should your website. We design scalable architecture that can handle increased traffic, more products, and expanding content without slowing down or breaking."
     }
 
    ];
@@ -138,39 +142,36 @@ const DesignServices = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
            WordPress / CMS Development
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
           Build Fast, Secure, and Scalable Websites That Convert
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="  Your website is more than just a digital presence—it’s a tool to attract leads, engage customers, and drive sales. Our WordPress and CMS development services help businesses create websites that look great, perform flawlessly, and grow with your goals. From blogs and content pages to full-scale eCommerce sites, we make websites that work for you."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Your website is more than just a digital presence—it’s a tool to attract leads, engage customers, and drive sales. Our WordPress and CMS development services help businesses create websites that look great, perform flawlessly, and grow with your goals. From blogs and content pages to full-scale eCommerce sites, we make websites that work for you."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -178,9 +179,9 @@ const DesignServices = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
+                    title="Don’t settle for slow, outdated, or clunky sites!"
+                    description="Partner with experts who build WordPress and CMS websites that are fast, secure, scalable, and built to convert visitors into customers."
+                    buttonText="START MY WEBSITE PROJECT"
                     imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
                     altText="Consulting Team Collaboration"
                 />

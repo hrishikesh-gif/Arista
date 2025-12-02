@@ -16,7 +16,7 @@ import Footer from "./component/Footer";
 
 // Import your page components
 import About from "./pages/About";
-import Services from "./pages/services/index";
+import Services from "./pages/services/service";
 import Careers from "./pages/Careers";
 import CaseStudies from "./pages/CaseStudies";
 import Blog from "./pages/Blog";

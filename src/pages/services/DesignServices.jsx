@@ -39,36 +39,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -84,31 +88,31 @@ const DesignServices = () => {
 ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Logo",
       subtitle: "Design",
       description: "A logo is the cornerstone of your brand identity. Our team focuses on crafting memorable logos that reflect your brand’s personality, values, and vision. Every design is meticulously created to leave a lasting impression, ensuring that your logo stands out across digital, print, and social platforms while instantly connecting with your audience."
     },
     {
-      icon: Clock,
+      
       title: "Website",
       subtitle: "Banners",
       description: "Your website banners are the first visual touchpoint for visitors. We design visually striking banners that not only enhance the look and feel of your site but also highlight key promotions, offers, or announcements. Each banner is strategically crafted to grab attention, drive engagement, and encourage users to explore your products or services further."
     },
     {
-      icon: Heart,
+      
       title: "Emailers &",
       subtitle: "Digital Flyers",
       description: "In the digital world, first impressions matter. Our team creates attention-grabbing email campaigns and digital flyers that engage recipients and motivate action. From eye-catching visuals to clear messaging, we ensure your campaigns stand out in crowded inboxes and social feeds, boosting both clicks and conversions."
     },
     {
-      icon: Heart,
+      
       title: "Brochure",
       subtitle: "Creatives",
       description: "Brochures remain an effective tool for communicating your brand story and offerings. We develop professional brochures that present your products, services, and business information in a visually appealing and easy-to-digest format. Each brochure is designed to inform, engage, and leave a professional impression on your audience."
     },
     {
-      icon: Heart,
+      
       title: "Branding",
       subtitle: "Guidelines",
       description: "Consistency is key to a strong brand identity. We create comprehensive branding guidelines that define your brand’s visual language, including colors, typography, logo usage, and design elements. These standards ensure every touchpoint, from marketing campaigns to internal communications, aligns perfectly with your brand, reinforcing recognition and trust."
@@ -138,39 +142,36 @@ const DesignServices = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+
+"
           >
            Design Services
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
            Creative Designs That Speak for Your Brand!
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="  Strong design communicates your brand story at a glance. Our Design Services combine creativity, strategy, and technical expertise to craft visuals that engage your audience, enhance your brand identity, and drive results."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Strong design communicates your brand story at a glance. Our Design Services combine creativity, strategy, and technical expertise to craft visuals that engage your audience, enhance your brand identity, and drive results."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>

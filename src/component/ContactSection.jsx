@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 const ContactSection = () => {
   const circleRef = useRef(null);
@@ -223,9 +224,11 @@ const ContactSection = () => {
             At Arista Systems, we turn complex ideas into immersive digital solutions
             that enhance your brand presence, connect you with your audience, and help grow your business.
           </p>
+          <Link to="/contact">
           <button className="px-8 sm:px-10 py-3 sm:py-4 rounded-2xl bg-white text-violet-900 hover:bg-black transition-all duration-300 text-base sm:text-lg font-semibold shadow-xl">
             Get In Touch
           </button>
+          </Link>
         </div>
       </div>
     </section>

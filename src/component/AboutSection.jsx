@@ -210,14 +210,14 @@ const AboutSection = () => {
             </div>
 
             {/* CTA Button - Stack on mobile */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button className="px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base">
                 Learn More
               </button>
               <button className="px-6 py-3 sm:px-8 sm:py-3 border border-purple-400 text-purple-400 rounded-lg font-semibold hover:bg-purple-400 hover:text-white transition-all duration-300 text-sm sm:text-base">
                 View Projects
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
