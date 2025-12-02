@@ -58,6 +58,10 @@ export default {
           600: "#9333EA",
           900: "#581C87",
         },
+          screens: {
+        '3xl': '1700px',
+        '4xl': '1900px', // optional
+      },
       },
     },
   },
