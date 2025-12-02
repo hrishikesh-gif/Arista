@@ -30,36 +30,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,37 +75,37 @@ const CustomerService = () => {
   ]; 
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Campaigns That Reach ",
       subtitle: "Your Audience",
       description: "We design ads to reach people who are actually looking for your products or services. Whether it’s Google Search, social media, or display networks, our campaigns connect you with the right audience at the right time."
     },
     {
-      icon: Clock,
+      
       title: "Maximize",
       subtitle: "Every Dollar",
       description: "Ad spend should work hard for you. We use smart bidding, testing, and optimization to make sure your budget delivers measurable results, more clicks, leads, and conversions."
     },
     {
-      icon: Heart,
+      
       title: "Hassle-Free",
       subtitle: "Outsourcing",
       description: "Managing PPC campaigns can take time and expertise. When you outsource PPC services to us, you get hands-on management, optimization, and reporting, without the stress."
     },
     {
-      icon: BrainCircuit,
+      
       title: "Multi-Platform",
       subtitle: "Strategy",
       description: "Your customers are everywhere online. We create tailored campaigns for Google, Facebook, Instagram, LinkedIn, and more, so your message reaches people wherever they are."
     },
     {
-      icon:  Clock3,
-      title: "Clear ",
-      subtitle: "Reporting",
-      description: "No jargon, no guesswork. Our reports show which ads perform best, how your campaigns are doing, and where your business is growing, so you can see the results for yourself."
+      
+      title: "Data That",
+      subtitle: "Drives Decisions",
+      description: "We track every click and conversion. By analyzing performance data, we continually adjust campaigns to improve ROI and ensure every ad dollar counts."
     },
     {
-      icon: Brain,
+      
       title: "Clear",
       subtitle: "Reporting",
       description: "No jargon, no guesswork. Our reports show which ads perform best, how your campaigns are doing, and where your business is growing, so you can see the results for yourself."
@@ -130,17 +134,16 @@ const CustomerService = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
             PPC & Paid Media
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
            PPC Services in India to Boost Your US Business or Drive Traffic, Get Leads, Grow Your Business
           </motion.h3>
@@ -148,21 +151,19 @@ const CustomerService = () => {
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
               text="Running ads can be tricky: targeting the right audience, managing budgets, tracking results. That’s where we come in. As a trusted PPC company in India, we help US businesses create campaigns that deliver real results. Our pay-per-click services in India make it easy to outsource PPC management and focus on what you do best, running your business."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -172,7 +173,7 @@ const CustomerService = () => {
         <BusinessCTA 
                     title="Ready to See Results from Your Ads?"
                     description="Stop guessing and start growing. Partner with a reliable PPC company in India, use our pay-per-click services in India, and outsource PPC management to experts who know how to drive clicks, leads, and sales for US businesses."
-                    buttonText="Launch My PPC Campaign Now!"
+                    buttonText="LAUNCH MY PPC CAMPAIGN NOW!"
                     imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
                     altText="Consulting Team Collaboration"
                 />

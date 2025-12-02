@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import DarkVeil from "../../ReactBits/darkveil";
 import TechStrip from "../../component/TechStrip";
 import ServiceCard from "../../component/ServiceCard";
-import BusinessCTA from "../../component/BusinessCTA"
+import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
+import { Link } from 'react-router-dom';
 import { MessageSquare, Clock, Brain,Heart,BrainCircuit, HeartHandshake,Clock3} from 'lucide-react';
 import {
   SiOpenai,
@@ -39,36 +40,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -84,25 +89,25 @@ const VideoMotion = () => {
 ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Reels & Social",
       subtitle: "Media Videos",
-      description: "In today’s fast-moving social media landscape, grabbing attention in the first few seconds is critical. Our team creates scroll-stopping short-form videos tailored for platforms like Instagram, TikTok, and Facebook. Each video is crafted to engage your audience instantly, combining compelling visuals, snappy pacing, and platform-specific optimization. By delivering content that resonates, we help your brand boost reach, engagement, and overall social presence."
+      description: "In today’s fast-scrolling world, static images aren’t enough. Our Video & Motion Content services help your brand capture attention, engage audiences, and drive conversions with dynamic visuals tailored for social media and e-commerce."
     },
     {
-      icon: Clock,
+      
       title: "Product ",
       subtitle: "Demo Editing",
       description: "A strong product demo can turn curiosity into purchase. We edit your footage to create clear, visually compelling demonstrations that highlight the features, functionality, and benefits of your products. Every cut, angle, and transition is designed to communicate value effectively, helping viewers understand why your product stands out and encouraging them to take action."
     },
     {
-      icon: Heart,
+      
       title: "Short-Form",
       subtitle: "Creative Editing",
       description: "Short-form content demands precision, creativity, and energy. From transitions and motion graphics to sound design and pacing, we transform raw footage into polished, shareable videos that grab attention immediately. Whether it’s a promotional snippet, campaign teaser, or social media reel, our edits ensure your videos are dynamic, professional, and optimized for maximum impact."
     },
     {
-      icon: Heart,
+      
       title: "Why",
       subtitle: "Choose Us",
       description: "Our team combines creativity and technical expertise to deliver videos that reflect your brand identity while driving results. Whether it’s a product launch, promotional campaign, or social content, we ensure every second of your video makes an impact."
@@ -141,32 +146,31 @@ const VideoMotion = () => {
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+
+"
           >
            Bring Your Brand to Life with Engaging Videos!
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="  In today’s fast-scrolling world, static images aren’t enough. Our Video & Motion Content services help your brand capture attention, engage audiences, and drive conversions with dynamic visuals tailored for social media and e-commerce."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="In today’s fast-scrolling world, static images aren’t enough. Our Video & Motion Content services help your brand capture attention, engage audiences, and drive conversions with dynamic visuals tailored for social media and e-commerce."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
-
+<Link to="/contact">
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          >
+            >
             Let's Talk
           </motion.button>
+            </Link>
         </motion.div>
       </div>
       

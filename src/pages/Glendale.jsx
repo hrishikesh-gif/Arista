@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BusinessCTA from "../component/BusinessCTA";
-import Footer from "../component/Footer"; // Ensure you have this import
+import Footer from "../component/Footer";
 
 /* ---------------------------------------
-   ICON COMPONENT (COHERENT PINK/PURPLE)
+   ICON COMPONENT
 ----------------------------------------- */
 const ToolsIcon = () => (
   <svg
@@ -25,7 +25,7 @@ const ToolsIcon = () => (
 );
 
 /* ---------------------------------------
-   RESULT CARD (GRADIENT REFINEMENT)
+   RESULT CARD
 ----------------------------------------- */
 const StatCard = ({ number, label }) => (
   <div className="bg-gradient-to-br from-indigo-900/30 to-black p-6 md:p-10 rounded-2xl border border-fuchsia-500/20 shadow-[0_0_40px_-10px_rgba(192,38,211,0.3)] text-center">
@@ -38,57 +38,46 @@ const StatCard = ({ number, label }) => (
   </div>
 );
 
-/* ---------------------------------------
-   CASE STUDY CARD (PREMIUM STYLING)
------------------------------------------ */
+/* --------------------------------------
+   UPDATED CASE STUDY CARD
+   - Aspect Ratio 1.4 (Rectangle)
+   - Stylish Gradient Border
+   - Stationary (No pop-up)
+--------------------------------------- */
 const CaseStudyCard = ({ imageSrc, path, title }) => {
   const navigate = useNavigate();
-
-  // Custom Button Component for reusable style
-  const GradientButton = ({ onClick, children }) => (
-    <button
-      onClick={onClick}
-      className="self-start px-6 py-2 text-sm font-semibold text-white rounded-full
-                 bg-gradient-to-r from-fuchsia-600 to-pink-500 
-                 hover:from-fuchsia-700 hover:to-pink-600 
-                 transition-all duration-300 shadow-lg hover:shadow-fuchsia-500/50 transform hover:scale-[1.05]"
-    >
-      {children}
-    </button>
-  );
 
   return (
     <div
       onClick={() => navigate(path)}
-      className="relative rounded-xl overflow-hidden group cursor-pointer shadow-2xl 
-                 transform transition-all duration-500 
-                 hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-500/50 
-                 bg-black/80 group-hover:shadow-[0_0_80px_-15px_rgba(192,38,211,0.4)]"
+      // Outer wrapper handles the border gradient
+      className="group relative w-full rounded-2xl cursor-pointer aspect-[1.4]
+                 p-[3px] bg-gradient-to-br from-white/10 via-white/5 to-white/10
+                 hover:from-cyan-400 hover:via-fuchsia-500 hover:to-pink-500
+                 shadow-md hover:shadow-[0_0_30px_-5px_rgba(192,38,211,0.5)]
+                 transition-all duration-500 ease-out"
     >
-      {/* Intrinsic Aspect Ratio Box (Square 1:1) */}
-      <div className="w-full pb-[100%] relative">
-        {/* Added a subtle glow/border effect layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-
-        {/* Image Container */}
+      {/* Inner Content Container */}
+      <div className="relative h-full w-full bg-gray-900 rounded-[calc(1rem-3px)] overflow-hidden">
+        {/* Background Image */}
         <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
           style={{ backgroundImage: `url(${imageSrc})` }}
-        />
+        >
+          {/* Dark Overlay for Text Readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-90" />
+        </div>
 
-        {/* Overlay and Content */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
-          <h3 className="text-xl font-extrabold mb-4 opacity-100 transition-opacity duration-300 drop-shadow-lg text-fuchsia-200">
+        {/* Text Content */}
+        <div className="absolute inset-0 p-5 flex flex-col justify-end">
+          <h3 className="text-xl font-bold text-white mb-3 leading-tight drop-shadow-md group-hover:text-fuchsia-100 transition-colors">
             {title}
           </h3>
-          <GradientButton
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(path);
-            }}
-          >
-            View Case Study →
-          </GradientButton>
+
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cyan-400 group-hover:text-white transition-colors">
+            <span className="w-5 h-[2px] bg-fuchsia-500 group-hover:w-10 transition-all duration-300"></span>
+            View Case Study
+          </div>
         </div>
       </div>
     </div>
@@ -96,7 +85,7 @@ const CaseStudyCard = ({ imageSrc, path, title }) => {
 };
 
 /* ---------------------------------------
-   MORE CASE STUDIES — FIXED LIST
+   UPDATED MORE CASE STUDIES — FIXED LIST
 ----------------------------------------- */
 const MoreCaseStudies = () => {
   const studies = [
@@ -118,15 +107,20 @@ const MoreCaseStudies = () => {
   ];
 
   return (
-    <div className="mt-32">
-      <h2 className="text-4xl font-extrabold mb-12 text-center">
+    <div className="mt-32 w-full mb-16">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-12 text-center text-white">
         More{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-pink-400">
           Case Studies
         </span>
       </h2>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      {/* RESPONSIVE GRID:
+          - Mobile: 1 col
+          - Tablet: 2 cols
+          - Desktop: 3 cols
+      */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {studies.map((study, index) => (
           <CaseStudyCard
             key={index}
@@ -159,7 +153,12 @@ const Glendale = () => {
     if (scrollPosition < startFade) return 0.98;
     return Math.max(0.85, 0.98 - (scrollPosition - startFade) / 500);
   };
-  const calculateScale = () => Math.max(0.85, 1 - scrollPosition / 5000);
+ const calculateScale = () => {
+  const maxZoom = 1.1; // slightly zoomed in at top
+  const progress = Math.min(scrollPosition / 800, 1); // adjust 800 for speed
+  return maxZoom - (maxZoom - 1) * progress; // goes from 1.1 → 1
+};
+
 
   const backgroundStyle = {
     filter: `blur(${calculateBlur()}px)`,
@@ -181,7 +180,10 @@ const Glendale = () => {
     >
       {/* 2. PARALLAX BACKGROUND (Fixed) */}
       <div
-        className="fixed top-0 left-0 w-full h-[50vh] md:h-[120vh] z-0 bg-center md:bg-[center_top_-100px] bg-no-repeat bg-cover"
+       className="fixed top-0 left-0 w-full
+           h-[80vh] sm:h-[90vh] md:h-screen
+           z-0 bg-top bg-no-repeat bg-cover"
+
         style={{
           backgroundImage:
             "url('/images/Gemini_Generated_Image_quxduequxduequxd (1).png')",
@@ -190,7 +192,7 @@ const Glendale = () => {
       />
 
       {/* 3. CONTENT WRAPPER (Width Constrained: 90% / 70%) */}
-      <div className="relative z-10 pt-[45vh] md:pt-[50vh] w-[90%] mx-auto pb-20 md:w-[70%]">
+      <div className="relative z-10 pt-[35vh] md:pt-[50vh] w-[90%] mx-auto pb-20 md:w-[70%]">
         {/* Heading */}
         <div className="mb-16">
           <p className="inline-block px-3 py-1 mb-5 text-xs font-semibold tracking-widest text-fuchsia-300 uppercase bg-fuchsia-900/30 border border-fuchsia-700/50 rounded-full backdrop-blur-md">
@@ -324,22 +326,23 @@ const Glendale = () => {
           </div>
         </div>
 
-        {/* CTA */}
+       
+        {/* More Case Studies */}
+        <MoreCaseStudies />
+      </div>
+      {/* ^^^ THIS CLOSING DIV ENDS THE WIDTH RESTRICTION (70%) ^^^ */}
+      
+ {/* CTA */}
         <BusinessCTA
           title="Modernize Your Infrastructure with Cutting-Edge Tech"
           description="Leverage cloud and AI solutions to build fast, scalable applications."
           buttonText="EXPLORE OUR SERVICES"
           imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg"
           altText="Software Development Team"
+          removeBg
         />
 
-        {/* More Case Studies */}
-        <MoreCaseStudies />
-      </div>
-      {/* ^^^ THIS CLOSING DIV ENDS THE WIDTH RESTRICTION (70%) ^^^ */}
-
       {/* 4. FOOTER WRAPPER (Full Width) */}
-      {/* Placed here so it is OUTSIDE the 70% width constraint, but INSIDE the main background wrapper */}
       <div className="relative z-10">
         <Footer />
       </div>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../component/Footer";
 
 /* ---------------------------------------
-   GRADIENT BUTTON COMPONENT (REUSABLE STYLE)
+   GRADIENT BUTTON COMPONENT
 ----------------------------------------- */
 const GradientButton = ({ onClick, children }) => (
   <button
@@ -19,17 +19,16 @@ const GradientButton = ({ onClick, children }) => (
 );
 
 /* ---------------------------------------
-   ICON COMPONENT (UPDATED STYLE)
+   ICON COMPONENT
 ----------------------------------------- */
 const ToolsIcon = () => (
   <svg
-    className="w-5 h-5 text-fuchsia-400 mr-3" // Consistent color palette
+    className="w-5 h-5 text-fuchsia-400 mr-3"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
-    {/* Using a cog/settings icon for 'Tools' */}
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -40,7 +39,9 @@ const ToolsIcon = () => (
   </svg>
 );
 
-// ---- STAT CARD (COLOR REFINEMENT) ----
+/* ---------------------------------------
+   STAT CARD
+----------------------------------------- */
 const StatCard = ({ number, label }) => (
   <div className="bg-gradient-to-br from-indigo-900/30 to-black p-6 md:p-10 rounded-2xl border border-fuchsia-500/20 shadow-[0_0_40px_-10px_rgba(192,38,211,0.3)] text-center">
     <div className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-pink-400 mb-3">
@@ -52,51 +53,55 @@ const StatCard = ({ number, label }) => (
   </div>
 );
 
-// ---- CASE STUDY CARD (SQUARE ASPECT RATIO FIX + PREMIUM STYLING) ----
+/* --------------------------------------
+   CASE STUDY CARD (STATIONARY - NO POP UP)
+   - Removed hover:-translate-y
+   - Removed hover:scale on container
+--------------------------------------- */
 const CaseStudyCard = ({ imageSrc, path, title }) => {
   const navigate = useNavigate();
 
   return (
     <div
       onClick={() => navigate(path)}
-      className="relative rounded-xl overflow-hidden group cursor-pointer shadow-2xl 
-                        transform transition-all duration-500 
-                        hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-500/50 
-                        bg-black/80 group-hover:shadow-[0_0_80px_-15px_rgba(192,38,211,0.4)]"
+      // Outer wrapper handles the border gradient
+      // REMOVED: translate-y effects so it doesn't "jump" or "pop"
+      className="group relative w-full rounded-2xl cursor-pointer aspect-[1.4]
+                 p-[3px] bg-gradient-to-br from-white/10 via-white/5 to-white/10
+                 hover:from-cyan-400 hover:via-fuchsia-500 hover:to-pink-500
+                 shadow-md hover:shadow-[0_0_30px_-5px_rgba(192,38,211,0.5)]
+                 transition-all duration-500 ease-out"
     >
-      {/* Intrinsic Aspect Ratio Box (Square 1:1) */}
-      <div className="w-full pb-[100%] relative">
-        {/* Subtle glow effect layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-
-        {/* Image Container: Stretches to fill the 1:1 container */}
+      {/* Inner Content Container */}
+      <div className="relative h-full w-full bg-gray-900 rounded-[calc(1rem-3px)] overflow-hidden">
+        {/* Background Image */}
         <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
           style={{ backgroundImage: `url(${imageSrc})` }}
-        ></div>
+        >
+          {/* Dark Overlay for Text Readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-90" />
+        </div>
 
-        {/* Overlay and Content */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
-          {title && (
-            <div className="text-xl font-extrabold mb-4 drop-shadow-lg text-fuchsia-200">
-              {title}
-            </div>
-          )}
-          <GradientButton
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(path);
-            }}
-          >
-            View Case Study →
-          </GradientButton>
+        {/* Text Content */}
+        <div className="absolute inset-0 p-5 flex flex-col justify-end">
+          <h3 className="text-xl font-bold text-white mb-3 leading-tight drop-shadow-md group-hover:text-fuchsia-100 transition-colors">
+            {title}
+          </h3>
+
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cyan-400 group-hover:text-white transition-colors">
+            <span className="w-5 h-[2px] bg-fuchsia-500 group-hover:w-10 transition-all duration-300"></span>
+            View Case Study
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// ---- MORE CASE STUDIES ----
+/* --------------------------------------
+   MORE CASE STUDIES SECTION
+--------------------------------------- */
 const MoreCaseStudies = () => {
   const studies = [
     {
@@ -117,15 +122,15 @@ const MoreCaseStudies = () => {
   ];
 
   return (
-    <div className="mt-32">
-      <h2 className="text-4xl font-extrabold mb-12 text-center">
+    <div className="mt-24 w-full mb-16">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-12 text-center text-white">
         More{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-pink-400">
           Case Studies
         </span>
       </h2>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {studies.map((study, index) => (
           <CaseStudyCard
             key={index}
@@ -139,7 +144,9 @@ const MoreCaseStudies = () => {
   );
 };
 
-// ---- MAIN COMPONENT ----
+/* --------------------------------------
+   MAIN PAGE COMPONENT
+--------------------------------------- */
 const Grossprofit = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -158,9 +165,11 @@ const Grossprofit = () => {
   };
 
   const calculateScale = () => {
-    const scale = 1 - scrollPosition / 5000;
-    return Math.max(0.85, scale);
-  };
+  const maxZoom = 1.1; // slightly zoomed in at top
+  const progress = Math.min(scrollPosition / 800, 1); // adjust 800 for speed
+  return maxZoom - (maxZoom - 1) * progress; // goes from 1.1 → 1
+};
+
 
   const backgroundStyle = {
     filter: `blur(${calculateBlur()}px)`,
@@ -172,17 +181,19 @@ const Grossprofit = () => {
   };
 
   return (
-    /* 1. MAIN WRAPPER */
     <div
       className="min-h-screen text-white overflow-x-hidden"
       style={{
         background:
-          "linear-gradient(to bottom, #000000 0%, #000000 20%, #1c053d 80%, #000000 100%)", // Deeper background
+          "linear-gradient(to bottom, #000000 0%, #000000 20%, #1c053d 80%, #000000 100%)",
       }}
     >
       {/* BACKGROUND */}
       <div
-        className="fixed top-0 left-0 w-full h-[50vh] md:h-[120vh] z-0 bg-center md:bg-[center_top_-100px] bg-no-repeat bg-cover"
+       className="fixed top-0 left-0 w-full
+           h-[80vh] sm:h-[90vh] md:h-screen
+           z-0 bg-top bg-no-repeat bg-cover"
+
         style={{
           backgroundImage: "url('/images/ohnuts-cs-thumb1.png')",
           ...backgroundStyle,
@@ -191,8 +202,9 @@ const Grossprofit = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/70" />
       </div>
 
-      {/* 2. CONTENT WRAPPER (Width Constrained to 70% / 90%) */}
-      <div className="relative z-10 pt-[45vh] md:pt-[50vh] w-[90%] mx-auto pb-20 md:w-[70%]">
+      {/* CONTENT WRAPPER */}
+      <div className="relative z-10 pt-[35vh] md:pt-[50vh] w-[90%] mx-auto pb-20 md:w-[70%]">
+
         {/* HEADER */}
         <div className="mb-16">
           <p className="inline-block px-3 py-1 mb-5 text-xs font-semibold tracking-widest text-fuchsia-300 uppercase bg-fuchsia-900/30 border border-fuchsia-700/50 rounded-full backdrop-blur-md">
@@ -316,7 +328,7 @@ const Grossprofit = () => {
               healthier, more profitable Amazon operation.
             </p>
 
-            {/* Adding Stat Cards for visual impact */}
+            {/* Stat Cards */}
             <div className="grid grid-cols-2 gap-6 md:gap-12">
               <StatCard number="55%" label="Gross Profit Growth" />
               <StatCard number="28.5%" label="Units Sold Increase" />
@@ -324,22 +336,21 @@ const Grossprofit = () => {
           </div>
         </div>
 
-        {/* CTA */}
-        <BusinessCTA
-          title="Unlock Hidden Profitability in Your Amazon Channel"
-          description="Use our expertise to reduce fees, optimize vendor terms, and boost your margins."
-          buttonText="SCHEDULE A CONSULTATION"
-          imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
-          altText="Consulting Team"
-        />
 
         {/* MORE CASE STUDIES */}
         <MoreCaseStudies />
       </div>
-      {/* ^^^ THIS CLOSING DIV ENDS THE WIDTH RESTRICTION (70%) ^^^ */}
-
-      {/* 3. FOOTER WRAPPER (Full Width) */}
-      {/* Placed outside the 70% wrapper, but inside the main background */}
+      
+        {/* CTA */}
+        <BusinessCTA
+          title="Let’s Grow Together"
+          description="Turn challenges into opportunities start with us today."
+          buttonText="BOOK A CALL"
+          imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+          altText="Consulting Team"
+          removeBg
+        />
+      {/* FOOTER WRAPPER */}
       <div className="relative z-10">
         <Footer />
       </div>

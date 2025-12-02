@@ -13,6 +13,7 @@ export default {
       pattern: new RegExp("(mt|mb|ml|mr|p|px|py)-\\[.*\\]"), // ✅ fixed regex syntax
     },
   ],
+  
   theme: {
     extend: {
       fontFamily: {

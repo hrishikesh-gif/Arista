@@ -75,21 +75,15 @@ Couldn’t do anything without the help of the entire Arista team!`,
 
   return (
     <section
-     ref={sectionRef}
-  className="relative text-white py-12 px-6 sm:px-10 lg:px-20 flex flex-col md:flex-row items-start justify-center min-h-[60vh] md:min-h-[70vh] w-full overflow-hidden"
-  style={{
-     minHeight:"50vh",
-    background: "linear-gradient(to bottom, #000000 0%, #000000 20%, #2d0b57 80%, #000000 100%)",
-  }}
+      ref={sectionRef}
+      className="relative text-white py-12 px-6 sm:px-10 lg:px-20 flex flex-col md:flex-row items-start justify-center min-h-[60vh] md:min-h-[70vh] w-full overflow-hidden"
+      style={{
+        minHeight: "50vh",
+        /* FIX: Removed glow orbs. Gradient now fades to solid black well before the end. */
+        background: "linear-gradient(to bottom, #000000 0%, #2d0b57 30%, #000000 80%, #000000 100%)",
+      }}
     >
-      {/* Background orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[10vh] left-[5vw] w-[35vw] h-[35vw] bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute bottom-[10vh] right-[5vw] w-[35vw] h-[35vw] bg-blue-600/20 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
-      </div>
+      {/* REMOVED: Background orbs div was here */}
 
       {/* Decorative quote */}
       <div className="absolute top-10 right-10 text-8xl md:text-9xl opacity-10 pointer-events-none select-none text-purple-400">

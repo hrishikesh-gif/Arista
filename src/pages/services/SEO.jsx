@@ -30,36 +30,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,37 +75,37 @@ const CustomerService = () => {
   ]; 
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Technical ",
       subtitle: "& On-Page SEO",
       description: "Your website needs a strong foundation. We make sure it loads fast, works on mobile, and is easy for search engines to understand. As an SEO outsourcing company in India, we also fine-tune titles, meta tags, and content, small details that lead to big improvements."
     },
     {
-      icon: Clock,
+      
       title: "Keyword Research",
       subtitle: "That Works",
       description: "We don’t just pick random keywords. Our team finds what your audience is actually searching for and builds keyword clusters around it. This way, your site shows up for multiple related terms, giving you more visibility and better results."
     },
     {
-      icon: Heart,
+      
       title: "Blogs That",
       subtitle: "Build Authority",
       description: "Search engines love fresh content, and so do readers. We create blog posts that answer real questions, boost your authority, and improve your rankings. With our SEO services in India, you get blogs that actually work for your business."
     },
     {
-      icon: BrainCircuit,
+      
       title: "Link Building",
       subtitle: "the Right Way",
       description: "Links are like online recommendations. We use ethical link-building strategies to earn backlinks from trusted websites. This builds your credibility and helps search engines trust your site more."
     },
     {
-      icon:  Clock3,
+      
       title: "Local SEO",
       subtitle: "for Local Wins",
-      description: "We don’t leave you guessing. As a results-driven SEO company in India, we track your rankings, traffic, and conversions. With clear reports, you’ll always know how your campaign is performing and where it’s headed."
+      description: "Want to show up when someone nearby searches for your service? Local SEO is the answer. We optimize your Google Business Profile, fix directory listings, and make sure you appear in “near me” searches. That means more local calls, visits, and conversions."
     },
     {
-      icon: Brain,
+      
       title: "Tracking & Reports",
       subtitle: "You’ll Understand",
       description: "We don’t leave you guessing. As a results-driven SEO company in India, we track your rankings, traffic, and conversions. With clear reports, you’ll always know how your campaign is performing and where it’s headed."
@@ -130,17 +134,16 @@ const CustomerService = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
             SEO Services to Boost Visibility
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
            Get Found. Get Clicks. Get Results.
           </motion.h3>
@@ -148,21 +151,19 @@ const CustomerService = () => {
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
               text="If your website isn’t on the first page of Google, chances are people aren’t finding you. That’s where we come in. As a trusted SEO company in India, we help businesses climb rankings, attract the right audience, and turn clicks into real customers. From technical fixes to blog writing and link building, our complete SEO services in India give your business the visibility it deserves."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            GET FOUND ON GOOGLE TODAY
           </motion.button>
         </motion.div>
       </div>
@@ -172,7 +173,7 @@ const CustomerService = () => {
         <BusinessCTA 
                     title="Get Your Business on Google’s First Page, Now!"
                     description="Stop losing customers to your competitors. Take charge today with the leading SEO company in India. Our SEO services in India get your website seen, clicked, and converting, fast!"
-                    buttonText="Rank My Website Today"
+                    buttonText="RANK MY WEBSITE TODAY"
                     imageUrl="\images\DigitalMarketing.avif"
                     altText="Consulting Team Collaboration"
                 />

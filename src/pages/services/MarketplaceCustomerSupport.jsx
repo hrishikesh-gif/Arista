@@ -35,36 +35,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -78,34 +82,31 @@ const MarketplaceCustomerSupport = () => {
 ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
       title: "Review",
       subtitle: "Management",
       description: "Customer reviews can make or break your sales. We monitor, respond to, and manage reviews professionally, addressing concerns promptly while highlighting positive feedback. This protects your seller reputation and encourages buyer confidence."
     },
     {
-      icon: Clock,
       title: "Returns &",
       subtitle: "Refunds Handling",
       description: "Efficiently managing returns and refunds is crucial to maintaining high seller ratings. Our team ensures smooth processing, communicates with buyers clearly, and minimizes negative impacts on your account, keeping both customers and marketplaces satisfied."
     },
     {
-      icon: Heart,
       title: "Buyer",
       subtitle: " Communication",
       description: "Prompt, professional communication improves customer satisfaction and reduces disputes. We handle inquiries, complaints, and product-related questions across marketplaces, ensuring every buyer receives timely and helpful responses."
     },
     {
-      icon: BrainCircuit,
       title: "Marketplace",
       subtitle: "Policy Navigation",
       description: "Each platform has unique rules and standards. We help you navigate Amazon, Walmart, eBay, and other marketplace policies to avoid suspensions, account issues, or penalties, keeping your operations compliant and smooth."
     },
     {
-      icon:  Clock3,
       title: "Proactive",
       subtitle: "Problem Resolution",
-      description: "From late shipments to product issues, we address problems quickly and effectively. By resolving issues before they escalate, we protect your seller metrics and ensure buyers remain happy, loyal, and more likely to return."
+      description: `From late shipments to product issues, we address problems quickly and effectively. By resolving issues before they escalate, we protect your seller metrics and ensure buyers remain happy, loyal, and more likely to return.
+      
+      With our Marketplace Customer Support, you’ll improve customer satisfaction, maintain excellent seller ratings, and focus on growing your business while we handle the day-to-day customer interactions.`
     }
 
    ];
@@ -132,39 +133,30 @@ const MarketplaceCustomerSupport = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
            Marketplace Customer Support
           </motion.h1>
 
-          <motion.h3
-            variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
-          >
-            Reliable Marketplace Customer Support That Protects Your Reputation!
-          </motion.h3>
+          
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="  Your Amazon listings deserve more than just product photos and descriptions, they need a compelling story. Our Amazon A+ Content, Storefront, and Brand Story Setup services help your brand stand out, engage shoppers, and drive higher conversions through professional visual storytelling."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Reliable Marketplace Customer Support That Protects Your Reputation!"
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -174,7 +166,7 @@ const MarketplaceCustomerSupport = () => {
         <BusinessCTA 
                     title="Keep Your Customers Happy & Your Ratings High Don’t let support issues hurt your sales!"
                     description="Partner with us to manage reviews, returns, refunds, and buyer communication across all marketplaces."
-                    buttonText="Get Market Support Now"
+                    buttonText="GET MARKETPLACE SUPPORT NOW"
                     imageUrl="\images\CreativeProduction.avif"
                     altText="Consulting Team Collaboration"
                 />

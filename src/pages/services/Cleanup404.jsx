@@ -30,36 +30,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,41 +75,30 @@ const CustomerService = () => {
   ]; 
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+     
       title: "404 Error",
       subtitle: "Cleanup",
       description: "Broken links can drive users away and damage your SEO. We locate all 404 errors across your site and fix them by redirecting old URLs, removing dead links, or restoring missing pages. This ensures that visitors never hit a dead end and continue exploring your website."
     },
     {
-      icon: Clock,
+     
       title: "Category Rebuilding",
       subtitle: "& Logic",
       description: "Confusing categories make it hard for customers to find what they need. We rebuild your category structure, organize products logically, and make sure each item is in the right place. Clear categories improve the shopping experience, reduce frustration, and help buyers find products faster."
     },
     {
-      icon: Heart,
-      title: "Funnel",
-      subtitle: "Performance Review",
-      description: "Customer support is more than problem-solving; it's about building trust. Our team approaches every interaction with empathy and understanding, actively listening to customer concerns and responding in a professional, caring manner. This human touch fosters loyalty and creates a positive experience at every touchpoint."
+      
+      title: "Internal Linking",
+      subtitle: "Structure",
+      description: "Proper internal links guide visitors from one page to another naturally and improve SEO. We set up smart linking between products, categories, and informational pages so users can navigate easily while search engines can crawl your site efficiently."
     },
     {
-      icon: BrainCircuit,
-      title: "Experiment-Based",
-      subtitle: "Scaling",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      
+      title: "Breadcrumb Navigation",
+      subtitle: "Improvement",
+      description: "Breadcrumbs show users where they are on your website and make navigation simple. We enhance your breadcrumb trails, making them clear, clickable, and SEO-friendly. Better breadcrumbs help customers explore your site confidently and reduce bounce rates."
     },
-    {
-      icon:  Clock3,
-      title: "Multichannel",
-      subtitle: "Attribution & Analytics",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
-    },
-    {
-      icon: Brain,
-      title: "Low-Cost",
-      subtitle: "Viral Experiments",
-      description: "We explore creative, low-cost campaigns designed to go viral and boost conversions. These experiments uncover new opportunities to engage audiences without heavy ad spend."
-    }
+    
    ];
   return (
     <>
@@ -130,17 +123,16 @@ const CustomerService = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
            404 Cleanup & Categorization Structure
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
              Fix Broken Links, Organize Categories, and Keep Your Website Flowing!
           </motion.h3>
@@ -148,21 +140,19 @@ const CustomerService = () => {
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
               text="Broken links, messy categories, and poor navigation can frustrate visitors and hurt your SEO. We help you clean up 404 errors, rebuild your category logic, and improve your internal linking and breadcrumbs. A well-structured website keeps users happy, improves search engine rankings, and ensures visitors find exactly what they’re looking for. With our help, your website will run smoothly, stay organized, and guide visitors effortlessly to the products or information they need."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -170,9 +160,9 @@ const CustomerService = () => {
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
+                    title="Stop losing visitors to broken links and confusing categories!"
+                    description="Let us clean up 404 errors, rebuild your structure, and create a seamless, easy-to-navigate website that keeps customers engaged."
+                    buttonText="FIX ERRORS AND ORGANIZE YOUR WEBSITE TODAY"
                     imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
                     altText="Consulting Team Collaboration"
                 />

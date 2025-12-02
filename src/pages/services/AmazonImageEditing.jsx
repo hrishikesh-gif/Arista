@@ -35,36 +35,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -78,31 +82,31 @@ const CustomerService = () => {
 ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Amazon Image",
       subtitle: "Editing & Optimization",
       description: "Images are the first thing shoppers notice. Poor-quality visuals or dull listings can cost clicks and sales, even if your product is excellent. We enhance every image to meet Amazon’s strict requirements and maximize impact."
     },
     {
-      icon: Clock,
+      
       title: "Visual Storytelling",
       subtitle: "with A+ Content",
       description: "Transform product pages into immersive, persuasive experiences. Our layouts combine high-quality images, infographics, and text modules to highlight features, benefits, and use cases, making your listings informative, professional, and ready to convert."
     },
     {
-      icon: Heart,
+      
       title: "Custom &",
       subtitle: " Storefront Build",
       description: "Your Amazon Storefront is your brand’s digital shop window. We craft visually appealing storefronts that reflect your brand identity, showcase your catalog, and guide shoppers through a smooth buying journey. A professional storefront builds trust, encourages repeat visits, and increases sales."
     },
     {
-      icon: BrainCircuit,
+      
       title: "Asset",
       subtitle: "Optimization",
       description: "All visuals and content are optimized to meet Amazon’s specifications, ensuring fast loading, high clarity, and maximum visual impact. We refine images, videos, banners, and graphics so your listings shine."
     },
     {
-      icon:  Clock3,
+      
       title: "Brand Registry",
       subtitle: "Essentials",
       description: "Lay a solid foundation with Amazon Brand Registry. We guide you through registration, protect your brand, secure exclusive content, and unlock enhanced marketing tools to boost visibility and credibility.With our integrated approach, your Amazon presence becomes a powerful sales tool, combining visual perfection, engaging content, and a compelling brand story to increase trust, engagement, and conversions."
@@ -149,7 +153,7 @@ const CustomerService = () => {
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="  Your Amazon listings deserve more than just product photos and descriptions, they need a compelling story. Our Amazon A+ Content, Storefront, and Brand Story Setup services help your brand stand out, engage shoppers, and drive higher conversions through professional visual storytelling."
+              text="Your Amazon listings deserve more than just product photos and descriptions, they need a compelling story. Our Amazon A+ Content, Storefront, and Brand Story Setup services help your brand stand out, engage shoppers, and drive higher conversions through professional visual storytelling."
               className="text-white/90 font-light leading-relaxed text-left
                          text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
               speed={25}

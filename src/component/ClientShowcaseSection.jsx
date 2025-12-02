@@ -63,7 +63,7 @@ const ClientShowcase = () => {
           className="text-center mb-[8vh]"
         >
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            Some of our valuable clients
+          Driving Digital Excellence for Global Brands
           </h2>
           <div className="w-[10vw] h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
         </motion.div>

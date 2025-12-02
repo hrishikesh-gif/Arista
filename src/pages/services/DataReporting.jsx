@@ -7,6 +7,7 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import Footer from "../../component/Footer";
 import BusinessCTA from "../../component/BusinessCTA"
+import { Link } from 'react-router-dom';
 import { MessageSquare, Clock, Brain,Heart,BrainCircuit, HeartHandshake,Clock3} from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -30,36 +31,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,34 +76,62 @@ const DataReporting = () => {
   ]; 
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Why Reporting &",
       subtitle: "Insights Matter",
-      description: "Free your team from tedious tasks. Outsourcing your account reconciliation ensures faster, error-free results while giving you peace of mind. Our streamlined process leverages automation and expert review to ensure accuracy and timeliness effortlessly for all stakeholders."
+      description: `
+      • Without proper reporting, you’re making blind decisions. 
+      • Delayed or wrong reports can cost you money. 
+      • Insights at the right time help you stay ahead of competition. 
+      
+      That’s where our business analysis and reporting services give you the edge.`
     },
     {
-      icon: Clock,
+      
       title: "Reporting &",
       subtitle: "Dashboard Creation",
-      description: "We utilize industry-leading automation tools to handle invoices efficiently. These systems capture key details and organize them into clean columns in seconds. What used to take 10–15 minutes manually now takes just 2 minutes, enabling faster turnaround, fewer mistakes, and smooth financial flow."
+      description: "We create custom dashboards that show your data in a clear, visual way. These dashboards allow you to track KPIs, monitor trends, and make decisions quickly. Instead of flipping through spreadsheets, you can see your business at a glance. Our reporting tools are interactive, easy to use, and updated in real-time, giving you instant access to the numbers that matter most."
     },
     {
-      icon: Heart,
+      
       title: "Insights &",
       subtitle: "Business Intelligence",
-      description: "Technology is powerful, but human eyes keep it reliable. Our experts carefully check invoice data against receipts before reconciliation. This balance of AI and team oversight gives you accuracy you can trust, every single time."
+      description: "Raw data is meaningless without interpretation. Our business intelligence services turn your data into actionable insights. We analyze trends, spot opportunities, and identify risks. This helps you plan smarter, optimize operations, and predict outcomes. With our insights, you don’t just see numbers, you understand what they mean for your business growth."
     },
     {
-      icon: BrainCircuit,
+      
+      title: "Our Approach:",
+      subtitle: "AI Meets Human Expertise",
+      description: `In Analytics, our team leverages AI tools like ChatGPT and Grok to: 
+
+      • Extract insights from raw data instantly 
+      • Interpret SQL queries quickly and correctly 
+      • Generate accurate Excel formulas without errors 
+      
+      This AI + expert approach saves time, reduces mistakes, and ensures accuracy. You get reports that are fast, reliable, and ready for decision-making.`
+    },
+    {
+      
       title: "What We",
-      subtitle: " Deliver",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      subtitle: "Deliver",
+      description: `
+      • Business Dashboards– Clear visuals for faster decision 
+      • Custom Reports– Tailored to your goals and KPI 
+      • Data Cleaning- No more confusion from messy data 
+      • Forecasting- Use data trends to plan your next move 
+      • Actionable Insights– Not just numbers, but strategies 
+      
+      With our data analytics reporting services, you get more than reports—you get a roadmap.`
     },
     {
-      icon:  Clock3,
+      
       title: "Why Choose",
       subtitle: "Arista?",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      description: `
+      • We mix technology + human intelligence. 
+      • Proven experience with different industries. 
+      • Transparent reporting style—no jargon, only clarity. 
+      • AI-powered workflows that save time and boost accuracy. `
     }
    ];
   return (
@@ -124,17 +157,16 @@ const DataReporting = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
          Data, Reporting & Insights
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
            Turn Your Raw Data Into Business Power
           </motion.h3>
@@ -142,31 +174,30 @@ const DataReporting = () => {
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
               text="Are you drowning in spreadsheets but still unsure what’s really happening in your business? Every business collects data, but only a few use it the right way. With our data analysis services, we help you see the real story behind numbers. From sales to customer behavior, we turn scattered data into clear insights that guide growth."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
-
+<Link to="/contact">
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          >
-            Contact Us Today
+            >
+            MAKE DECISIONS LIKE A BOSS
           </motion.button>
+            </Link>
         </motion.div>
       </div>
       
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Unlock Hidden Profitability in Your Amazon Channel"
-                    description="Leverage our expertise to audit your vendor operations, reduce fees, and drive sustainable margin growth."
-                    buttonText="SCHEDULE A CONSULTATION"
+                    title="Why let competitors stay ahead?"
+                    description="Every report you delay costs you opportunities.Your business already collects valuable data every single day. But without the right analysis and reporting, those numbers remain just numbers."
+                    buttonText="TURN NUMBERS INTO POWER"
                     imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
                     altText="Consulting Team Collaboration"
                 />

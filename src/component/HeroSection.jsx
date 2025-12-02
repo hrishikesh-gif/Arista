@@ -29,7 +29,7 @@ const HeroSection = () => {
           style={{ fontSize: 'clamp(2rem, 8vw, 5rem)' }}
         >
           <span
-            className={`relative inline-block bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent whitespace-nowrap ${
+            className={`relative inline-block bg-gradient-to-r from-white via-purple-200 to-white pb-1 bg-clip-text text-transparent whitespace-nowrap ${
               isTextVisible ? 'animate-shiny' : ''
             }`}
           >

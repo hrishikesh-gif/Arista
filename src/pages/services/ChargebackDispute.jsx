@@ -30,36 +30,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,40 +75,45 @@ const CustomerService = () => {
   ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "Chargebacks Made",
       subtitle: "Easy",
       description: "Chargebacks can feel overwhelming, but we make them simple. Whether it’s a credit card dispute or a marketplace issue on Amazon or Walmart, we jump in fast. We analyze the situation, gather the key facts, and present your case effectively, giving you the best chance to win your money back."
     },
     {
-      icon: Clock,
+     
       title: "All the Paperwork",
       subtitle: "Covered",
       description: "The paperwork side of disputes can be a nightmare. That’s why we handle it all. From receipts and shipping info to customer communications and transaction history, we organize everything you need so your case is clear, thorough, and ready to win, every single time."
     },
     {
-      icon: Heart,
+      
       title: "Stop Fraud",
       subtitle: "in Its Tracks",
       description: "Fraud can drain your revenue fast. Our team investigates suspicious charges, verifies transactions, and disputes unauthorized payments. By catching fraud early and taking swift action, we protect your business from losses and maintain your credibility with customers."
     },
     {
-      icon: BrainCircuit,
+      
       title: "Recover Lost",
       subtitle: "Funds",
       description: "Lost refunds don’t have to stay lost. We actively pursue refund recovery, whether it’s from chargebacks or fraudulent disputes. Our goal is to bring your money back into your account quickly so you can focus on growing your business."
     },
     {
-      icon: Clock3,
+      
       title: "Prevent Future",
       subtitle: "Headaches",
       description: "The best way to handle disputes is to prevent them. We help you identify risky transactions, monitor trends, and refine your policies to reduce future chargebacks. By staying proactive, your business avoids unnecessary losses and keeps operations running smoothly."
     },
     {
-      icon: Brain,
-      title: "Expert",
-      subtitle: "Platform",
-      description: "We leverage industry-leading tools like Zendesk and Gorgias to streamline communication, track inquiries, and manage customer relationships efficiently. These platforms allow our team to provide organized, professional, and consistent support, while giving you clear insights into performance and trends."
+      
+      title: "Why Choose",
+      subtitle: "Us",
+      description: `
+      • Smooth handling of credit card & marketplace disputes. 
+      • Organized, battle-ready documentation. 
+      • Fast refund recovery. 
+      • Fraud detection & prevention. 
+      • Trusted for Amazon, Walmart, and beyond.`
     },
     
   ];
@@ -131,49 +140,52 @@ const CustomerService = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
             Chargeback & Dispute Resolution
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
             Win More, Lose Less!
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl">
             <TypewriterText
-              text="  Chargebacks and disputes can hit your business hard, from lost revenue to damaged reputation. Our Chargeback & Dispute Resolution services are designed to help you navigate credit card chargebacks, Amazon and Walmart disputes, and fraud cases efficiently, ensuring you recover funds while minimizing future risks."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Chargebacks and disputes can hit your business hard, from lost revenue to damaged reputation. Our Chargeback & Dispute Resolution services are designed to help you navigate credit card chargebacks, Amazon and Walmart disputes, and fraud cases efficiently, ensuring you recover funds while minimizing future risks."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
 
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-      <ServiceCard features={serviceFeatures} accentColor="purple" />
+      <ServiceCard
+        features={serviceFeatures}
+        accentColor="purple"
+        showButton={true}
+        buttonText="Read More"
+        onButtonClick={(feature, index) => handleClick(feature)}
+      />
       <BusinessCTA 
-                    title="Ready to Experience Exceptional Support?"
+                    title="Protect your revenue now!"
                     description="Our team is eager to assist you. Reach out through your preferred channel, and let us show you the Arista difference."
-                    buttonText="Let's Talk"
+                    buttonText="GET OUR EXPERTS ON YOUR SIDE NOW !"
                     imageUrl="\images\CS.avif"
                     altText="Let's Talk"
                 />

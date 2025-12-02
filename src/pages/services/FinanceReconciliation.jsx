@@ -7,6 +7,8 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import Footer from "../../component/Footer";
 import BusinessCTA from "../../component/BusinessCTA"
+import { Link } from 'react-router-dom';
+
 import { MessageSquare, Clock, Brain,Heart,BrainCircuit, HeartHandshake,Clock3} from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -30,36 +32,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -71,34 +77,46 @@ const FinanceReconciliation = () => {
   ]; 
   const serviceFeatures = [
     {
-      icon: MessageSquare,
+      
       title: "How We Make",
       subtitle: "Reconciliation Quick",
       description: "Free your team from tedious tasks. Outsourcing your account reconciliation ensures faster, error-free results while giving you peace of mind. Our streamlined process leverages automation and expert review to ensure accuracy and timeliness effortlessly for all stakeholders."
     },
     {
-      icon: Clock,
+      
       title: "AI-Powered",
       subtitle: "Efficiency",
       description: "We utilize industry-leading automation tools to handle invoices efficiently. These systems capture key details and organize them into clean columns in seconds. What used to take 10–15 minutes manually now takes just 2 minutes, enabling faster turnaround, fewer mistakes, and smooth financial flow."
     },
     {
-      icon: Heart,
+    
       title: "Team",
       subtitle: "Verification",
       description: "Technology is powerful, but human eyes keep it reliable. Our experts carefully check invoice data against receipts before reconciliation. This balance of AI and team oversight gives you accuracy you can trust, every single time."
     },
     {
-      icon: BrainCircuit,
+      
       title: "Accounts",
       subtitle: "Payable Services",
-      description: "Business peaks, holidays, and promotional campaigns often lead to higher volumes of inquiries. Our customer service solutions are fully scalable, designed to handle seasonal surges without any drop in service quality. This ensures your operations run smoothly, no matter how busy it gets."
+      description: "We manage your accounts payable so your business stays on top of bills and vendor payments. Our team ensures invoices are processed quickly, verified accurately, and paid on time. With AI-assisted automation and human oversight, you reduce errors, avoid late fees, and maintain strong vendor relationships."
     },
     {
-      icon:  Clock3,
+      
+      title: "Accounts",
+      subtitle: "Receivable Support",
+      description: "Managing incoming payments can be challenging. Our accounts receivable support ensures invoices are sent promptly, payments are tracked accurately, and overdue accounts are followed up on efficiently. We help improve cash flow, reduce late payments, and provide clear reporting so you always know what’s coming in."
+    },
+    {
+     
       title: "Continuous",
-      subtitle: " Improvements",
-      description: "Customer needs don’t follow a 9-to-5 schedule, and neither do we. Our support team is available around the clock, ready to assist your customers whenever they reach out. Whether it’s an urgent shipping issue in the middle of the night or a return request over the weekend, we’re always on call."
+      subtitle: "Improvements",
+      description: "We continually refine and optimize our reconciliation process to deliver even greater speed and precision. By integrating industry-standard tools and intelligent workflows, we help you achieve real-time insights, timely reporting, and stronger financial control."
+    },
+    {
+      
+      title: "The",
+      subtitle: "Result?",
+      description: "A streamlined reconciliation process that saves hours, reduces stress, and keeps your stakeholders confident in your numbers."
     }
    ];
   return (
@@ -124,49 +142,47 @@ const FinanceReconciliation = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
           Account Reconciliation
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
             Reconcile Smarter, Not Harder
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="Seamless supply chain operations are key to business success. Our Supply Chain Operations & Fulfillment Support ensures accurate inventory, efficient order management, smooth logistics, and reliable reporting. Using advanced tools and real-time monitoring, we help reduce errors, cut costs, and deliver a better customer experience."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Manual reconciliation slows your business down. With our account reconciliation services, what used to take 10–15 minutes per invoice now takes just 2 minutes. Our AI-powered automation tools extract and organize invoice details automatically, while our team verifies them for complete accuracy."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
-
+<Link to="/contact">
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          >
-            Contact Us Today
+            >
+            LET'S TALK
           </motion.button>
+            </Link>
         </motion.div>
       </div>
       
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
         <ServiceCard features={serviceFeatures} accentColor="purple" />
         <BusinessCTA 
-                    title="Why let competitors stay ahead"
-                    description="Every report you delay costs you opportunities.Your business already collects valuable data every single day. But without the right analysis and reporting, those numbers remain just numbers."
-                    buttonText="Turn Number Into Power"
+                    title="Don’t let slow processes hold you back!"
+                    description="Outsource your account reconciliation services today and save hours every week. Faster, smarter, AI-assisted finance management is just a click away."
+                    buttonText="CUT RECONCILATION TIME NOW"
                     imageUrl="\images\tp.avif"
                     altText="Consulting Team Collaboration"
                 />

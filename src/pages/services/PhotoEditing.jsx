@@ -14,6 +14,7 @@ import { SiAdobephotoshop, SiAdobeillustrator } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../../component/Footer";
 import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 const tech = [
   { name: "Figma", Icon: FaFigma },
@@ -865,12 +866,13 @@ export default function CustomerServices() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
             >
+              <Link to="/contact">
               <motion.a
                 href="#showcase"
                 className="group relative inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-2xl shadow-purple-500/25 ring-1 ring-purple-400/40 hover:from-purple-500 hover:to-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 active:scale-[.98] transition"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-              >
+                >
                 <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
                   <span className="absolute -inset-1 opacity-0 group-hover:opacity-20 transition" aria-hidden />
                   <span className="absolute -left-8 top-1/2 h-[200%] w-16 -translate-y-1/2 rotate-12 bg-white/60 blur-md opacity-0 group-hover:opacity-30 group-hover:translate-x-[120%] transition-all duration-700" aria-hidden />
@@ -878,6 +880,7 @@ export default function CustomerServices() {
                 <HiOutlineChatBubbleLeftRight className="text-xl" />
                 LET'S TALK
               </motion.a>
+                </Link>
             </motion.div>
           </motion.div>
 

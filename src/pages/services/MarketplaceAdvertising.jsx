@@ -35,36 +35,40 @@ const containerVariant = {
 };
 
 const TypewriterText = ({ text, speed = 20, className = "" }) => {
-  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    setDisplayedText("");
+    // reset when text changes
+    setIndex(0);
+
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
+      setIndex((prev) => {
+        if (prev >= text.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, speed);
+
     return () => clearInterval(interval);
   }, [text, speed]);
 
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 1.2 }}
-      className={`${className} whitespace-pre-wrap text-pretty`} // ✅ FIXED
+      className={`${className} whitespace-pre-wrap text-pretty`}
     >
-      {displayedText}
+      {/* always use a slice from the original string */}
+      {text.slice(0, index)}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         className="inline-block w-[2px] h-[1em] bg-white/70 ml-1 align-middle"
       />
-    </motion.p>
+    </motion.div>
   );
 };
 
@@ -78,34 +82,32 @@ const MarketplaceAdvertising = () => {
 ];
   const serviceFeatures = [
     {
-      icon: MessageSquare,
       title: "Sponsored Ads",
       subtitle: "Management",
       description: "We create and manage Sponsored Product, Sponsored Brand, and Sponsored Display ads that put your products in front of the right audience. Our campaigns are tailored to your goals, whether it’s driving sales, building brand awareness, or launching new products."
     },
     {
-      icon: Clock,
       title: "Campaign",
       subtitle: "Structuring",
       description: "Proper campaign structure is the backbone of Amazon PPC success. We organize campaigns by product category, match type, and target audience to ensure efficient budget allocation and maximum ad relevance. This improves click-through rates, lowers wasted spend, and strengthens overall campaign performance."
     },
     {
-      icon: Heart,
+      
       title: "Bid ",
       subtitle: "Optimization",
       description: "Every cent counts in Amazon advertising. We continuously adjust bids based on performance data, competitive analysis, and keyword trends to maximize return on ad spend (ROAS) while keeping your advertising cost of sales (ACOS) under control."
     },
     {
-      icon: BrainCircuit,
       title: "ROAS Improvement &",
       subtitle: "ACOS Reduction",
       description: "Our data-driven approach focuses on increasing profitability. By identifying high-converting keywords, pausing low-performing campaigns, and reallocating budgets strategically, we improve ROAS and reduce ACOS, turning your ad spend into measurable revenue growth."
     },
     {
-      icon:  Clock3,
       title: "Analytics-Driven",
       subtitle: "Refinement",
-      description: "Amazon PPC is never set-and-forget. We monitor campaigns daily, analyze performance metrics, and refine targeting, creatives, and bidding strategies. This continuous improvement ensures your ads adapt to market trends and consistently deliver results."
+      description: `Amazon PPC is never set-and-forget. We monitor campaigns daily, analyze performance metrics, and refine targeting, creatives, and bidding strategies. This continuous improvement ensures your ads adapt to market trends and consistently deliver results.
+      
+      With our Marketplace Advertising services, your Amazon campaigns become more efficient, more profitable, and more impactful, giving you a competitive edge and sustainable growth.`
     }
 
    ];
@@ -132,39 +134,36 @@ const MarketplaceAdvertising = () => {
         >
           <motion.h1
             variants={textVariant(0.1)}
-            className="text-white font-bold leading-tight text-left text-balance
-                       text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl "
+            className="text-white font-bold leading-tight text-left text-balance text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl
+"
           >
            Marketplace Advertising (Amazon PPC)
           </motion.h1>
 
           <motion.h3
             variants={textVariant(0.3)}
-            className="text-white font-light text-left text-balance leading-snug
-                       mt-4 sm:mt-6
-                       text-lg sm:text-xl md:text-2xl lg:text-3xl 2xl:text-4xl"
+            className="text-white font-light text-left text-balance leading-snug mt-4 sm:mt-6 text-xl md:text-xl lg:text-xl 2xl:text-2xl
+"
           >
             Maximize Your Sales with Expert Amazon PPC Management
           </motion.h3>
 
           <div className="mt-4 sm:mt-6 md:mt-8 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl"> 
             <TypewriterText
-              text="  Selling on Amazon is competitive, and the right advertising strategy can make or break your sales. Our Marketplace Advertising services help you run high-performing Sponsored Ads campaigns that increase visibility, boost revenue, and deliver measurable results."
-              className="text-white/90 font-light leading-relaxed text-left
-                         text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl"
+              text="Selling on Amazon is competitive, and the right advertising strategy can make or break your sales. Our Marketplace Advertising services help you run high-performing Sponsored Ads campaigns that increase visibility, boost revenue, and deliver measurable results."
+              className="text-white/90 font-light leading-relaxed text-left text-base md:text-lg lg:text-lg 2xl:text-xl
+"
               speed={25}
             />
           </div>
 
           <motion.button
             variants={textVariant(0.7)}
-            className="mt-6 sm:mt-8 md:mt-10 px-8 py-4 2xl:px-10 2xl:py-5 bg-white text-black font-semibold
-                       rounded-lg hover:bg-gray-100 transition-all duration-300
-                       text-base sm:text-lg md:text-lg lg:text-xl 2xl:text-2xl"
+            className="mt-6 sm:mt-8 md:mt-10 py-[11px] px-[18px] md:py-3 md:px-[21px] bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm md:text-base lg:text-base 2xl:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Contact Us Today
+            LET'S TALK
           </motion.button>
         </motion.div>
       </div>
@@ -174,7 +173,7 @@ const MarketplaceAdvertising = () => {
         <BusinessCTA 
                     title="Stop wasting ad spend on ineffective campaigns!"
                     description="Turn Clicks Into Conversions TodayPartner with us to optimize your Amazon PPC strategy, boost sales, and maximize ROI."
-                    buttonText="Fix My Amazon Issues"
+                    buttonText="OPTIMIZE MY AMAZON ADS NOW"
                     imageUrl="\images\CreativeProduction.avif"
                     altText="Optimize My Amazone Ads Now"
                 />
