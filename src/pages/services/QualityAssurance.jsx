@@ -164,8 +164,17 @@ const CustomerService = () => {
     <>
       {/* FIX 1: Changed 'xl:min-h-screen' to '2xl:min-h-screen'. 
           Standard 1280px laptops will now scroll naturally, removing the gap. */}
-      <div className="relative w-full min-h-[auto] 2xl:min-h-screen overflow-hidden font-[Poppins,sans-serif]">
-        <DarkVeil />
+      <div className="
+       relative w-full overflow-hidden font-[Poppins,sans-serif]
+       min-h-[60vh]
+       xl:min-h-[61vh]
+       2xl:min-h-[61vh]
+       min-[1700px]:min-h-[61vh]
+       min-[1900px]:min-h-[61vh]
+       min-[3000px]:min-h-[61vh]
+     ">
+     
+             <DarkVeil />
 
         <motion.div
           variants={containerVariant}
@@ -176,7 +185,7 @@ const CustomerService = () => {
           // - Reserved '2xl' styles for keeping the hero look on huge screens.
           className="relative z-[9] flex flex-col justify-center xl:justify-start items-start
                      w-full 
-                     min-h-[auto] 2xl:min-h-screen
+                     min-h-[auto] 2xl:min-h-[61vh]
                      px-6 md:px-14 lg:px-20
                      pt-32 pb-20 xl:py-36 2xl:pt-44 2xl:pb-0
                      md:max-w-[90%] lg:max-w-[80%] xl:max-w-[85%] 2xl:max-w-[75%]"
