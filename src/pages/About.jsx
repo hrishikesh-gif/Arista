@@ -98,9 +98,9 @@ const About = () => {
     >
       {/* Subtle gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-b from-transparent via-purple-950/10 to-transparent pointer-events-none z-0" />
-      
+
       {/* Minimal grid pattern */}
-      <div 
+      <div
         className="fixed inset-0 opacity-[0.03] pointer-events-none z-0"
         style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
@@ -147,99 +147,102 @@ const About = () => {
 
       <div className="relative z-10 w-full">
         {/* --- HERO SECTION --- */}
-<div className="w-full min-h-[85vh] sm:min-h-[90vh] md:min-h-screen flex items-center px-4 sm:px-6 md:px-8 lg:px-12 py-20 sm:py-24 md:py-32">
-  <div
-    className="flex flex-col lg:flex-row items-start justify-between gap-12 sm:gap-16 md:gap-20 lg:gap-10 w-full max-w-[1400px] mx-auto"
-    id="banner"
-  >
-    {/* Left Side: Title & Text */}
-    <MotionDiv
-      className="w-full lg:w-[70%] flex flex-col justify-start 
+        <div className="w-full min-h-[85vh] sm:min-h-[90vh] md:min-h-screen flex items-center px-4 sm:px-6 md:px-8 lg:px-12 py-20 sm:py-24 md:py-32">
+          <div
+            className="flex flex-col lg:flex-row items-start justify-between gap-12 sm:gap-16 md:gap-20 lg:gap-10 w-full max-w-[1400px] mx-auto"
+            id="banner"
+          >
+            {/* Left Side: Title & Text */}
+            <MotionDiv
+              className="w-full lg:w-[70%] flex flex-col justify-start 
                  text-center lg:text-left items-center lg:items-start"
-      initial={{ x: -50, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
-      <h1
-        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 
-                   font-bold tracking-tight leading-[1.2] text-center lg:text-left"
-      >
-        <div className="text-white mb-2 sm:mb-3">Hello,</div>
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+             <h1
+  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 
+             font-bold tracking-tight leading-[1.2] text-center lg:text-left"
+>
+  <div className="text-white mb-2 sm:mb-3 origin-left scale-[1.15] inline-block">
+    Hello,
+  </div>
 
-        <div className="text-transparent bg-clip-text 
-                        bg-gradient-to-r from-teal-300 to-green-400">
-          we’re Arista Systems
-        </div>
-      </h1>
+  <div className="text-transparent bg-clip-text 
+                  bg-gradient-to-r from-teal-300 to-green-400  leading-[1.25]">
+    We’re Arista Systems
+  </div>
+</h1>
 
-      <p
-        className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl 
+
+              <p
+                className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl 
                    text-gray-300 leading-relaxed max-w-2xl font-light 
                    text-center lg:text-left"
-      >
-        We build digital destinations that grab attention, amplify your story,
-        and wow every visitor, because you deserve a team that gets it, delivers
-        it, and makes it effortless.
-      </p>
-    </MotionDiv>
+              >
+                We build digital destinations that grab attention, amplify your story,
+                and wow every visitor, because you deserve a team that gets it, delivers
+                it, and makes it effortless.
+              </p>
+            </MotionDiv>
 
-    {/* Right Side: Stats */}
-    <MotionDiv
-      className="w-full lg:w-[30%] flex flex-col 
+            {/* Right Side: Stats */}
+            <MotionDiv
+              className="w-full lg:w-[30%] flex flex-col 
                  items-center lg:items-end text-center lg:text-right 
                  gap-6 sm:gap-8 md:gap-10"
-      initial={{ x: 50, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
-      {[
-        { end: 150, label: "Projects Till Date" },
-        { end: 75, label: "Happy Customers" },
-        { end: 6, label: "Countries Served" },
-      ].map((stat, index) => (
-        <div key={index} className="flex flex-col items-center lg:items-end">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-md mb-1">
-            <CountUp end={stat.end} duration={3} />
-            {stat.end === 6 ? "" : "+"}
-          </h2>
-          <p className="text-base sm:text-lg text-gray-400 font-medium">
-            {stat.label}
-          </p>
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+              {[
+                { end: 150, label: "Projects Till Date" },
+                { end: 75, label: "Happy Customers" },
+                { end: 6, label: "Countries Served" },
+              ].map((stat, index) => (
+                <div key={index} className="flex flex-col items-center lg:items-end">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-md mb-1">
+                    <CountUp end={stat.end} duration={3} />
+                    {stat.end === 6 ? "" : "+"}
+                  </h2>
+                  <p className="text-base sm:text-lg text-gray-400 font-medium">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </MotionDiv>
+          </div>
         </div>
-      ))}
-    </MotionDiv>
-  </div>
-</div>
-{/* --- End Hero Section --- */}
+        {/* --- End Hero Section --- */}
 
 
         {/* Placeholder sections - replace with your actual components */}
         <div className="w-full">
-          <WeAreSection/>
+          <WeAreSection />
         </div>
 
         <div className="w-full ">
           <MagicBentoCustom />
         </div>
 
-        <div className="w-full"style={{
-            background: '#0a0118',
-            '--glow-x': '50%',
-            '--glow-y': '50%',
-            '--glow-intensity': '0',
-            '--border-color': '#2e1a4e',
-            '--background-dark': '#0a0118'
-          }}
-         >
-          <BusinessCTA />
+        <div className="w-full" style={{
+          background: '#0a0118',
+          '--glow-x': '50%',
+          '--glow-y': '50%',
+          '--glow-intensity': '0',
+          '--border-color': '#2e1a4e',
+          '--background-dark': '#0a0118'
+        }}
+        >
+          <BusinessCTA removeBg={true} />
+        </div>
+
+        <div className="w-full" >
+          <Testimonials  />
         </div>
 
         <div className="w-full">
-           <Testimonials />
-        </div>
-
-        <div className="w-full">
-        <Footer />
+          <Footer />
         </div>
       </div>
     </div>
