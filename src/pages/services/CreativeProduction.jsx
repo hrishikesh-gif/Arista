@@ -7,7 +7,7 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import Footer from "../../component/Footer";
 import BusinessCTA from "../../component/BusinessCTA"
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { MessageSquare, Clock, Brain,Heart,BrainCircuit, HeartHandshake,Clock3} from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -69,6 +69,30 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 };
 
 const CustomerService = () => {
+   // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+  const featureRoutes = {
+    "Professional Photo Editing & Retouching": "/services/photo-editing",
+    "Custom Designs That Captivate": "/services/design-services",
+    "Video & Motion Content That Engages": "/services/video-motion",
+    "Website Design That Converts": "/services/website-design",
+  };
+  
+  // Click handler for routing
+  const handleClick = (feature) => {
+    const fullTitle = `${feature.title} ${feature.subtitle}`.trim();
+    const targetRoute = featureRoutes[fullTitle];
+
+    if (targetRoute) {
+      navigate(targetRoute);
+    } else {
+      console.warn(`No route defined for feature: ${fullTitle}`);
+      navigate("/services");
+    }
+  };
+
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -79,37 +103,43 @@ const CustomerService = () => {
       
       title: "What We",
       subtitle: "Do:",
-      description: "We provide a wide range of creative services to help your brand stand out. From photo editing and retouching to video content and website design, we cover it all. Our team focuses on quality and detail. We work to bring your ideas to life in a clear and professional way."
+      description: "We provide a wide range of creative services to help your brand stand out. From photo editing and retouching to video content and website design, we cover it all. Our team focuses on quality and detail. We work to bring your ideas to life in a clear and professional way.",
+       showButton: false// HAS BUTTON
     },
     {
       
       title: "Professional Photo",
       subtitle: "Editing & Retouching",
-      description: "Flawless photos drive credibility and engagement. With Arista’s Photo Retouching, your images achieve consistent quality, enhanced details, and natural tones, ensuring your brand leaves a lasting impression. From portrait retouching to e-commerce product enhancement, we provide scalable, high-quality editing solutions for retailers, photographers, and agencies worldwide. Every image is meticulously refined to deliver maximum visual impact."
+      description: "Flawless photos drive credibility and engagement. With Arista’s Photo Retouching, your images achieve consistent quality, enhanced details, and natural tones, ensuring your brand leaves a lasting impression. From portrait retouching to e-commerce product enhancement, we provide scalable, high-quality editing solutions for retailers, photographers, and agencies worldwide. Every image is meticulously refined to deliver maximum visual impact.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Custom Designs",
       subtitle: "That Captivate",
-      description: "Our Creative Design Services bring your brand to life with visually compelling solutions. From logo design and website banners to emailers, digital flyers, brochures, and complete branding guidelines, we craft cohesive, eye-catching designs that elevate your brand identity and engage your audience across all touchpoints."
+      description: "Our Creative Design Services bring your brand to life with visually compelling solutions. From logo design and website banners to emailers, digital flyers, brochures, and complete branding guidelines, we craft cohesive, eye-catching designs that elevate your brand identity and engage your audience across all touchpoints.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Video & Motion",
       subtitle: "Content That Engages",
-      description: "Static images aren’t enough. We produce motion graphics and video content that tell your story in seconds. Quick turnarounds, creative transitions, and AI-assisted editing ensure your content stands out online."
+      description: "Static images aren’t enough. We produce motion graphics and video content that tell your story in seconds. Quick turnarounds, creative transitions, and AI-assisted editing ensure your content stands out online.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Website Design That Converts",
       subtitle: "That Converts",
-      description: "Your website is your digital shopfront. With our outsourced creative design services, we create user-friendly, visually appealing sites that attract visitors and turn them into customers. AI helps us test layouts, generate design variations, and streamline workflow."
+      description: "Your website is your digital shopfront. With our outsourced creative design services, we create user-friendly, visually appealing sites that attract visitors and turn them into customers. AI helps us test layouts, generate design variations, and streamline workflow.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Why Outsource Creative",
       subtitle: "Design Services?",
-      description: "Save time. Reduce costs. Gain access to experts. Outsourcing to Arista Systems means faster delivery, higher-quality designs, and fresh perspectives. We stay on top of trends so you don’t have to."
+      description: "Save time. Reduce costs. Gain access to experts. Outsourcing to Arista Systems means faster delivery, higher-quality designs, and fresh perspectives. We stay on top of trends so you don’t have to.",
+      showButton: false// HAS BUTTON
     },
     {
       // The original description has been updated to use \n characters 
@@ -118,12 +148,13 @@ const CustomerService = () => {
       subtitle: "Advantage",
       description: `AI isn’t just a tool, it’s part of our workflow. We use it to:
       
-      • Create product-specific backgrounds quickly
-      • Brainstorm new ideas for campaign
-      • Edit, resize, and generate multiple design options
+   • Create product-specific backgrounds quickly
+  • Brainstorm new ideas for campaign
+ • Edit, resize, and generate multiple design options
       • Stay consistent while improving quality
       
-      This gives you smarter, more original visuals with faster turnaround times`
+      This gives you smarter, more original visuals with faster turnaround times`,
+       showButton: false // HAS BUTTON
     }
     
    ];
@@ -197,7 +228,14 @@ md:max-w-[90%] lg:max-w-[80%] xl:max-w-[85%] 2xl:max-w-[75%]"
       </div>
       
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-        <ServiceCard features={serviceFeatures} accentColor="purple" />
+       <ServiceCard 
+  features={serviceFeatures} 
+  accentColor="purple"
+  showButton={true}
+  buttonText="Read More"
+  onButtonClick={handleClick}
+/>
+
         <BusinessCTA 
                     title="Take Your Brand From Ordinary to Unforgettable!"
                     description="Stop waiting and start standing out. Our creative design services in India give you faster, smarter, and more original visuals, ready to impress your audience now."
