@@ -7,6 +7,8 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
+import CasestudySection from "../../component/CasestudySection";
+import {  useNavigate } from 'react-router-dom'; // Add useNavigate
 import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -67,7 +69,30 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
   );
 };
 
-const CustomerService = () => {
+const FulfillmentOperations = () => {
+   // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+  const featureRoutes = {
+    "Professional Photo Editing & Retouching": "/services/photo-editing-retouching",
+    "Custom Designs That Captivate": "/services/custom-designs",
+    "Video & Motion Content That Engages": "/services/video-motion-content",
+    "Website Design That Converts": "/services/website-design",
+  };
+  
+  // Click handler for routing
+  const handleClick = (feature) => {
+    const fullTitle = `${feature.title} ${feature.subtitle}`.trim();
+    const targetRoute = featureRoutes[fullTitle];
+
+    if (targetRoute) {
+      navigate(targetRoute);
+    } else {
+      console.warn(`No route defined for feature: ${fullTitle}`);
+      navigate("/services");
+    }
+  };
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -180,9 +205,7 @@ const CustomerService = () => {
       <ServiceCard
         features={serviceFeatures}
         accentColor="purple"
-        showButton={true}
-        buttonText="Read More"
-        onButtonClick={(feature, index) => handleClick(feature)}
+        
       />
       <BusinessCTA 
                     title="Act before inefficiencies cost you more!"
@@ -191,9 +214,10 @@ const CustomerService = () => {
                     imageUrl="\images\CS.avif"
                     altText="Let's Talk"
                 />
+                <CasestudySection/>
       <Footer />
     </>
   );
 };
 
-export default CustomerService;
+export default FulfillmentOperations;

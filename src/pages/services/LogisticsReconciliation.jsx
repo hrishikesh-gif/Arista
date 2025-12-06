@@ -6,6 +6,7 @@ import { FiMessageCircle, FiRepeat } from "react-icons/fi";
 import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import BusinessCTA from "../../component/BusinessCTA";
+import CasestudySection from "../../component/CasestudySection";
 import Footer from "../../component/Footer";
 import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
 
@@ -67,7 +68,7 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
   );
 };
 
-const CustomerService = () => {
+const LogisticsReconciliation = () => {
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -160,9 +161,7 @@ const CustomerService = () => {
       <ServiceCard
         features={serviceFeatures}
         accentColor="purple"
-        showButton={true}
-        buttonText="Read More"
-        onButtonClick={(feature, index) => handleClick(feature)}
+        
       />
       <BusinessCTA 
                     title="Stop letting hidden charges drain your profits!"
@@ -171,9 +170,10 @@ const CustomerService = () => {
                     imageUrl="\images\CS.avif"
                     altText="Let's Talk"
                 />
+               <CasestudySection/>
       <Footer />
     </>
   );
 };
 
-export default CustomerService;
+export default LogisticsReconciliation;
