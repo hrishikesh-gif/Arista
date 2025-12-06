@@ -6,15 +6,35 @@ import { Link } from "react-router-dom";
 // and keep the social icons as placeholders since their links are '#'.
 
 // Placeholder for social icons (since external icons like react-icons/fi failed)
-const GithubIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.75c3.27-1.46 6.57-2.92 6.57-6.57 0-3.65-2.92-6.57-6.57-6.57s-6.57 2.92-6.57 6.57c0 3.65 3.3 5.11 6.57 6.57a4.8 4.8 0 0 0-1 3.75v4"/><path d="M12 2a10 10 0 0 0-3.3 19.4c.5.1.7-.2.7-.5v-2c-3.3-.7-4-1.6-4-3.4 0-.8.2-1.6.5-2.2-1.5-.2-2.3-1-2.3-2.6 0-1.6.8-2.5 2.3-2.6.3-.6.6-1.3 1-1.9-3.2-.5-6.5 1-6.5 6.5 0 3.6 2.9 6.5 6.5 6.5s6.5-2.9 6.5-6.5c0-5.5-3.3-7-6.5-6.5.4.6.7 1.3 1 1.9 1.5.1 2.3 1 2.3 2.6 0 1.6-.8 2.4-2.3 2.6.3.6.6 1.3 1 1.9z"/></svg>;
-const TwitterIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4-.8 5.4-2.2A4.5 4.5 0 0 1 8.2 9c.7 0 1.3.1 1.8.4-1.3-.8-2.7-1.4-4.5-1.4V8a4.5 4.5 0 0 0 3.5 4.5c-.3.1-.7.2-1.1.2.3 1.3 1.4 2.3 2.6 2.3s2.2-.6 2.9-1.8c.8.5 1.7.9 2.7.9a9 9 0 0 0 6.6-2.5c.3-.2.6-.4.9-.7 1-.3 1.9-.8 2.6-1.4.3-.2.6-.4.9-.7-.8.5-1.7.9-2.6 1.4-1.2.8-2.6 1.3-4.1 1.5 1-.6 1.8-1.4 2.4-2.4C19 6.5 20.2 5 21.5 4"/></svg>;
-const LinkedinIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>;
-const InstagramIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>;
+const FacebookIcon = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="currentColor">
+    <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 
+    23.403.597 24 1.326 24h11.494v-9.294H9.691v-3.622h3.129V8.413c0-3.1 
+    1.893-4.788 4.659-4.788 1.325 0 2.463.099 
+    2.794.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 
+    1.764v2.314h3.587l-.467 3.622h-3.12V24h6.116C23.403 
+    24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0z" />
+  </svg>
+);
+
+// X (Twitter) Icon
+const XIcon = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.36 2H22l-6.98 7.98L24 22h-7.52l-4.7-6.17L5.9 
+    22H2l7.48-8.54L0 2h7.64l4.26 5.63L18.36 2zM16.44 
+    20h2.02L7.7 4h-2L16.44 20z" />
+  </svg>
+);
+
+const LinkedinIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>;
+const InstagramIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>;
 
 // Specific icons for contact info
-const PhoneIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className || "text-green-400"}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6.7-6.7A19.79 19.79 0 0 1 2 4.18V2a2 2 0 0 1 2-2h3.18a2 2 0 0 1 2 1.73l.2 2.66a2 2 0 0 1-.41 1.77l-1.57 1.57a15.46 15.46 0 0 0 6.88 6.88l1.57-1.57a2 2 0 0 1 1.77-.41l2.66.2A2 2 0 0 1 22 16.92z"/></svg>;
-const MailIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className || "text-blue-400"}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
-const MapPinIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+const PhoneIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className || "text-green-400"}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6.7-6.7A19.79 19.79 0 0 1 2 4.18V2a2 2 0 0 1 2-2h3.18a2 2 0 0 1 2 1.73l.2 2.66a2 2 0 0 1-.41 1.77l-1.57 1.57a15.46 15.46 0 0 0 6.88 6.88l1.57-1.57a2 2 0 0 1 1.77-.41l2.66.2A2 2 0 0 1 22 16.92z" /></svg>;
+const MailIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className || "text-blue-400"}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>;
+const MapPinIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>;
 
 const Footer = () => {
   // Helper function to scroll to top
@@ -31,7 +51,7 @@ const Footer = () => {
       <section className="relative bg-black text-white overflow-hidden min-h-[35vh] md:min-h-[35vh] lg:min-h-[35vh] py-8 md:py-12">
         {/* Container to keep all three sections together */}
         <div className="relative flex flex-col items-center justify-center gap-4 md:gap-6 h-full">
-          
+
           {/* === Animated Background Text - Top === */}
           <div className="w-full flex items-center pointer-events-none overflow-hidden whitespace-nowrap">
             <div className="flex space-x-8 md:space-x-16 animate-scroll-left">
@@ -54,9 +74,9 @@ const Footer = () => {
                 Turn ideas into measurable results.
               </h2>
               <button className="group relative bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 rounded-lg overflow-hidden">
-              <Link to="/contact">
-                <span className="relative z-10">GET A CUSTOM QUOTE TODAY</span>
-              </Link>
+                <Link to="/contact">
+                  <span className="relative z-10">GET A CUSTOM QUOTE TODAY</span>
+                </Link>
 
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
@@ -115,9 +135,9 @@ const Footer = () => {
           {/* Logo + Address */}
           <div className="group">
             <Link to="/" onClick={scrollToTop}> {/* Added onClick here */}
-              <img 
-                src="/images/aristasystems_logo.png" 
-                alt="Arista Systems" 
+              <img
+                src="/images/aristasystems_logo.png"
+                alt="Arista Systems"
                 className="h-14 w-auto hover:scale-105 transition-transform duration-300 cursor-pointer"
               />
             </Link>
@@ -130,14 +150,20 @@ const Footer = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-4 flex gap-3">
-              <span className="bg-gray-800 px-3 py-1 rounded text-sm hover:bg-purple-600 hover:scale-105 transition-all duration-300 cursor-pointer">
-                Shopify Partner
-              </span>
-              <span className="bg-gray-800 px-3 py-1 rounded text-sm hover:bg-pink-600 hover:scale-105 transition-all duration-300 cursor-pointer">
-                Shopify Expert
-              </span>
+            <div className="mt-4 flex gap-3 items-center">
+              <img
+                src="\images\shopify-partner.webp"   // ← your path here
+                alt="Shopify Partner"
+                className="h-10 w-auto max-w-[130px] object-contain hover:scale-105 transition-all duration-300 cursor-pointer"
+              />
+
+              <img
+                src="\images\shopify-experts.webp"    // ← your path here
+                alt="Shopify Expert"
+                className="h-10 w-auto  max-w-[130px]  object-contain hover:scale-105 transition-all duration-300 cursor-pointer"
+              />
             </div>
+
           </div>
 
           {/* Services */}
@@ -158,8 +184,8 @@ const Footer = () => {
                   key={index}
                   className="hover:text-white hover:translate-x-2 transition-all duration-300 cursor-pointer relative group"
                 >
-                  <Link 
-                    to={service.path} 
+                  <Link
+                    to={service.path}
                     onClick={scrollToTop} // Added onClick here
                     className="relative z-10"
                   >
@@ -173,34 +199,57 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4 hover:text-pink-400 transition-colors duration-300 cursor-pointer">
-              QUICK LINKS
-            </h3>
-            <ul className="space-y-2 text-gray-400">
-              {[
-                { name: "Services", path: "/services" },
-                { name: "About", path: "/about" },
-                { name: "Work", path: "/case-studies" },
-                { name: "Careers", path: "/careers" },
-                { name: "blogs", path: "/blog" },
-                { name: "Contact", path: "/contact" },
-              ].map((link, index) => (
-                <li
-                  key={index}
-                  className="hover:text-white hover:translate-x-2 transition-all duration-300 cursor-pointer relative group"
-                >
-                  <Link 
-                    to={link.path} 
-                    onClick={scrollToTop} // Added onClick here
-                    className="relative z-10"
-                  >
-                    {link.name}
-                  </Link>
-                  <div className="absolute left-0 top-0 w-0 h-full bg-gradient-to-r from-pink-600 to-transparent opacity-20 group-hover:w-full transition-all duration-300 -z-10"></div>
-                </li>
-              ))}
-            </ul>
-          </div>
+  <h3 className="text-white font-semibold mb-4 hover:text-pink-400 transition-colors duration-300 cursor-pointer">
+    QUICK LINKS
+  </h3>
+
+  <ul className="space-y-2 text-gray-400">
+    {[
+      { name: "Services", path: "/services" },
+      { name: "About", path: "/about" },
+      { name: "Work", path: "/case-studies" },
+      { name: "Careers", path: "/careers" },
+      { name: "Blogs", path: "/blog" },
+      { name: "Contact", path: "/contact" },
+    ].map((link, index) => (
+      <li
+        key={index}
+        className="hover:text-white hover:translate-x-2 transition-all duration-300 cursor-pointer relative group"
+      >
+        <Link
+          to={link.path}
+          onClick={scrollToTop}
+          className="relative z-10"
+        >
+          {link.name}
+        </Link>
+
+        <div className="absolute left-0 top-0 w-0 h-full 
+            bg-gradient-to-r from-pink-600 to-transparent opacity-20 
+            group-hover:w-full transition-all duration-300 -z-10">
+        </div>
+      </li>
+    ))}
+
+    {/* PDF LINK (separate item) */}
+    <li className="hover:text-white hover:translate-x-2 transition-all duration-300 cursor-pointer relative group">
+      <a
+        href="/policies/information-security-policy.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="relative z-10"
+      >
+        Information Security Policy
+      </a>
+
+      <div className="absolute left-0 top-0 w-0 h-full 
+          bg-gradient-to-r from-pink-600 to-transparent opacity-20 
+          group-hover:w-full transition-all duration-300 -z-10">
+      </div>
+    </li>
+  </ul>
+</div>
+
 
           {/* Get in Touch + Socials */}
           <div>
@@ -227,10 +276,10 @@ const Footer = () => {
               <p className="text-sm text-gray-500 mb-3">Follow us on</p>
               <div className="flex gap-4 text-xl">
                 {[
-                  { icon: GithubIcon, color: "hover:text-gray-300 hover:bg-gray-800", link: "#" },
-                  { icon: TwitterIcon, color: "hover:text-blue-400 hover:bg-blue-900/30", link: "#" },
-                  { icon: InstagramIcon, color: "hover:text-pink-400 hover:bg-pink-900/30", link: "#" },
-                  { icon: LinkedinIcon, color: "hover:text-blue-500 hover:bg-blue-900/30", link: "#" },
+                  { icon: FacebookIcon, color: "hover:text-blue-500 hover:bg-blue-900/30", link: "https://www.facebook.com/aristanagpur" },
+                  { icon: XIcon, color: "hover:text-gray-300 hover:bg-gray-800/40", link: "https://x.com/aristasystems/" },
+                  { icon: InstagramIcon, color: "hover:text-pink-400 hover:bg-pink-900/30", link: "https://www.instagram.com/aristasystems/" },
+                  { icon: LinkedinIcon, color: "hover:text-blue-500 hover:bg-blue-900/30", link: "https://www.linkedin.com/company/arista-systems-nagpur/" },
                 ].map((social, index) => {
                   const IconComponent = social.icon;
                   return (
