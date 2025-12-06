@@ -75,10 +75,9 @@ const CustomerService = () => {
   
   // Define route mapping for features with buttons
   const featureRoutes = {
-    "Professional Photo Editing & Retouching": "/services/photo-editing-retouching",
-    "Custom Designs That Captivate": "/services/custom-designs",
-    "Video & Motion Content That Engages": "/services/video-motion-content",
-    "Website Design That Converts": "/services/website-design",
+    "Product Content & Catalog Accuracy": "/services/product-content-catalog",
+    "Website Content Migration & Management": "/services/content-migration",
+    "404 Cleanup & Categorization Structure": "/services/404-cleanup",
   };
   
   // Click handler for routing
@@ -133,14 +132,14 @@ const CustomerService = () => {
       • Business understanding that goes beyond just “fixing” content, we align it with sales and  growth. 
       
       That’s the difference. We don’t just manage data. We help you unlock the full potential of your catalog.`,
-      showButton: true // HAS BUTTON
+      showButton: false // HAS BUTTON
     },
     {
       
       title: "The Cost",
       subtitle: "of Waiting",
       description: "Every day your catalog stays unorganized, you lose sales. Customers leave. Search engines rank you lower. Competitors get ahead. The fix isn’t complicated, it just needs the right team. We’re here to make sure your content never holds your business back again.",
-      showButton: true // HAS BUTTON
+      showButton: false // HAS BUTTON
     },
     
   ];

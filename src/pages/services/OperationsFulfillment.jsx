@@ -74,10 +74,12 @@ const OperationsFulfillment = () => {
   
   // Define route mapping for features with buttons
   const featureRoutes = {
-    "Professional Photo Editing & Retouching": "/services/photo-editing-retouching",
-    "Custom Designs That Captivate": "/services/custom-designs",
-    "Video & Motion Content That Engages": "/services/video-motion-content",
-    "Website Design That Converts": "/services/website-design",
+    "Fulfillment Operations & Reporting": "/services/fulfillment-operations",
+    "Inventory Reconciliation & Retail Ops": "/services/inventory-reconciliation",
+    "VLogistics Reconciliation & Charge Verification": "/services/logistics-reconciliation",
+    "Order Management": "/services/logistics-reconciliation",
+    "Operations Management": "/services/logistics-reconciliation",
+   
   };
   
   // Click handler for routing
