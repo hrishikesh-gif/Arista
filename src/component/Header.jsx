@@ -421,7 +421,7 @@ const Header = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.0, duration: 0.6 }}
                 className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
-                href="#"
+                href="https://www.instagram.com/aristasystems/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -433,7 +433,7 @@ const Header = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.05, duration: 0.6 }}
                 className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
-                href="#"
+                href="https://x.com/aristasystems/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -445,7 +445,7 @@ const Header = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.1, duration: 0.6 }}
                 className="text-gray-400 hover:text-violet-400 transition-colors duration-300"
-                href="#"
+                href="https://www.linkedin.com/company/arista-systems-nagpur/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
