@@ -7,8 +7,8 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
-import { Link } from "react-router-dom";
-
+import { Link,useNavigate } from "react-router-dom";
+import CasestudySection from "../../component/CasestudySection";
 
 const textVariant = (delay = 0) => ({
   hidden: { opacity: 0, y: 40 },
@@ -69,6 +69,36 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 };
 
 const CustomerService = () => {
+   // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+const featureRoutes = {
+  "Web App Development": "/services/website-development",
+  "Digital": "/services/digital-marketing",
+  "Content ": "/services/content-catalog",  // Keep the space if it's in your title
+  "Reporting &": "/services/data-reporting",
+  "IT & Customer ": "/services/customer-experience",
+  "Architectural & ": "/services/architectural-3d",
+  "Amazon & ": "/services/amazon-marketplace",
+  "Creative Production": "/services/creative-production",
+  "Operations & ": "/services/operations-fulfillment",
+  "Finance & ": "/services/finance-reconciliation",
+  "Quality ": "/services/quality-assurance",
+};
+  
+  // Click handler for routing
+ const handleClick = (feature) => {
+  const targetRoute = featureRoutes[feature.title];
+
+  if (targetRoute) {
+    navigate(targetRoute);
+  } else {
+    console.warn(`No route defined for feature: ${feature.title}`);
+    navigate("/services");
+  }
+};
+
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -78,57 +108,68 @@ const CustomerService = () => {
     {
       title: "Web App Development",
       subtitle: "Development",
-      description: "Beautiful, functional, and built to convert. Whether it’s Shopify, WordPress, Magento, or a custom platform, we design and develop websites and apps that look great and perform even better. Every project is built with the user in mind, ensuring fast load times, seamless navigation, and features that turn visitors into customers."
+      description: "Beautiful, functional, and built to convert. Whether it’s Shopify, WordPress, Magento, or a custom platform, we design and develop websites and apps that look great and perform even better. Every project is built with the user in mind, ensuring fast load times, seamless navigation, and features that turn visitors into customers.",
+      showButton: true// HAS BUTTON
     },
     {
       title: "Digital",
       subtitle: "Marketing",
-      description: "SEO, social media, PPC, email marketing, we turn clicks into customers, likes into leads, and campaigns into measurable revenue. From strategy to execution, our digital marketing solutions are tailored to your business goals. We don’t just run campaigns; we track performance, optimize continuously, and make sure your marketing dollars actually drive results."
+      description: "SEO, social media, PPC, email marketing, we turn clicks into customers, likes into leads, and campaigns into measurable revenue. From strategy to execution, our digital marketing solutions are tailored to your business goals. We don’t just run campaigns; we track performance, optimize continuously, and make sure your marketing dollars actually drive results.",
+      showButton: true // HAS BUTTON
     },
     {
       title: "Content ",
       subtitle: "Management",
-      description: "Keep your website fresh, fast, and flawless with CMS solutions that are simple to manage but powerful in results. We make updating your site effortless, while ensuring your content stays optimized for search engines, looks great across devices, and supports your business objectives every step of the way."
+      description: "Keep your website fresh, fast, and flawless with CMS solutions that are simple to manage but powerful in results. We make updating your site effortless, while ensuring your content stays optimized for search engines, looks great across devices, and supports your business objectives every step of the way.",
+      showButton: true // HAS BUTTON
     },
     {
       title: "Reporting &",
       subtitle: "Analytics",
-      description: "We don’t guess, we measure. Using tools like Google Analytics, Tableau, and Advanced Excel, we turn complex data into clear, actionable insights. Track your website performance, monitor campaign results, and make data-driven decisions that improve efficiency, ROI, and overall business growth."
+      description: "We don’t guess, we measure. Using tools like Google Analytics, Tableau, and Advanced Excel, we turn complex data into clear, actionable insights. Track your website performance, monitor campaign results, and make data-driven decisions that improve efficiency, ROI, and overall business growth.",
+      showButton: true // HAS BUTTON
     },
     {
       title: "IT & Customer ",
       subtitle: "Support",
-      description: "Remote support, chat, email, and call handling, we keep your systems running smoothly and your customers happy. Our team provides fast, reliable IT and customer support solutions, ensuring your employees stay productive and your clients receive the help they need without delays or frustration."
+      description: "Remote support, chat, email, and call handling, we keep your systems running smoothly and your customers happy. Our team provides fast, reliable IT and customer support solutions, ensuring your employees stay productive and your clients receive the help they need without delays or frustration.",
+      showButton: true // HAS BUTTON
     },
     {
       title: "Architectural & ",
       subtitle: "Interior Design",
-      description: "Yes, we go beyond digital. From detailed construction drawings to high-quality 3D renders, we create spaces that inspire and function perfectly. Our design solutions combine creativity, precision, and practicality, helping clients visualize their dream spaces and bringing those ideas to life efficiently and beautifully."
+      description: "Yes, we go beyond digital. From detailed construction drawings to high-quality 3D renders, we create spaces that inspire and function perfectly. Our design solutions combine creativity, precision, and practicality, helping clients visualize their dream spaces and bringing those ideas to life efficiently and beautifully.",
+      showButton: true // HAS BUTTON
     },
     {
       title: "Amazon & ",
       subtitle: " Marketplace Management",
-      description: "We handle everything your eCommerce business needs to thrive across platforms like Amazon, Walmart, and eBay. From Seller Central support and ASIN merges to listing QC, compliance checks, and order issue resolution, we’ve got it covered. Our team manages white background and lifestyle images, infographics, and optimized visuals that meet strict marketplace standards. We also specialize in building brand storefronts, enhancing Brand Story sections, and running ad campaigns focused on ROAS improvement, ACOS reduction, and data-driven growth. Plus, we take care of reviews, refunds, and buyer communication to maintain your reputation and customer trust."
+      description: "We handle everything your eCommerce business needs to thrive across platforms like Amazon, Walmart, and eBay. From Seller Central support and ASIN merges to listing QC, compliance checks, and order issue resolution, we’ve got it covered. Our team manages white background and lifestyle images, infographics, and optimized visuals that meet strict marketplace standards. We also specialize in building brand storefronts, enhancing Brand Story sections, and running ad campaigns focused on ROAS improvement, ACOS reduction, and data-driven growth. Plus, we take care of reviews, refunds, and buyer communication to maintain your reputation and customer trust.",
+      showButton: true // HAS BUTTON
     },
     {
       title: "Creative Production",
       subtitle: "Production",
-      description: "Whether it’s product photography, social reels, or short-form video content, our creative production team turns visuals into conversion tools. We handle apparel and footwear shoots, flat lays, dust cleanup, model retouching, and lifestyle imagery that reflects your brand identity. On the video side, we produce reels, product demos, and social clips that engage instantly and make your products stand out."
+      description: "Whether it’s product photography, social reels, or short-form video content, our creative production team turns visuals into conversion tools. We handle apparel and footwear shoots, flat lays, dust cleanup, model retouching, and lifestyle imagery that reflects your brand identity. On the video side, we produce reels, product demos, and social clips that engage instantly and make your products stand out.",
+      showButton: true // HAS BUTTON
     },
      {
       title: "Operations & ",
       subtitle: "Fulfillment Support",
-      description: "Our operations team ensures your backend runs with accuracy and consistency. We monitor order flow, track TAT and ETAs, detect anomalies, and build dashboards using Power BI or Tableau. From replenishment planning to inventory reconciliation across B2B portals, we handle mismatches, shortage reports, and shrinkage audits with precision. We also oversee shipment tracking across multiple carriers, manage claims and returns, and handle customs verification, courier costs, and multi-currency charge reconciliations to ensure complete trade and compliance visibility."
+      description: "Our operations team ensures your backend runs with accuracy and consistency. We monitor order flow, track TAT and ETAs, detect anomalies, and build dashboards using Power BI or Tableau. From replenishment planning to inventory reconciliation across B2B portals, we handle mismatches, shortage reports, and shrinkage audits with precision. We also oversee shipment tracking across multiple carriers, manage claims and returns, and handle customs verification, courier costs, and multi-currency charge reconciliations to ensure complete trade and compliance visibility.",
+      showButton: true // HAS BUTTON
     },
      {
       title: "Finance & ",
       subtitle: "Reconciliation",
-      description: "Stay financially organized and stress-free. We handle invoice verification, PO matching, vendor portal entries, follow-ups, and AP reporting with accuracy. Our team also manages customer statements, payment reconciliations, and reporting delays, ensuring every financial record stays clean, consistent, and up-to-date."
+      description: "Stay financially organized and stress-free. We handle invoice verification, PO matching, vendor portal entries, follow-ups, and AP reporting with accuracy. Our team also manages customer statements, payment reconciliations, and reporting delays, ensuring every financial record stays clean, consistent, and up-to-date.",
+      showButton: true // HAS BUTTON
     },
      {
       title: "Quality ",
       subtitle: "Assurance",
-      description: "We maintain your brand’s credibility through a structured QA process that covers development, content, and image specifications. Every deliverable is checklist-tested, client-reviewed, and refined through our bug-tracking system. From website audits to visual QA, we make sure nothing goes live until it meets our highest standards."
+      description: "We maintain your brand’s credibility through a structured QA process that covers development, content, and image specifications. Every deliverable is checklist-tested, client-reviewed, and refined through our bug-tracking system. From website audits to visual QA, we make sure nothing goes live until it meets our highest standards.",
+      showButton: true // HAS BUTTON
     }
     
   ];
@@ -205,7 +246,8 @@ const CustomerService = () => {
         accentColor="purple"
         showButton={true}
         buttonText="Read More"
-        onButtonClick={(feature, index) => handleClick(feature)}
+        onButtonClick={handleClick}
+        // onButtonClick={(feature, index) => handleClick(feature)}
       />
       <BusinessCTA 
                     title="Ready to Experience Exceptional Support?"
@@ -214,6 +256,7 @@ const CustomerService = () => {
                     imageUrl="\images\CS.avif"
                     altText="Let's Talk"
                 />
+                <CasestudySection />
       <Footer />
     </>
   );
