@@ -8,6 +8,7 @@ import ServiceCard from "../../component/ServiceCard";
 import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
 import { Link } from 'react-router-dom';
+import CasestudySection from "../../component/CasestudySection";
 import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -242,6 +243,7 @@ const CustomerService = () => {
                     imageUrl="\images\CS.avif"
                     altText="Let's Talk"
                 />
+                <CasestudySection/>
       <Footer />
     </>
   );

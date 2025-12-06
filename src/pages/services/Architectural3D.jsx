@@ -9,6 +9,7 @@ import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
 import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CasestudySection from "../../component/CasestudySection";
 
 const textVariant = (delay = 0) => ({
   hidden: { opacity: 0, y: 40 },
@@ -187,6 +188,7 @@ const CustomerService = () => {
                     imageUrl="\images\CS.avif"
                     altText="Let's Talk"
                 />
+              <CasestudySection/>
       <Footer />
     </>
   );
