@@ -1,5 +1,56 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+// Updated helper component that handles both string and React element inputs
+const DescriptionRenderer = ({ text }) => {
+  if (!text) return null;
+  
+  // If text is already a React element, render it as-is
+  if (React.isValidElement(text)) {
+    return text;
+  }
+  
+  // If text is not a string, convert it to string
+  const textString = typeof text === 'string' ? text : String(text);
+  
+  // If text doesn't contain bullet points or newlines, render as plain text
+  if (!textString.includes('•') && !textString.includes('\n')) {
+    return <span>{textString}</span>;
+  }
+  
+  const lines = textString.split('\n');
+  
+  return (
+    <div className="space-y-1.5">
+      {lines.map((line, index) => {
+        const trimmedLine = line.trim();
+        
+        // Skip empty lines (just whitespace)
+        if (trimmedLine === '') {
+          return <br key={index} />;
+        }
+        
+        // Handle bullet points
+        if (trimmedLine.includes('•')) {
+          const bulletItems = trimmedLine.split('•').filter(item => item.trim() !== '');
+          return (
+            <React.Fragment key={index}>
+              {bulletItems.map((item, itemIndex) => (
+                <div key={`${index}-${itemIndex}`} className="flex items-start">
+                  <span className="mr-2 flex-shrink-0">•</span>
+                  <span className="flex-1">{item.trim()}</span>
+                </div>
+              ))}
+            </React.Fragment>
+          );
+        }
+        
+        // Regular text lines
+        return <div key={index}>{trimmedLine}</div>;
+      })}
+    </div>
+  );
+};
+
 export default function ServiceCard({ 
   features, 
   accentColor = "emerald",
@@ -98,9 +149,10 @@ export default function ServiceCard({
                   ? 'opacity-100 translate-x-0' 
                   : 'opacity-0 translate-x-4'
               }`}>
-                <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                  {feature.description}
-                </p>
+                <div className="text-gray-300 text-lg leading-relaxed mb-4">
+                  {/* Use the DescriptionRenderer instead of plain text */}
+                  <DescriptionRenderer text={feature.description} />
+                </div>
                 
                 {/* Optional Button - Shows based on individual feature or component-level setting */}
                 {shouldShowButton && (
