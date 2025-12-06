@@ -347,7 +347,7 @@ const Header = () => {
                             aria-haspopup={service.hasSubItems ? "true" : undefined}
                             aria-expanded={service.hasSubItems ? (showSub ? "true" : "false") : undefined}
                             onClick={() => handleNavigation(service.path)}
-                            className={`w-full flex items-center justify-between px-4 py-3 text-xs xl:text-[13px] tracking-wide uppercase font-semibold text-gray-100 hover:bg-gray-900 transition-colors ${
+                            className={`w-full flex items-center justify-between px-4 py-3 text-xs xl:text-[13px] tracking-wide  font-semibold text-gray-100 hover:bg-gray-900 transition-colors ${
                               showSub ? "bg-gray-900" : ""
                             }`}
                           >
