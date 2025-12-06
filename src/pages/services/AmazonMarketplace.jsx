@@ -7,7 +7,7 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
 import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -69,6 +69,33 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 };
 
 const CustomerService = () => {
+   // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+  const featureRoutes = {
+    "Amazon Seller Support": "/services/amazon-seller-support",
+    "Storefront & Brand Story Setup": "/services/amazon-storefront-brand",
+    "Marketplace Advertising (Amazon PPC)": "/services/marketplace-advertising",
+    "Marketplace Customer Support": "/services/marketplace-customer-support",
+  };
+  
+  // Click handler for routing
+   // Click handler for routing
+   // Click handler for routing
+  const handleClick = (feature) => {
+    const fullTitle = `${feature.title} ${feature.subtitle}`.trim();
+    const targetRoute = featureRoutes[fullTitle];
+
+    if (targetRoute) {
+      navigate(targetRoute);
+    } else {
+      console.warn(`No route defined for feature: ${fullTitle}`);
+      navigate("/services");
+    }
+  };
+
+
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -79,37 +106,43 @@ const CustomerService = () => {
       
       title: "Master Your",
       subtitle: "Amazon Store",
-      description: "Your Amazon store deserves more than a basic setup. With our Amazon marketplace management services, we ensure your listings are optimized, engaging, and ready to convert. Our smart strategies mix market insight with AI-powered analytics to keep you ahead of competitors."
+      description: "Your Amazon store deserves more than a basic setup. With our Amazon marketplace management services, we ensure your listings are optimized, engaging, and ready to convert. Our smart strategies mix market insight with AI-powered analytics to keep you ahead of competitors.",
+      showButton: false // HAS BUTTON
     },
     {
       
       title: "Amazon Seller",
       subtitle: "Support",
-      description: "Managing an Amazon store can be complicated. We provide seller support to help you with account setup, product listings, and compliance. Our team guides you through any issues, keeps your account in good standing, and ensures your store runs smoothly so you can focus on growing your business."
+      description: "Managing an Amazon store can be complicated. We provide seller support to help you with account setup, product listings, and compliance. Our team guides you through any issues, keeps your account in good standing, and ensures your store runs smoothly so you can focus on growing your business.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Storefront & Brand",
       subtitle: "Story Setup",
-      description: "Your product listings need to look professional and tell a story. We enhance images to meet Amazon’s standards, making them clean, clear, and engaging. Then, we create A+ Content to showcase features and benefits in a visually appealing way. We also build custom storefronts that reflect your brand identity and guide shoppers through your products. Finally, we craft a brand story to connect with buyers, communicate your values, and build loyalty. Together, this package helps your listings stand out and convert more visitors into customers."
+      description: "Your product listings need to look professional and tell a story. We enhance images to meet Amazon’s standards, making them clean, clear, and engaging. Then, we create A+ Content to showcase features and benefits in a visually appealing way. We also build custom storefronts that reflect your brand identity and guide shoppers through your products. Finally, we craft a brand story to connect with buyers, communicate your values, and build loyalty. Together, this package helps your listings stand out and convert more visitors into customers.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Marketplace Advertising",
       subtitle: "(Amazon PPC)",
-      description: "We help you reach the right customers with Amazon PPC campaigns. Our team sets up and manages ads that drive traffic, boost visibility, and increase sales. We monitor campaigns closely and make adjustments to improve performance, so every dollar you spend works harder for your business."
+      description: "We help you reach the right customers with Amazon PPC campaigns. Our team sets up and manages ads that drive traffic, boost visibility, and increase sales. We monitor campaigns closely and make adjustments to improve performance, so every dollar you spend works harder for your business.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Marketplace Customer",
       subtitle: "Support",
-      description: "Happy customers are repeat customers. We provide customer support to handle questions, returns, and reviews professionally. Our team ensures fast and friendly responses, resolves issues efficiently, and maintains your brand reputation. With expert support, your customers stay satisfied and loyal."
+      description: "Happy customers are repeat customers. We provide customer support to handle questions, returns, and reviews professionally. Our team ensures fast and friendly responses, resolves issues efficiently, and maintains your brand reputation. With expert support, your customers stay satisfied and loyal.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "AI-Powered Insights",
       subtitle: "for Smarter Selling",
-      description: "We don’t just manage your store, we analyze trends, optimize listings, and target the right audience using AI tools. Every decision is backed by data and real-time insights to maximize ROI. It’s like having a sales team that never sleeps"
+      description: "We don’t just manage your store, we analyze trends, optimize listings, and target the right audience using AI tools. Every decision is backed by data and real-time insights to maximize ROI. It’s like having a sales team that never sleeps",
+      showButton: false // No button
     }, 
     {
       
@@ -121,7 +154,8 @@ const CustomerService = () => {
       • Tailored strategies for your products, audience, and goals. 
       • Full support across listings, advertising, and customer experience. 
       
-      Your success on Amazon starts here, don’t let it wait.`
+      Your success on Amazon starts here, don’t let it wait.`,
+      showButton: false // No button
     }
     
   ];
@@ -193,13 +227,15 @@ const CustomerService = () => {
       </div>
 
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-      <ServiceCard
-        features={serviceFeatures}
-        accentColor="purple"
-        showButton={true}
-        buttonText="Read More"
-        onButtonClick={(feature, index) => handleClick(feature)}
-      />
+      
+<ServiceCard 
+  features={serviceFeatures} 
+  accentColor="purple"
+  showButton={true}
+  buttonText="Read More"
+  onButtonClick={handleClick}
+/>
+
       <BusinessCTA 
                     title="Boost Your Sales. Dominate the Marketplace!"
                     description="Stand out on Amazon with expert marketplace services that grow sales and improve visibility."

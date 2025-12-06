@@ -8,7 +8,7 @@ import ServiceCard from "../../component/ServiceCard";
 import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
 import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
 
 const textVariant = (delay = 0) => ({
   hidden: { opacity: 0, y: 40 },
@@ -69,6 +69,32 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 };
 
 const CustomerService = () => {
+  // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+  const featureRoutes = {
+    "Supercharge Your Support with Chat, Email & Voice": "/services/customer-service",
+    "Protect Your Business with Chargeback & Dispute Resolution": "/services/chargeback-dispute",
+    "Stay Organized with Lead Reconciliation & Portal Auditing": "/services/lead-reconciliation",
+    
+  };
+  
+  // Click handler for routing
+  const handleClick = (feature) => {
+    const fullTitle = `${feature.title} ${feature.subtitle}`.trim();
+    const targetRoute = featureRoutes[fullTitle];
+
+    if (targetRoute) {
+      navigate(targetRoute);
+    } else {
+      console.warn(`No route defined for feature: ${fullTitle}`);
+      navigate("/services");
+    }
+  };
+
+  
+  
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -88,19 +114,22 @@ const CustomerService = () => {
 • Email Support: Clear, detailed responses to every query.
 • Call Support: Professional assistance to resolve issues fast.
 
-AI helps agents reply faster with the right tone. Companies that outsource customer service with Arista see happier customers and stronger loyalty.`
+AI helps agents reply faster with the right tone. Companies that outsource customer service with Arista see happier customers and stronger loyalty.`,
+showButton: true // HAS BUTTON
     },
     {
       
       title: "Protect Your Business with Chargeback",
       subtitle: "& Dispute Resolution",
-      description: "Chargebacks and disputes can cost time, money, and reputation. Our Chargeback & Dispute Resolution service reviews transactions carefully and resolves issues promptly. With AI assistance from ChatGPT, we draft professional, empathetic messages that retain trust. Businesses using our customer support service outsourcing gain peace of mind and protect revenue."
+      description: "Chargebacks and disputes can cost time, money, and reputation. Our Chargeback & Dispute Resolution service reviews transactions carefully and resolves issues promptly. With AI assistance from ChatGPT, we draft professional, empathetic messages that retain trust. Businesses using our customer support service outsourcing gain peace of mind and protect revenue.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Stay Organized with Lead Reconciliation",
       subtitle: "& Portal Auditing",
-      description: "Accurate lead tracking is crucial. Our Lead Reconciliation & Portal Auditing service keeps records clean, audits portals, and streamlines sales pipelines. AI helps summarize complex data, create reports quickly, and communicate updates clearly. Outsourcing this to us allows your sales team to focus on converting leads into loyal customers."
+      description: "Accurate lead tracking is crucial. Our Lead Reconciliation & Portal Auditing service keeps records clean, audits portals, and streamlines sales pipelines. AI helps summarize complex data, create reports quickly, and communicate updates clearly. Outsourcing this to us allows your sales team to focus on converting leads into loyal customers.",
+      showButton: true // HAS BUTTON
     },
     {
       
@@ -113,14 +142,12 @@ AI helps agents reply faster with the right tone. Companies that outsource custo
       • AI-assisted efficiency supporting human judgment, 
       • Expertise in chats, emails, calls, disputes, and leads. 
       
-      Every moment your customers wait is a moment they might go elsewhere. Companies that outsource customer service with Arista see measurable results, higher satisfaction, stronger retention, and real growth.`
+      Every moment your customers wait is a moment they might go elsewhere. Companies that outsource customer service with Arista see measurable results, higher satisfaction, stronger retention, and real growth.`,
+      showButton: false // HAS BUTTON
     },
   ];
 
-  const handleClick = (feature) => {
-    // Handle button click logic here
-    console.log("Feature clicked:", feature);
-  };
+
 
   return (
     <>
@@ -188,13 +215,14 @@ We also use AI tools. It helps our team understand emotions behind queries, draf
       </div>
 
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-      <ServiceCard
-        features={serviceFeatures}
-        accentColor="purple"
-        showButton={true}
-        buttonText="Read More"
-        onButtonClick={(feature, index) => handleClick(feature)}
-      />
+      <ServiceCard 
+  features={serviceFeatures} 
+  accentColor="purple"
+  showButton={true}
+  buttonText="Read More"
+  onButtonClick={handleClick}
+/>
+
       <BusinessCTA 
         title="Don't Let Poor Support Cost You Customers"
         description="Upgrade to AI-powered, empathetic customer support today and watch your satisfaction scores soar."

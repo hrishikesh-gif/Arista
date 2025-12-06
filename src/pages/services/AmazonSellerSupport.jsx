@@ -72,7 +72,7 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
   );
 };
 
-const CustomerService = () => {
+const AmazonSellerSupport = () => {
   const techStack = [
   { name: "ChatGPT", Icon: SiOpenai },
   { name: "Amazon Seller Central", Icon: SiAmazon },
@@ -186,4 +186,4 @@ const CustomerService = () => {
   );
 };
 
-export default CustomerService;
+export default AmazonSellerSupport;

@@ -7,7 +7,8 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
 import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -69,6 +70,31 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 };
 
 const CustomerService = () => {
+   // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+  const featureRoutes = {
+    "Professional Photo Editing & Retouching": "/services/photo-editing-retouching",
+    "Custom Designs That Captivate": "/services/custom-designs",
+    "Video & Motion Content That Engages": "/services/video-motion-content",
+    "Website Design That Converts": "/services/website-design",
+  };
+  
+  // Click handler for routing
+  const handleClick = (feature) => {
+    const fullTitle = `${feature.title} ${feature.subtitle}`.trim();
+    const targetRoute = featureRoutes[fullTitle];
+
+    if (targetRoute) {
+      navigate(targetRoute);
+    } else {
+      console.warn(`No route defined for feature: ${fullTitle}`);
+      navigate("/services");
+    }
+  };
+
+
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -79,19 +105,22 @@ const CustomerService = () => {
       
       title: "Product Content &",
       subtitle: "Catalog Accuracy",
-      description: "Accuracy is everything. A customer finding the wrong size, missing specifications, or outdated pricing is a customer you may never get back. Our Product Content & Catalog Accuracy service ensures every detail is correct. We validate data using AI tools and human checks, so your catalog builds trust instead of doubt. This makes your products easy to find and purchase, and protects your brand reputation."
+      description: "Accuracy is everything. A customer finding the wrong size, missing specifications, or outdated pricing is a customer you may never get back. Our Product Content & Catalog Accuracy service ensures every detail is correct. We validate data using AI tools and human checks, so your catalog builds trust instead of doubt. This makes your products easy to find and purchase, and protects your brand reputation.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "Website Content Migration &",
       subtitle: "Management",
-      description: "Moving content between platforms can be stressful. Most businesses worry about data loss or downtime. With our Website Content Migration & Management, we handle everything behind the scenes. Whether it’s thousands of products or a few updates, your website stays live, clean, and consistent. The process is smooth, secure, and stress-free, giving you a worry-free migration experience."
+      description: "Moving content between platforms can be stressful. Most businesses worry about data loss or downtime. With our Website Content Migration & Management, we handle everything behind the scenes. Whether it’s thousands of products or a few updates, your website stays live, clean, and consistent. The process is smooth, secure, and stress-free, giving you a worry-free migration experience.",
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "404 Cleanup &",
       subtitle: "Categorization Structure",
-      description: "Broken links and messy categories hurt customer experience and sales. Our 404 Cleanup & Categorization Structure fixes these issues and prevents them from happening again. We use AI-driven categorization to place every product where it belongs, making it easy for customers to find what they want. A clear structure keeps shoppers happy and improves conversions."
+      description: "Broken links and messy categories hurt customer experience and sales. Our 404 Cleanup & Categorization Structure fixes these issues and prevents them from happening again. We use AI-driven categorization to place every product where it belongs, making it easy for customers to find what they want. A clear structure keeps shoppers happy and improves conversions.",
+      showButton: true // HAS BUTTON
     },
     {
       
@@ -103,13 +132,15 @@ const CustomerService = () => {
       • Human expertise to refine details and ensure accuracy, 
       • Business understanding that goes beyond just “fixing” content, we align it with sales and  growth. 
       
-      That’s the difference. We don’t just manage data. We help you unlock the full potential of your catalog.`
+      That’s the difference. We don’t just manage data. We help you unlock the full potential of your catalog.`,
+      showButton: true // HAS BUTTON
     },
     {
       
       title: "The Cost",
       subtitle: "of Waiting",
-      description: "Every day your catalog stays unorganized, you lose sales. Customers leave. Search engines rank you lower. Competitors get ahead. The fix isn’t complicated, it just needs the right team. We’re here to make sure your content never holds your business back again."
+      description: "Every day your catalog stays unorganized, you lose sales. Customers leave. Search engines rank you lower. Competitors get ahead. The fix isn’t complicated, it just needs the right team. We’re here to make sure your content never holds your business back again.",
+      showButton: true // HAS BUTTON
     },
     
   ];
@@ -182,13 +213,16 @@ Our Content & Catalog Management services don’t just clean up your data. We ma
       </div>
 
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-      <ServiceCard
-        features={serviceFeatures}
-        accentColor="purple"
-        showButton={true}
-        buttonText="Read More"
-        onButtonClick={(feature, index) => handleClick(feature)}
-      />
+     
+<ServiceCard 
+  features={serviceFeatures} 
+  accentColor="purple"
+  showButton={true}
+  buttonText="Read More"
+  onButtonClick={handleClick}
+/>
+
+
       <BusinessCTA 
                     title="Turn Messy Content Into Measurable Growth!"
                     description="Your catalog is your brand’s first impression. Messy or outdated content loses sales and trust. Arista turns chaos into clarity with AI and expert oversight to attract customers, boost conversions, and grow your business."
