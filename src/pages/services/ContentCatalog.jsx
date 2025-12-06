@@ -9,7 +9,7 @@ import BusinessCTA from "../../component/BusinessCTA";
 import Footer from "../../component/Footer";
 
 import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
-import { MessageSquare, Clock, Brain, Heart, BrainCircuit, HeartHandshake, Clock3 } from 'lucide-react';
+
 
 const textVariant = (delay = 0) => ({
   hidden: { opacity: 0, y: 40 },
