@@ -7,7 +7,7 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import Footer from "../../component/Footer";
 import BusinessCTA from "../../component/BusinessCTA"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
 import { MessageSquare, Clock, Brain,Heart,BrainCircuit, HeartHandshake,Clock3} from 'lucide-react';
 
 const textVariant = (delay = 0) => ({
@@ -69,6 +69,29 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 };
 
 const DataReporting = () => {
+  // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+  const featureRoutes = {
+    "Professional Photo Editing & Retouching": "/services/reporting-dashboard",
+    "Insights & Business Intelligence": "/services/insights-business-intelligence",
+
+  };
+  
+  // Click handler for routing
+  const handleClick = (feature) => {
+    const fullTitle = `${feature.title} ${feature.subtitle}`.trim();
+    const targetRoute = featureRoutes[fullTitle];
+
+    if (targetRoute) {
+      navigate(targetRoute);
+    } else {
+      console.warn(`No route defined for feature: ${fullTitle}`);
+      navigate("/services");
+    }
+  };
+
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -84,19 +107,22 @@ const DataReporting = () => {
       • Delayed or wrong reports can cost you money. 
       • Insights at the right time help you stay ahead of competition. 
       
-      That’s where our business analysis and reporting services give you the edge.`
+      That’s where our business analysis and reporting services give you the edge.`,
+       showButton: false // No button
     },
     {
       
       title: "Reporting &",
       subtitle: "Dashboard Creation",
-      description: "We create custom dashboards that show your data in a clear, visual way. These dashboards allow you to track KPIs, monitor trends, and make decisions quickly. Instead of flipping through spreadsheets, you can see your business at a glance. Our reporting tools are interactive, easy to use, and updated in real-time, giving you instant access to the numbers that matter most."
+      description: "We create custom dashboards that show your data in a clear, visual way. These dashboards allow you to track KPIs, monitor trends, and make decisions quickly. Instead of flipping through spreadsheets, you can see your business at a glance. Our reporting tools are interactive, easy to use, and updated in real-time, giving you instant access to the numbers that matter most.",
+       showButton: true // No button
     },
     {
       
       title: "Insights &",
       subtitle: "Business Intelligence",
-      description: "Raw data is meaningless without interpretation. Our business intelligence services turn your data into actionable insights. We analyze trends, spot opportunities, and identify risks. This helps you plan smarter, optimize operations, and predict outcomes. With our insights, you don’t just see numbers, you understand what they mean for your business growth."
+      description: "Raw data is meaningless without interpretation. Our business intelligence services turn your data into actionable insights. We analyze trends, spot opportunities, and identify risks. This helps you plan smarter, optimize operations, and predict outcomes. With our insights, you don’t just see numbers, you understand what they mean for your business growth.",
+       showButton: true // No button
     },
     {
       
@@ -108,7 +134,8 @@ const DataReporting = () => {
       • Interpret SQL queries quickly and correctly 
       • Generate accurate Excel formulas without errors 
       
-      This AI + expert approach saves time, reduces mistakes, and ensures accuracy. You get reports that are fast, reliable, and ready for decision-making.`
+      This AI + expert approach saves time, reduces mistakes, and ensures accuracy. You get reports that are fast, reliable, and ready for decision-making.`,
+       showButton: false // No button
     },
     {
       
@@ -121,7 +148,8 @@ const DataReporting = () => {
       • Forecasting- Use data trends to plan your next move 
       • Actionable Insights– Not just numbers, but strategies 
       
-      With our data analytics reporting services, you get more than reports—you get a roadmap.`
+      With our data analytics reporting services, you get more than reports—you get a roadmap.`,
+       showButton: false // No button
     },
     {
       
@@ -131,7 +159,8 @@ const DataReporting = () => {
       • We mix technology + human intelligence. 
       • Proven experience with different industries. 
       • Transparent reporting style—no jargon, only clarity. 
-      • AI-powered workflows that save time and boost accuracy. `
+      • AI-powered workflows that save time and boost accuracy. `,
+       showButton: false // No button
     }
    ];
   return (
@@ -202,7 +231,14 @@ const DataReporting = () => {
       </div>
       
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-        <ServiceCard features={serviceFeatures} accentColor="purple" />
+      <ServiceCard 
+  features={serviceFeatures} 
+  accentColor="purple"
+  showButton={true}
+  buttonText="Read More"
+  onButtonClick={handleClick}
+/>
+
         <BusinessCTA 
                     title="Why let competitors stay ahead?"
                     description="Every report you delay costs you opportunities.Your business already collects valuable data every single day. But without the right analysis and reporting, those numbers remain just numbers."

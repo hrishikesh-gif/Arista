@@ -75,10 +75,10 @@ const OperationsFulfillment = () => {
   // Define route mapping for features with buttons
   const featureRoutes = {
     "Fulfillment Operations & Reporting": "/services/fulfillment-operations",
-    "Inventory Reconciliation & Retail Ops": "/services/inventory-reconciliation",
-    "VLogistics Reconciliation & Charge Verification": "/services/logistics-reconciliation",
-    "Order Management": "/services/logistics-reconciliation",
-    "Operations Management": "/services/logistics-reconciliation",
+     "Inventory Reconciliation  & Retail Ops": "/services/inventory-reconciliation",
+    "Logistics Reconciliation & Charge Verification": "/services/logistics-reconciliation",
+    "Order Management": "/services/fulfillment-operations",
+    "Operations Management": "/services/fulfillment-operations",
    
   };
   

@@ -216,7 +216,7 @@ Our Content & Catalog Management services don’t just clean up your data. We ma
 <ServiceCard 
   features={serviceFeatures} 
   accentColor="purple"
-  showButton={true}
+  // showButton={true}
   buttonText="Read More"
   onButtonClick={handleClick}
 />

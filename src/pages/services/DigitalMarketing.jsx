@@ -79,6 +79,7 @@ const CustomerService = () => {
     "Pay-Per-Click Advertising (PPC)": "/services/ppc-paid-media",
     "Social Media Marketing (SMM)": "/services/social-media",
     "Email Marketing": "/services/email-marketing",
+    "Conversion Rate Optimization (CRO)": "/services/cro",
   };
   
   // Click handler for routing
@@ -145,7 +146,8 @@ const CustomerService = () => {
       
       title: "Amazon",
       subtitle: "Marketplace Services",
-      description: "Selling on Amazon can be overwhelming, but we make it easy. From optimized product listings and storefront management to running ad campaigns that drive sales, we take care of everything. The result? A store that performs better, looks sharper, and sells more."
+      description: "Selling on Amazon can be overwhelming, but we make it easy. From optimized product listings and storefront management to running ad campaigns that drive sales, we take care of everything. The result? A store that performs better, looks sharper, and sells more.",
+      showButton: false // No button
     }
     
   ];

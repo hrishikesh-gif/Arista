@@ -70,16 +70,17 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 
 const CustomerService = () => {
   // Initialize navigation hook
-  const navigate = useNavigate();
-
+   // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
   // Define route mapping for features with buttons
   const featureRoutes = {
     "Professional Photo Editing & Retouching": "/services/photo-editing",
     "Custom Designs That Captivate": "/services/design-services",
     "Video & Motion Content That Engages": "/services/video-motion",
-    "Website Design That Converts": "/services/website-design",
+   "Website Design That Converts That Converts": "/services/website-design",
   };
-
+  
   // Click handler for routing
   const handleClick = (feature) => {
     const fullTitle = `${feature.title} ${feature.subtitle}`.trim();

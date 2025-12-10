@@ -7,7 +7,8 @@ import { SiZendesk } from "react-icons/si";
 import ServiceCard from "../../component/ServiceCard";
 import Footer from "../../component/Footer";
 import BusinessCTA from "../../component/BusinessCTA"
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
 
 import { MessageSquare, Clock, Brain,Heart,BrainCircuit, HeartHandshake,Clock3} from 'lucide-react';
 
@@ -70,6 +71,30 @@ const TypewriterText = ({ text, speed = 20, className = "" }) => {
 };
 
 const FinanceReconciliation = () => {
+   // Initialize navigation hook
+  const navigate = useNavigate(); 
+  
+  // Define route mapping for features with buttons
+  const featureRoutes = {
+    "Professional Photo Editing & Retouching": "/services/photo-editing-retouching",
+    "Custom Designs That Captivate": "/services/custom-designs",
+    "Video & Motion Content That Engages": "/services/video-motion-content",
+    "Website Design That Converts": "/services/website-design",
+  };
+  
+  // Click handler for routing
+  const handleClick = (feature) => {
+    const fullTitle = `${feature.title} ${feature.subtitle}`.trim();
+    const targetRoute = featureRoutes[fullTitle];
+
+    if (targetRoute) {
+      navigate(targetRoute);
+    } else {
+      console.warn(`No route defined for feature: ${fullTitle}`);
+      navigate("/services");
+    }
+  };
+
   const techStack = [
     { name: "Zendesk", Icon: SiZendesk },
     { name: "Gorgias", Icon: FiMessageCircle },
@@ -80,43 +105,49 @@ const FinanceReconciliation = () => {
       
       title: "How We Make",
       subtitle: "Reconciliation Quick",
-      description: "Free your team from tedious tasks. Outsourcing your account reconciliation ensures faster, error-free results while giving you peace of mind. Our streamlined process leverages automation and expert review to ensure accuracy and timeliness effortlessly for all stakeholders."
+      description: "Free your team from tedious tasks. Outsourcing your account reconciliation ensures faster, error-free results while giving you peace of mind. Our streamlined process leverages automation and expert review to ensure accuracy and timeliness effortlessly for all stakeholders.",showButton: true // HAS BUTTON
     },
     {
       
       title: "AI-Powered",
       subtitle: "Efficiency",
-      description: "We utilize industry-leading automation tools to handle invoices efficiently. These systems capture key details and organize them into clean columns in seconds. What used to take 10–15 minutes manually now takes just 2 minutes, enabling faster turnaround, fewer mistakes, and smooth financial flow."
+      description: "We utilize industry-leading automation tools to handle invoices efficiently. These systems capture key details and organize them into clean columns in seconds. What used to take 10–15 minutes manually now takes just 2 minutes, enabling faster turnaround, fewer mistakes, and smooth financial flow.",
+      showButton: false // NO BUTTON
     },
     {
     
       title: "Team",
       subtitle: "Verification",
-      description: "Technology is powerful, but human eyes keep it reliable. Our experts carefully check invoice data against receipts before reconciliation. This balance of AI and team oversight gives you accuracy you can trust, every single time."
+      description: "Technology is powerful, but human eyes keep it reliable. Our experts carefully check invoice data against receipts before reconciliation. This balance of AI and team oversight gives you accuracy you can trust, every single time.",
+      showButton: false // NO BUTTON
     },
     {
       
       title: "Accounts",
       subtitle: "Payable Services",
-      description: "We manage your accounts payable so your business stays on top of bills and vendor payments. Our team ensures invoices are processed quickly, verified accurately, and paid on time. With AI-assisted automation and human oversight, you reduce errors, avoid late fees, and maintain strong vendor relationships."
+      description: "We manage your accounts payable so your business stays on top of bills and vendor payments. Our team ensures invoices are processed quickly, verified accurately, and paid on time. With AI-assisted automation and human oversight, you reduce errors, avoid late fees, and maintain strong vendor relationships.",
+      showButton: true // NO BUTTON
     },
     {
       
       title: "Accounts",
       subtitle: "Receivable Support",
-      description: "Managing incoming payments can be challenging. Our accounts receivable support ensures invoices are sent promptly, payments are tracked accurately, and overdue accounts are followed up on efficiently. We help improve cash flow, reduce late payments, and provide clear reporting so you always know what’s coming in."
+      description: "Managing incoming payments can be challenging. Our accounts receivable support ensures invoices are sent promptly, payments are tracked accurately, and overdue accounts are followed up on efficiently. We help improve cash flow, reduce late payments, and provide clear reporting so you always know what’s coming in.",
+      showButton: true // NO BUTTON
     },
     {
      
       title: "Continuous",
       subtitle: "Improvements",
-      description: "We continually refine and optimize our reconciliation process to deliver even greater speed and precision. By integrating industry-standard tools and intelligent workflows, we help you achieve real-time insights, timely reporting, and stronger financial control."
+      description: "We continually refine and optimize our reconciliation process to deliver even greater speed and precision. By integrating industry-standard tools and intelligent workflows, we help you achieve real-time insights, timely reporting, and stronger financial control.",
+      showButton: false // NO BUTTON
     },
     {
       
       title: "The",
       subtitle: "Result?",
-      description: "A streamlined reconciliation process that saves hours, reduces stress, and keeps your stakeholders confident in your numbers."
+      description: "A streamlined reconciliation process that saves hours, reduces stress, and keeps your stakeholders confident in your numbers.",
+      showButton: false // NO BUTTON
     }
    ];
   return (
@@ -186,7 +217,15 @@ const FinanceReconciliation = () => {
       </div>
       
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-        <ServiceCard features={serviceFeatures} accentColor="purple" />
+      
+<ServiceCard 
+  features={serviceFeatures} 
+  accentColor="purple"
+  // showButton={true}
+  buttonText="Read More"
+  onButtonClick={handleClick}
+/>
+
         <BusinessCTA 
                     title="Don’t let slow processes hold you back!"
                     description="Outsource your account reconciliation services today and save hours every week. Faster, smarter, AI-assisted finance management is just a click away."

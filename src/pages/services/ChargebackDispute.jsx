@@ -187,7 +187,7 @@ const CustomerService = () => {
       <ServiceCard
         features={serviceFeatures}
         accentColor="purple"
-        showButton={true}
+        // showButton={true}
         buttonText="Read More"
         onButtonClick={(feature, index) => handleClick(feature)}
       />

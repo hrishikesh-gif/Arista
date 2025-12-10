@@ -77,27 +77,32 @@ const CustomerService = () => {
     {
       title: "Pattern",
       subtitle: "Detection",
-      description: "We dig deep into your data to uncover trends and recurring patterns that might not be obvious at first glance. Whether it’s seasonal sales fluctuations, customer buying habits, or operational bottlenecks, identifying these patterns early helps you anticipate outcomes and make proactive decisions. By acting on these insights, you can optimize workflows, improve inventory planning, and spot potential issues before they become costly problems."
+      description: "We dig deep into your data to uncover trends and recurring patterns that might not be obvious at first glance. Whether it’s seasonal sales fluctuations, customer buying habits, or operational bottlenecks, identifying these patterns early helps you anticipate outcomes and make proactive decisions. By acting on these insights, you can optimize workflows, improve inventory planning, and spot potential issues before they become costly problems.",
+      showButton: false // No button
     },
     {
       title: "Forecasting",
       
-      description: "Using advanced analytics, we forecast your future performance across sales, revenue, customer behavior, and operational needs. Accurate forecasting gives you a roadmap to plan effectively, allocate resources efficiently, and prepare for market changes. Imagine knowing ahead of time when demand will spike, where revenue streams might slow, or which products need more attention, our forecasting helps you stay one step ahead of the competition."
+      description: "Using advanced analytics, we forecast your future performance across sales, revenue, customer behavior, and operational needs. Accurate forecasting gives you a roadmap to plan effectively, allocate resources efficiently, and prepare for market changes. Imagine knowing ahead of time when demand will spike, where revenue streams might slow, or which products need more attention, our forecasting helps you stay one step ahead of the competition.",
+      showButton: false // No button
     },
     {
       title: "Gap",
       subtitle: "Analysis",
-      description: "We identify areas where your business could improve, whether it’s processes, customer engagement, or revenue streams. By pinpointing these gaps early, you can implement targeted strategies to enhance efficiency, reduce operational risks, and seize untapped opportunities. Gap analysis also allows you to benchmark performance, optimize resource allocation, and ensure your business stays aligned with strategic goals."
+      description: "We identify areas where your business could improve, whether it’s processes, customer engagement, or revenue streams. By pinpointing these gaps early, you can implement targeted strategies to enhance efficiency, reduce operational risks, and seize untapped opportunities. Gap analysis also allows you to benchmark performance, optimize resource allocation, and ensure your business stays aligned with strategic goals.",
+      showButton: false // No button
     },
     {
       title: "Executive",
       subtitle: "Insights",
-      description: "We craft insights specifically for leadership teams, focusing on the metrics that truly drive business performance. Our visualizations are clear, concise, and actionable, allowing executives to make decisions without drowning in data. From board reports to strategic dashboards, we translate complex numbers into meaningful recommendations that highlight risks, opportunities, and next steps for business growth."
+      description: "We craft insights specifically for leadership teams, focusing on the metrics that truly drive business performance. Our visualizations are clear, concise, and actionable, allowing executives to make decisions without drowning in data. From board reports to strategic dashboards, we translate complex numbers into meaningful recommendations that highlight risks, opportunities, and next steps for business growth.",
+      showButton: false // No button
     },
     {
       title: "Growth Opportunities",
       subtitle: "from Data",
-      description: "Data alone isn’t enough, you need insights that point the way forward. Our analysis identifies areas for growth, whether it’s entering new markets, improving product offerings, or streamlining operations. We help you leverage your data to uncover new revenue streams, enhance customer experiences, and make decisions that produce measurable results. With our guidance, your business can turn insights into action and action into growth."
+      description: "Data alone isn’t enough, you need insights that point the way forward. Our analysis identifies areas for growth, whether it’s entering new markets, improving product offerings, or streamlining operations. We help you leverage your data to uncover new revenue streams, enhance customer experiences, and make decisions that produce measurable results. With our guidance, your business can turn insights into action and action into growth.",
+      showButton: false // No button
     },
     {
       title: "Why Choose",
@@ -107,7 +112,8 @@ const CustomerService = () => {
       • Forecast accurately to make confident strategic decisions 
       • Identify gaps and inefficiencies for continuous improvement 
       • Provide executives with actionable, easy-to-understand insights 
-      • Unlock growth opportunities hidden in your data.`
+      • Unlock growth opportunities hidden in your data.`,
+      showButton: false // No button
     },
     
   ];
@@ -178,13 +184,14 @@ const CustomerService = () => {
       </div>
 
       <TechStrip tech={techStack} className="mt-0 md:mt-12 lg:mt-20 xl:mt-0 2xl:mt-32" />
-      <ServiceCard
-        features={serviceFeatures}
-        accentColor="purple"
-        showButton={true}
-        buttonText="Read More"
-        onButtonClick={(feature, index) => handleClick(feature)}
-      />
+    <ServiceCard 
+  features={serviceFeatures} 
+  accentColor="purple"
+  showButton={true}
+  // buttonText="Read More"
+  // onButtonClick={handleClick}
+/>
+
       <BusinessCTA 
                     title="Don’t let valuable insights stay buried in spreadsheets!"
                     description="Let our team transform your data into clear, actionable intelligence, so you can make decisions that drive growth, efficiency, and long-term success."
