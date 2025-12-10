@@ -76,10 +76,9 @@ const FinanceReconciliation = () => {
   
   // Define route mapping for features with buttons
   const featureRoutes = {
-    "Professional Photo Editing & Retouching": "/services/photo-editing-retouching",
-    "Custom Designs That Captivate": "/services/custom-designs",
-    "Video & Motion Content That Engages": "/services/video-motion-content",
-    "Website Design That Converts": "/services/website-design",
+    "Accounts Payable Services": "/services/accounts-payable",
+    "Accounts Receivable Support": "/services/accounts-receivable",
+    
   };
   
   // Click handler for routing
@@ -105,7 +104,8 @@ const FinanceReconciliation = () => {
       
       title: "How We Make",
       subtitle: "Reconciliation Quick",
-      description: "Free your team from tedious tasks. Outsourcing your account reconciliation ensures faster, error-free results while giving you peace of mind. Our streamlined process leverages automation and expert review to ensure accuracy and timeliness effortlessly for all stakeholders.",showButton: true // HAS BUTTON
+      description: "Free your team from tedious tasks. Outsourcing your account reconciliation ensures faster, error-free results while giving you peace of mind. Our streamlined process leverages automation and expert review to ensure accuracy and timeliness effortlessly for all stakeholders.",
+     showButton: false // NO BUTTON
     },
     {
       

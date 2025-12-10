@@ -74,7 +74,7 @@ const DataReporting = () => {
   
   // Define route mapping for features with buttons
   const featureRoutes = {
-    "Professional Photo Editing & Retouching": "/services/reporting-dashboard",
+    "Reporting & Dashboard Creation": "/services/reporting-dashboard",
     "Insights & Business Intelligence": "/services/insights-business-intelligence",
 
   };
