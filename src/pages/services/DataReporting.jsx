@@ -243,7 +243,7 @@ const DataReporting = () => {
                     title="Why let competitors stay ahead?"
                     description="Every report you delay costs you opportunities.Your business already collects valuable data every single day. But without the right analysis and reporting, those numbers remain just numbers."
                     buttonText="TURN NUMBERS INTO POWER"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Outer\data_reporting_insights_outer_image.jpg"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

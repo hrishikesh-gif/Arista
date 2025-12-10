@@ -226,7 +226,7 @@ Our Content & Catalog Management services don’t just clean up your data. We ma
                     title="Turn Messy Content Into Measurable Growth!"
                     description="Your catalog is your brand’s first impression. Messy or outdated content loses sales and trust. Arista turns chaos into clarity with AI and expert oversight to attract customers, boost conversions, and grow your business."
                     buttonText="PROTECT MY BRAND REPUTATION"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Outer\Content_Catalog_management_outer_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

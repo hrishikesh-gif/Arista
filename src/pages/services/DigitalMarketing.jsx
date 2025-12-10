@@ -229,7 +229,7 @@ const CustomerService = () => {
                     title="Don’t let your competitors stay ahead!"
                     description="It’s time to work with Arista Systems, the trusted digital marketing company in India that brings measurable growth with modern tools and strategies."
                     buttonText="LET'S BUILD YOUR GROWTH ENGINE TODAY"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Outer\digital_marketing_outer_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

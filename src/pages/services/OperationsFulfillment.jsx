@@ -250,7 +250,7 @@ const OperationsFulfillment = () => {
         title="Don’t let mistakes eat your margin!"
         description="Every missed order, inventory error, or delayed shipment is money lost. Take control of your operations now and watch efficiency, and profits, skyrocket."
         buttonText="STOP GUESSING AND START WINNING"
-        imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+        imageUrl="\images\CTA img\Outer\finance_reconciliation_outer_image.webp"
         altText="Consulting Team Collaboration"
       />
       <Footer />

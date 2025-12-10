@@ -183,7 +183,7 @@ const CustomerService = () => {
                     title="Ready to See Results from Your Ads?"
                     description="Stop guessing and start growing. Partner with a reliable PPC company in India, use our pay-per-click services in India, and outsource PPC management to experts who know how to drive clicks, leads, and sales for US businesses."
                     buttonText="LAUNCH MY PPC CAMPAIGN NOW!"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

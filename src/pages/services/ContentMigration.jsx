@@ -172,7 +172,7 @@ const CustomerService = () => {
                     title="Don’t risk losing your content, traffic, or customers!"
                     description="Let our experts move your website safely, fix errors, and rewrite your content for clarity and SEO. Keep your site fully functional and ready to grow from day one."
                     buttonText="SEAMLESS WEBISTE MIGRATION STARTS HERE"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

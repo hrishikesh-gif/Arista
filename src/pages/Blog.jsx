@@ -308,7 +308,7 @@ const Blog = () => {
           title="Ready to Take Your Business to the Next Level?​"
           description="Partner with Arista Systems and get a dedicated offshore team that understands your goals, executes with precision, and drives real growth."
           buttonText="BUILD YOUR DREAM TEAM HERE"
-          imageUrl="\images\CS.avif"
+          imageUrl="/images/CTA img/Main/about_cta.jpg"
           altText="Let's Talk"
         />
         <Footer />

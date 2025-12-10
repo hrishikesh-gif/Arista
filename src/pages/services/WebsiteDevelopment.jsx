@@ -187,7 +187,7 @@ const CustomerService = () => {
                     title="We don’t just make websites that work, we make them wonderful."
                     description="Backed by AI in website development, Arista Systems builds platforms that give you a competitive edge."
                     buttonText="START WINNING ONLINE WITH US."
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Outer\webdevelopment_outer_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

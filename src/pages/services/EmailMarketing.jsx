@@ -188,7 +188,7 @@ const CustomerService = () => {
                     title="Let’s launch your campaign!"
                     description="Partner with a top email marketing company in India and use our email marketing services in India to reach prospects, engage your audience, and grow your business, effortlessly."
                     buttonText="LET'S TALK"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

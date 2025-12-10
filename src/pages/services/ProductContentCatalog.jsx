@@ -184,7 +184,7 @@ const CustomerService = () => {
                     title="Stop losing customers to messy details!"
                     description="Let us make your catalog clear, complete, and ready to sell. Accurate product information builds trust, improves conversions, and keeps buyers coming back."
                     buttonText="BOOST YOUR SALES"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

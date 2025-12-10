@@ -185,7 +185,7 @@ const CustomerService = () => {
                     title="Every wrong decision costs time, money, and opportunities!"
                     description="Every day spent on guesswork or outdated plans risks delays, confusion, and wasted resources. Our architectural and rendering services give you clarity, precision, and confidence, turning scattered ideas into actionable designs that deliver results."
                     buttonText="Let's Talk"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Outer\architectural_&_3d_rendering_outer_image.webp"
                     altText="Let's Talk"
                 />
               <CasestudySection/>

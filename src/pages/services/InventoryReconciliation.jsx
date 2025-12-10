@@ -188,7 +188,7 @@ const InventoryReconciliation = () => {
                     title="Keep your retail operations flawless!"
                     description="Every mismatch, delay, and untracked shipment is silently costing you money. Don’t let inventory errors, shortages, or shrinkage drain your profits and slow your operations. Take control now, streamline your stock, reconcile your orders!"
                     buttonText="NO MORE INVENTORY DRAMA!"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
                  <CasestudySection/>

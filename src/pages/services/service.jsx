@@ -253,7 +253,7 @@ const featureRoutes = {
                     title="Ready to Experience Exceptional Support?"
                     description="Our team is eager to assist you. Reach out through your preferred channel, and let us show you the Arista difference."
                     buttonText="Let's Talk"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Outer\webdevelopment_outer_image.webp"
                     altText="Let's Talk"
                 />
                 <CasestudySection />

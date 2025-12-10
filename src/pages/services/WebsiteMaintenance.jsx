@@ -215,7 +215,7 @@ const DesignServices = () => {
                     title="Your website is the face of your business!"
                     description="Outdated pages, promos, or delays cost customers and sales. We handle updates, banners, collections, promos, journals, and launches, keeping your store alive, perfect, and selling."
                     buttonText="DON'T LEAVE YOUR BUSINESS TO CHANCE"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

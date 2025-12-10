@@ -167,7 +167,7 @@ const LogisticsReconciliation = () => {
                     title="Stop letting hidden charges drain your profits!"
                     description="Take control of your logistics, verify every cost, and optimize your operations today."
                     buttonText="VERIFY LOGISTICS CHARGES NOW!"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
                <CasestudySection/>

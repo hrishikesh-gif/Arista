@@ -196,7 +196,7 @@ const CustomerService = () => {
                     title="Don’t let valuable insights stay buried in spreadsheets!"
                     description="Let our team transform your data into clear, actionable intelligence, so you can make decisions that drive growth, efficiency, and long-term success."
                     buttonText="MAKE YOUR DATA WORK HARDER FOR YOU"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

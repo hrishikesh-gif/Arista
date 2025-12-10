@@ -191,7 +191,7 @@ const DesignServices = () => {
                     title="Ready to Turn Your Shopify Store into a Sales Machine?"
                     description="Whether it’s a new build, a redesign, or custom improvements, we deliver Shopify stores that look great, work flawlessly, and drive results."
                     buttonText="BUILD MY SHOPIFY STORE NOW"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

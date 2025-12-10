@@ -187,7 +187,7 @@ const CustomerService = () => {
                     title="Don’t settle for ordinary listings!"
                     description="Transform your Amazon presence with expert A+ Content, custom storefronts, and compelling brand stories."
                     buttonText="Showcase Your Brand Like A Pro"
-                    imageUrl="\images\CreativeProduction.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

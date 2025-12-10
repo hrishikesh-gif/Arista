@@ -190,7 +190,7 @@ const DesignServices = () => {
                     title="Don’t settle for slow, outdated, or clunky sites!"
                     description="Partner with experts who build WordPress and CMS websites that are fast, secure, scalable, and built to convert visitors into customers."
                     buttonText="START MY WEBSITE PROJECT"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

@@ -241,7 +241,7 @@ md:max-w-[90%] lg:max-w-[80%] xl:max-w-[85%] 2xl:max-w-[75%]"
         title="Take Your Brand From Ordinary to Unforgettable!"
         description="Stop waiting and start standing out. Our creative design services in India give you faster, smarter, and more original visuals, ready to impress your audience now."
         buttonText="LET'S CREATE MAGIC NOW"
-        imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+        imageUrl="\images\CTA img\Inner\inner_image.webp"
 
       />
       <Footer />

@@ -195,7 +195,7 @@ const CustomerService = () => {
                     title="Protect your revenue now!"
                     description="Our team is eager to assist you. Reach out through your preferred channel, and let us show you the Arista difference."
                     buttonText="GET OUR EXPERTS ON YOUR SIDE NOW !"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

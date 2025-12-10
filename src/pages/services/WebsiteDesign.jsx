@@ -211,7 +211,7 @@ const WebsiteDesign = () => {
                     title="A stunning website isn’t just about looks!"
                     description="It’s about turning visitors into customers. Let us craft a website that reflects your brand, engages users, and drives real results."
                     buttonText="Your Website Deserve To Stand Out"
-                    imageUrl="\images\CreativeProduction.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

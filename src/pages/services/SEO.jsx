@@ -183,7 +183,7 @@ const CustomerService = () => {
                     title="Get Your Business on Google’s First Page, Now!"
                     description="Stop losing customers to your competitors. Take charge today with the leading SEO company in India. Our SEO services in India get your website seen, clicked, and converting, fast!"
                     buttonText="RANK MY WEBSITE TODAY"
-                    imageUrl="\images\DigitalMarketing.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

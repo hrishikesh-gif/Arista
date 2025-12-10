@@ -211,7 +211,7 @@ const FulfillmentOperations = () => {
                     title="Act before inefficiencies cost you more!"
                     description="Optimize your operations, monitor orders in real-time, and make smarter inventory decisions with our Fulfillment Operations & Reporting. Every second counts, and every mistake costs!"
                     buttonText="DON'T LET FULFILLMENT SLOW YOU DOWN."
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
                 <CasestudySection/>

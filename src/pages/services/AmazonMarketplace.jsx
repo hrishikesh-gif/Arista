@@ -240,7 +240,7 @@ const CustomerService = () => {
                     title="Boost Your Sales. Dominate the Marketplace!"
                     description="Stand out on Amazon with expert marketplace services that grow sales and improve visibility."
                     buttonText="SCALE YOUR MARKETPLACE NOW!"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Outer\amazon_marketplace_management_outer_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

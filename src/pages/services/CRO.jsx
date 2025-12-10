@@ -192,7 +192,7 @@ const CustomerService = () => {
                     title="Let’s Maximize Your Conversions"
                     description="Don’t leave conversions to chance. Let Arista Systems optimize your website and marketing funnels for maximum growth."
                     buttonText="START YOUR NEXT WINNING TEST"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

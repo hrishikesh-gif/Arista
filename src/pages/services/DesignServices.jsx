@@ -191,7 +191,7 @@ const DesignServices = () => {
                     title="Every day without strong visuals is a missed opportunity!"
                     description="Stand out from the competition with logos, banners, emailers, and marketing assets that captivate your audience and drive results, before your competitors do."
                     buttonText="Don't Let Your Brand Go Unnoticed"
-                    imageUrl="\images\CreativeProduction.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

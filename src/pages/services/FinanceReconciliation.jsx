@@ -230,7 +230,7 @@ const FinanceReconciliation = () => {
                     title="Don’t let slow processes hold you back!"
                     description="Outsource your account reconciliation services today and save hours every week. Faster, smarter, AI-assisted finance management is just a click away."
                     buttonText="CUT RECONCILATION TIME NOW"
-                    imageUrl="\images\tp.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

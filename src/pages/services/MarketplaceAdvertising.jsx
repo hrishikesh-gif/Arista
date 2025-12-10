@@ -182,7 +182,7 @@ const MarketplaceAdvertising = () => {
                     title="Stop wasting ad spend on ineffective campaigns!"
                     description="Turn Clicks Into Conversions TodayPartner with us to optimize your Amazon PPC strategy, boost sales, and maximize ROI."
                     buttonText="OPTIMIZE MY AMAZON ADS NOW"
-                    imageUrl="\images\CreativeProduction.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Optimize My Amazone Ads Now"
                 />
       <Footer />

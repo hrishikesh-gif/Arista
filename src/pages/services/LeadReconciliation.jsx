@@ -188,7 +188,7 @@ const CustomerService = () => {
                     title="Every invalid lead, every billing error is money gone forever!"
                     description="…unless you fight for it! Don’t let vendors keep what’s yours. With our lead reconciliation, refund recovery, and portal auditing, we protect every dollar you spend."
                     buttonText="RECOVER MY MONEY"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

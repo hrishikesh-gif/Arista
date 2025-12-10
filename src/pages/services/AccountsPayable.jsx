@@ -196,7 +196,7 @@ const CustomerService = () => {
                     title="Don’t let AP management slow down your business!"
                     description="Get Started Now. Let our team streamline your processes, keep your records accurate, and ensure timely payments."
                     buttonText="TAKE CONTROL OF YOUR PAYABLES TODAY"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

@@ -172,7 +172,7 @@ const CustomerService = () => {
                     title="Stop losing visitors to broken links and confusing categories!"
                     description="Let us clean up 404 errors, rebuild your structure, and create a seamless, easy-to-navigate website that keeps customers engaged."
                     buttonText="FIX ERRORS AND ORGANIZE YOUR WEBSITE TODAY"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

@@ -240,7 +240,7 @@ const CustomerService = () => {
                     title="Don’t Let Your Site Hold You Back!"
                     description="Every glitch is a lost customer. Every delay is lost revenue. Our QA ensures your website performs perfectly, looks flawless, and converts visitors into buyers."
                     buttonText="SECURE YOUR QA AUDIT NOW"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Outer\quality_assurance_outer_image.webp"
                     altText="Let's Talk"
                 />
                 <CasestudySection/>

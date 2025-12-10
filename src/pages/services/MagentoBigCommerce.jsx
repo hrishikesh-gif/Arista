@@ -208,7 +208,7 @@ const DesignServices = () => {
                     title="Everything Your Online Store Needs—Under One Roof"
                     description="From Magento and BigCommerce to custom CMS solutions, we build, customize, and scale your store so it works perfectly for your business. Fast, secure, and designed to convert visitors into customers."
                     buttonText="LAUNCH MY STORE NOW"
-                    imageUrl="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

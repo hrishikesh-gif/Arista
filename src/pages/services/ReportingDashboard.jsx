@@ -193,7 +193,7 @@ const CustomerService = () => {
                     title="Stop guessing and start knowing!"
                     description="Let us build dashboards and reports that not only show your numbers but also help you understand what to do next. Your business deserves insights that actually drive results."
                     buttonText="GET YOUR RESULTS NOW!"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

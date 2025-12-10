@@ -188,7 +188,7 @@ const VideoMotion = () => {
                     title="Your audience scrolls fast!"
                     description="Make every second count. From social media reels to product demos, we create videos that capture attention, engage viewers, and drive results. Don’t let mediocre content hold your brand back"
                     buttonText="Turn Views Into Customer"
-                    imageUrl="\images\CreativeProduction.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

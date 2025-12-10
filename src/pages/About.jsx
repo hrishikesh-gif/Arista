@@ -234,7 +234,9 @@ const About = () => {
           '--background-dark': '#0a0118'
         }}
         >
-          <BusinessCTA removeBg={true} />
+          <BusinessCTA removeBg={true} 
+           imageUrl="/images/CTA img/Main/about_cta.jpg"/>
+          
         </div>
 
         <div className="w-full" >

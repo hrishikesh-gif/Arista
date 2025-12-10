@@ -176,7 +176,7 @@ const MarketplaceCustomerSupport = () => {
                     title="Keep Your Customers Happy & Your Ratings High Don’t let support issues hurt your sales!"
                     description="Partner with us to manage reviews, returns, refunds, and buyer communication across all marketplaces."
                     buttonText="GET MARKETPLACE SUPPORT NOW"
-                    imageUrl="\images\CreativeProduction.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

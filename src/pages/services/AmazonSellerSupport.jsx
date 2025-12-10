@@ -178,7 +178,7 @@ const AmazonSellerSupport = () => {
                     title="Don’t let small issues cost you big sales!"
                     description="Partner with us for Amazon Seller Support that protects your account, enhances your listings, and keeps your business running without interruptions."
                     buttonText="FIX MY AMAZON ISSUES"
-                    imageUrl="\images\CreativeProduction.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Consulting Team Collaboration"
                 />
       <Footer />

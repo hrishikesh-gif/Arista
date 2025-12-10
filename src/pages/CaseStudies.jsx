@@ -150,7 +150,7 @@ const CaseStudiesMain = () => {
           title="Ready to Experience Exceptional Support?"
           description="Our team is eager to assist you. Reach out through your preferred channel, and let us show you the Arista difference."
           buttonText="Let's Talk"
-          imageUrl="/images/CS.avif"
+          imageUrl="\images\CTA img\Main\case-studies_cta.webp"
           altText="Let's Talk"
           removeBg
         />

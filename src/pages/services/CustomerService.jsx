@@ -189,7 +189,7 @@ const CustomerService = () => {
                     title="Ready to Experience Exceptional Support?"
                     description="Our team is eager to assist you. Reach out through your preferred channel, and let us show you the Arista difference."
                     buttonText="LET'S TALK"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

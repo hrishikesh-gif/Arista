@@ -181,7 +181,7 @@ const CustomerService = () => {
                     title="Don’t let delayed payments affect your business!"
                     description="Let our team manage follow-ups, reconcile accounts, and deliver clear reports—so you can focus on growth, not on paperwork."
                     buttonText="GET YOUR RECEIVABLES UNDER CONTROL TODAY"
-                    imageUrl="\images\CS.avif"
+                    imageUrl="\images\CTA img\Inner\inner_image.webp"
                     altText="Let's Talk"
                 />
       <Footer />

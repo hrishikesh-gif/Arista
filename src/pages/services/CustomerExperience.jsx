@@ -227,7 +227,7 @@ We also use AI tools. It helps our team understand emotions behind queries, draf
         title="Don't Let Poor Support Cost You Customers"
         description="Upgrade to AI-powered, empathetic customer support today and watch your satisfaction scores soar."
         buttonText="START PROTECTING YOUR BUSINESS NOW"
-        imageUrl="\images\CS.avif"
+        imageUrl="/images/CTA img/Outer/customer_experience_support_outer_image.webp"
         altText="Let's Talk"
       />
       <Footer />
