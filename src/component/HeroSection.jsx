@@ -11,10 +11,31 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className=" w-full max-w-[100vw] bg-gradient-to-b from-violet-900 to-black flex xl:flex-row flex-col items-center justify-center relative overflow-hidden"style={{minHeight:"117vh"}}>
-
+    <section
+      className="
+        w-full max-w-[100vw]
+        bg-gradient-to-b from-violet-900 to-black
+        flex xl:flex-row flex-col
+        items-center justify-center
+        relative overflow-hidden
+        min-h-screen
+        pt-[80px] xl:pt-0
+      "
+    >
       {/* Left Section - Text */}
-      <div className="z-40 xl:w-[50vw] w-full xl:text-left text-center xl:pl-[6vw] px-[8vw] py-[8vh] xl:py-0 flex flex-col xl:items-start items-center">
+      <div
+        className="
+          z-40
+          xl:w-[50vw] w-full
+          xl:text-left text-center
+          xl:pl-[6vw]
+          px-[8vw]
+          pt-[6vh] pb-[4vh]
+          xl:py-0
+          flex flex-col
+          xl:items-start items-center
+        "
+      >
         <motion.h1
           initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
@@ -23,17 +44,17 @@ const HeroSection = () => {
             stiffness: 40,
             damping: 25,
             delay: 1.3,
-            duration: 1.5
+            duration: 1.5,
           }}
-          className="font-bold z-10 mb-[2vh] relative leading-none"
-          style={{ fontSize: 'clamp(2rem, 8vw, 5rem)' }}
+          className="font-bold z-10 mb-[2vh] relative leading-tight"
+          style={{ fontSize: "clamp(2rem, 8vw, 5rem)" }}
         >
           <span
-            className={`relative inline-block bg-gradient-to-r from-white via-purple-200 to-white pb-1 bg-clip-text text-transparent whitespace-nowrap ${
-              isTextVisible ? 'animate-shiny' : ''
+            className={`relative inline-block bg-gradient-to-r from-white via-purple-200 to-white pb-1 bg-clip-text text-transparent ${
+              isTextVisible ? "animate-shiny" : ""
             }`}
           >
-            Arista Systems
+            Your Offshore Team in India
           </span>
         </motion.h1>
 
@@ -45,30 +66,29 @@ const HeroSection = () => {
             stiffness: 40,
             damping: 25,
             delay: 1.8,
-            duration: 1.5
+            duration: 1.5,
           }}
           className="text-purple-200 mx-auto xl:mx-0 leading-relaxed mt-[2vh]"
           style={{
-            fontSize: 'clamp(0.9rem, 2.5vw, 1.25rem)',
-            lineHeight: '1.6',
-            maxWidth: '90vw'
+            fontSize: "clamp(0.9rem, 2.5vw, 1.25rem)",
+            maxWidth: "90vw",
           }}
         >
-          Driving growth through tailored technology,{' '}
+          Driving growth through tailored technology,{" "}
           <span className="xl:block">design and digital solutions</span>
         </motion.p>
       </div>
 
       {/* Right Section - Spline */}
-      <div 
-        className="xl:w-[50vw] w-full flex items-center justify-center relative xl:h-screen"
-        style={{ height: 'clamp(55vh, 65vw, 100vh)' }}
+      <div
+        className="xl:w-[50vw] w-full flex items-center justify-center relative"
+        style={{ height: "clamp(55vh, 65vw, 100vh)" }}
       >
-        <div 
+        <div
           className="w-full h-full flex items-center justify-center relative"
           style={{
-            transform: 'scale(clamp(0.85, 1.8vw, 1.2))',
-            transformOrigin: 'center center'
+            transform: "scale(clamp(0.85, 1.8vw, 1.2))",
+            transformOrigin: "center center",
           }}
         >
           <Spline
@@ -78,10 +98,11 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Tailwind Animation Classes */}
+      {/* Tailwind Animation */}
       <style jsx>{`
         @keyframes shiny-sweep {
-          0%, 100% {
+          0%,
+          100% {
             background-position: -200% 0;
           }
           50% {
@@ -95,7 +116,6 @@ const HeroSection = () => {
           text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
-        /* Ensure no horizontal overflow */
         body {
           overflow-x: hidden;
         }

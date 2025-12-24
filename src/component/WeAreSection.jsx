@@ -17,7 +17,8 @@ export default function WeAreSection() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full h-[80vh] sm:h-[85vh] md:h-[90vh] lg:h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 text-center overflow-hidden"
+      className="relative w-full min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh]
+ flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 text-center overflow-hidden"
       style={{
         background: '#0a0118',
         '--glow-x': '50%',
