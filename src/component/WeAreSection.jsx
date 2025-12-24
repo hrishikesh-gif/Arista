@@ -15,7 +15,7 @@ export default function WeAreSection() {
   }));
 
   return (
-    <section 
+    <div 
       ref={sectionRef}
       className="relative w-full min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh]
  flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 text-center overflow-hidden"
@@ -127,6 +127,6 @@ export default function WeAreSection() {
           and diverse expertise across multiple domains.
         </motion.p>
       </motion.div>
-    </section>
+    </div>
   );
 }
