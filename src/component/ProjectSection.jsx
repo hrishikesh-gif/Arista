@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -7,9 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
 const ProjectSection = () => {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
-  const animationRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
 
   const projects = [
     {
@@ -56,147 +56,74 @@ const ProjectSection = () => {
     },
   ];
 
-  useEffect(() => {
-    cardsRef.current = cardsRef.current.slice(0, projects.length);
-  }, [projects.length]);
-
-  useEffect(() => {
-    let retryCount = 0;
-    const maxRetries = 3;
-
-    const initializeAnimation = () => {
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
       const section = sectionRef.current;
-      const cards = cardsRef.current.filter(Boolean);
+      const cards = cardsRef.current;
 
-      if (!section || cards.length !== projects.length) {
-        if (retryCount < maxRetries) {
-          retryCount++;
-          setTimeout(initializeAnimation, 150);
-          return;
-        }
-        return;
-      }
+      if (!section || cards.length === 0) return;
 
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.trigger === section) {
-          trigger.kill();
-        }
-      });
-
-      // RESET base styles
-      gsap.set(cards, {
-        clearProps: "all",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        scale: 1,
-        pointerEvents: "none",
-      });
-
-      // initial positions
-      cards.forEach((card, i) => {
-        gsap.set(card, {
-          yPercent: i === 0 ? 0 : 100,
-          opacity: i === 0 ? 1 : 0,
-          zIndex: projects.length - i,
-        });
-      });
-
-      if (cards.length > 0) {
-        gsap.set(cards[0], { pointerEvents: "auto" });
-      }
-
-      // title + subtitle
+      // 1. Header Animation
       if (titleRef.current) {
-        gsap.fromTo(
-          titleRef.current,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
-        );
+        gsap.fromTo(titleRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
       }
       if (subtitleRef.current) {
-        gsap.fromTo(
-          subtitleRef.current,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.2 }
-        );
+        gsap.fromTo(subtitleRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.2 });
       }
 
+      // 2. Initial Stack Setup
+      gsap.set(cards, {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        margin: "auto",
+        opacity: 1,
+        scale: (i) => 1 - i * 0.04, 
+        yPercent: (i) => i * 3, 
+        zIndex: (i) => projects.length - i,
+        transformOrigin: "center bottom"
+      });
+
+      // 3. The Animation Timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: "top top",
+          start: "top top", 
           end: `+=${projects.length * 100}%`,
-          scrub: 1,
           pin: true,
+          scrub: 1,
           anticipatePin: 1,
-          invalidateOnRefresh: true,
         },
       });
 
-      animationRef.current = tl;
-
+      // 4. "Fly Up" Logic
       cards.forEach((card, i) => {
-        if (i > 0) {
-          const prevCard = cards[i - 1];
-
-          tl.to(
-            prevCard,
-            {
-              opacity: 0,
-              yPercent: -10,
-              pointerEvents: "none",
-              duration: 1,
-              ease: "power1.inOut",
-            },
-            `card-${i}`
-          );
-
-          tl.to(
-            card,
-            {
-              yPercent: 0,
-              opacity: 1,
-              pointerEvents: "auto",
-              duration: 1,
-              ease: "power1.inOut",
-            },
-            `card-${i}`
-          );
+        tl.to(card, {
+          yPercent: -120, // Fly up off screen
+          opacity: 0,      // Fade out
+          scale: 1.1,      // Slight grow as it leaves
+          rotation: Math.random() * 5 - 2.5, // Slight random tilt
+          duration: 1,
+          ease: "power2.in",
+        });
+        
+        if (cards[i+1]) {
+           tl.to(cards[i+1], {
+             scale: 1,          // Restore to full size
+             yPercent: 0,       // Move to center
+             filter: "brightness(1)",
+             duration: 1,
+             ease: "power2.out"
+           }, "<"); 
         }
       });
 
-      tl.to(cards[cards.length - 1], {
-        opacity: 0,
-        pointerEvents: "none",
-        duration: 1,
-        ease: "power1.inOut",
-      });
+    }, sectionRef);
 
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-    };
-
-    const timeoutId = setTimeout(initializeAnimation, 200);
-
-    return () => {
-      clearTimeout(timeoutId);
-      if (animationRef.current) {
-        animationRef.current.scrollTrigger?.kill();
-      }
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.trigger === sectionRef.current) {
-          trigger.kill();
-        }
-      });
-    };
-  }, [projects.length]);
+    return () => ctx.revert();
+  }, [imagesLoaded]);
 
   const handleNavigation = (link) => {
     window.location.href = link;
@@ -204,29 +131,25 @@ const ProjectSection = () => {
 
   return (
     <div className="relative bg-gradient-to-b from-black via-[#1a0b2e] to-black font-sans min-h-screen">
-      {/* GRID BG */}
+      
+      {/* GRID BACKGROUND */}
       <div className="absolute inset-0 w-full h-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
 
-      {/* HEADER */}
-      <div className="relative z-10 w-full min-h-[10vh] flex flex-col items-center justify-center overflow-hidden px-4 pt-10">
+      {/* HEADER CONTENT */}
+      <div className="relative z-10 w-full min-h-[15vh] flex flex-col items-center justify-center px-4 pt-10">
         <div className="relative z-10 max-w-5xl mx-auto text-center">
+          
+          {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-[0_0_15px_rgba(168,85,247,0.4)]">
-            <svg
-              className="w-4 h-4 text-purple-400"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+            <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z" />
             </svg>
             <span className="text-xs font-medium tracking-wider text-purple-100 uppercase">
               Next Gen Technology
             </span>
           </div>
 
+          {/* Title */}
           <h1
             ref={titleRef}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.15] mb-4 md:mb-6 drop-shadow-2xl"
@@ -240,6 +163,7 @@ const ProjectSection = () => {
             </span>
           </h1>
 
+          {/* Subtitle */}
           <p
             ref={subtitleRef}
             className="text-sm sm:text-base md:text-lg text-gray-400 font-light max-w-2xl mx-auto leading-relaxed opacity-0"
@@ -249,54 +173,44 @@ const ProjectSection = () => {
         </div>
       </div>
 
-      {/* CARDS */}
-      <section ref={sectionRef} className="relative h-screen overflow-hidden z-10">
-        <div className="h-full w-full flex items-center justify-center relative">
+      {/* STACK CARDS SECTION */}
+      <section ref={sectionRef} className="relative h-screen w-full z-10 overflow-hidden pt-24 pb-10">
+        <div className="h-full w-full flex items-center justify-center relative perspective-1000">
           {projects.map((p, i) => (
             <div
               key={p.id}
-              ref={(el) => {
-                if (el) cardsRef.current[i] = el;
-              }}
+              ref={(el) => { if (el) cardsRef.current[i] = el; }}
               className="
                 absolute
                 w-[92%] sm:w-[85%] md:w-[70%] max-w-5xl
-                min-h-[430px] h-auto md:h-[460px]                 
-                rounded-2xl shadow-2xl                          {/* ⬅️ CHANGE: All corners rounded with a smaller radius (rounded-2xl) */}
+                min-h-[430px] h-auto md:h-[460px]
+                rounded-2xl shadow-2xl
                 flex flex-col md:flex-row
                 border border-white/10 bg-[#1a0b2e]/90 backdrop-blur-xl
-                overflow-hidden                                  
+                overflow-hidden
+                will-change-transform
               "
-              style={{
-                zIndex: projects.length - i,
-                transformStyle: "preserve-3d",
-                backfaceVisibility: "hidden",
-              }}
+              style={{ transformStyle: "preserve-3d" }}
             >
-              {/* Image */}
+              {/* Image Side */}
               <div className="w-full md:w-1/2 h-44 sm:h-52 md:h-full relative overflow-hidden shrink-0 group">
-                {/* IMPORTANT: If you want the image's top corners to match the card's top corners,
-                  you'll need to apply `rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none` to the image container
-                  OR ensure `overflow-hidden` on the parent card handles it.
-                  Currently, the main card's `overflow-hidden` will clip the image to its rounded shape.
-                */}
+                {/* REMOVED 'group-hover:scale-110' below */}
                 <img
                   src={p.imageSrc}
                   alt={p.title}
-                  className="w-full h-full object-cover absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => {
-                    e.target.src = `https://picsum.photos/600/400?random=${p.id}`;
-                  }}
+                  className="w-full h-full object-cover absolute inset-0 transition-transform duration-700" 
+                  onError={(e) => { e.target.src = `https://picsum.photos/600/400?random=${p.id}`; }}
                   onLoad={() => {
                     if (i === projects.length - 1) {
-                      setTimeout(() => ScrollTrigger.refresh(), 50);
+                      setImagesLoaded((prev) => prev + 1);
+                      ScrollTrigger.refresh();
                     }
                   }}
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
               </div>
 
-              {/* Content */}
+              {/* Content Side */}
               <div className="w-full md:w-1/2 h-full flex flex-col p-5 sm:p-6 md:p-10 relative z-10">
                 <div className="flex flex-col justify-center flex-grow">
                   <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-white mb-3 md:mb-4 leading-tight">

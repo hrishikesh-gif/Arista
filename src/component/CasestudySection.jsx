@@ -1,8 +1,8 @@
 // components/CasestudySection.jsx
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
 
-// Define defaultStories (NOW WITH pageName FIELD)
+// Define defaultStories
 const defaultStories = [
   {
     id: 1,
@@ -77,6 +77,7 @@ const CasestudySection = ({
   rotationInterval = 5000,
 }) => {
   const [activeStory, setActiveStory] = useState(0);
+  const navigate = useNavigate(); // Hook for navigation
 
   // Screen State
   const [isMobile, setIsMobile] = useState(false);
@@ -206,7 +207,23 @@ const CasestudySection = ({
   const navSectionStyle = getNavSectionStyle();
   const navItemStyle = getNavItemStyle();
 
-  const handleStoryClick = (index) => setActiveStory(index);
+  // --- Handlers ---
+
+  // Handle clicking the text list items -> Direct Redirect
+  const handleNavClick = (index, pageName) => {
+    setActiveStory(index);
+    navigate(`/casestudies/${pageName}`);
+  };
+
+  // Handle clicking the cards -> If active, Redirect. If side, Rotate.
+  const handleCardClick = (index, pageName) => {
+    if (activeStory === index) {
+      navigate(`/casestudies/${pageName}`);
+    } else {
+      setActiveStory(index);
+    }
+  };
+
   const handleStoryHover = (index) => {
     if (!isMobile) setActiveStory(index);
   };
@@ -355,9 +372,9 @@ const CasestudySection = ({
                         transform: `translate(-50%, -50%) scale(${position.scale})`,
                         opacity: position.opacity,
                         zIndex: position.zIndex,
-                        pointerEvents: diff === 0 || isMobile ? "auto" : "none",
+                        pointerEvents: diff === 0 || isMobile ? "auto" : "auto", // Changed to auto to allow clicking side cards
                       }}
-                      onClick={() => handleStoryClick(index)}
+                      onClick={() => handleCardClick(index, story.pageName)} // Updated Handler
                       onMouseEnter={() => handleStoryHover(index)}
                     >
                       <div
@@ -411,7 +428,7 @@ const CasestudySection = ({
                       }`}
                       style={navItemStyle}
                       onMouseEnter={() => handleStoryHover(index)}
-                      onClick={() => handleStoryClick(index)}
+                      onClick={() => handleNavClick(index, story.pageName)} // Updated Handler for Navigation
                     >
                       <div className="flex items-center justify-between h-full">
                         <div className="flex-1">
